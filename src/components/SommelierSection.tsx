@@ -17,7 +17,7 @@ export default function SommelierSection() {
     }, []);
 
     return (
-    <section className="relative bg-gradient-to-r from-30% via-60% to-70% from-black via-[#0c0c0b] to-brand-green/95 py-24 overflow-hidden">
+    <section className="relative bg-linear-to-r from-30% via-60% to-70% from-black via-[#0c0c0b] to-brand-green/95 py-24 overflow-hidden">
             {/* decorative gold lighting */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute left-1/2 top-0 -translate-x-1/2 w-[520px] h-[520px] bg-[radial-gradient(circle,rgba(200,169,107,0.18)_0%,transparent_70%)] blur-3xl opacity-50" />
@@ -40,11 +40,11 @@ export default function SommelierSection() {
                         src="/images/somilier.png"
                         alt="Our Sommelier"
                         fill
-                        className="object-cover transition-transform duration-[1600ms] hover:scale-110"
+                        className="object-cover transition-transform duration-1600 hover:scale-110"
                     />
 
                     {/* soft gradient & gold halo */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
                     <div className="absolute inset-0 rounded-full border border-brand-gold/30 blur-sm opacity-40" />
                     <motion.div
                         animate={{ opacity: [0.2, 0.5, 0.2] }}
@@ -68,7 +68,7 @@ export default function SommelierSection() {
                             initial={{ width: 0 }}
                             whileInView={{ width: 40 }}
                             transition={{ duration: 1, ease: "easeOut" }}
-                            className="h-[1px] bg-brand-gold/60 hidden md:inline-block"
+                            className="h-px bg-brand-gold/60 hidden md:inline-block"
                         />
                         <h2 className="font-serif text-3xl md:text-4xl text-brand-gold tracking-[0.08em]">
                             Our Sommelier
@@ -89,7 +89,7 @@ export default function SommelierSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.8 }}
                     >
-                        <span className="block h-[1px] w-8 bg-brand-gold/40 mb-2" />
+                        <span className="block h-px w-8 bg-brand-gold/40 mb-2" />
                         “Every bottle is a story — we simply choose the right one for your moment.”
                     </motion.p>
                 </motion.div>

@@ -16,7 +16,7 @@ export default function CtaSection() {
             </div>
 
             {/* subtle top separator */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[220px] h-px bg-gradient-to-r from-transparent via-brand-gold/50 to-transparent" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[220px] h-px bg-linear-to-r from-transparent via-brand-gold/50 to-transparent" />
 
             {/* gold aura */}
             <div className="pointer-events-none absolute inset-0">
@@ -74,7 +74,7 @@ export default function CtaSection() {
                     >
                         Reservation Now
                         <motion.span
-                            className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0"
+                            className="absolute inset-0 rounded-full bg-linear-to-r from-transparent via-white/30 to-transparent opacity-0"
                             whileHover={{ opacity: [0, 1, 0], x: ["-120%", "0%", "120%"] }}
                             transition={{ duration: 1.4 }}
                         />

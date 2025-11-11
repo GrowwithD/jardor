@@ -23,11 +23,11 @@ export default function HeroMenu() {
 
       {/* Overlay selaras hero home */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/88 via-black/46 to-brand-green/96" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/88 via-black/46 to-brand-green/96" />
         <div className="absolute inset-x-0 top-4 h-32 bg-[radial-gradient(circle_at_top,rgba(200,169,107,0.22),transparent_70%)] opacity-80" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_transparent,_rgba(0,0,0,0.6))] mix-blend-multiply" />
-        <div className="absolute bottom-[-80px] right-[8%] w-[220px] h-[220px] bg-[radial-gradient(circle,rgba(200,169,107,0.16),transparent_72%)] opacity-75 blur-3xl" />
-        <div className="hidden md:block absolute bottom-[-60px] left-[5%] w-[160px] h-[160px] bg-[radial-gradient(circle,rgba(200,169,107,0.08),transparent_75%)] opacity-60 blur-3xl" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,transparent,rgba(0,0,0,0.6))] mix-blend-multiply" />
+        <div className="absolute -bottom-20 right-[8%] w-[220px] h-[220px] bg-[radial-gradient(circle,rgba(200,169,107,0.16),transparent_72%)] opacity-75 blur-3xl" />
+        <div className="hidden md:block absolute bottom-[-60px] left-[5%] w-40 h-40 bg-[radial-gradient(circle,rgba(200,169,107,0.08),transparent_75%)] opacity-60 blur-3xl" />
       </div>
 
       {/* Content */}
@@ -72,7 +72,7 @@ export default function HeroMenu() {
               visible: { opacity: 1, width: 86 },
             }}
             transition={{ duration: 0.8, ease: "easeInOut", delay: 0.2 }}
-            className="mx-auto mt-1 h-[1px] bg-brand-gold/70"
+            className="mx-auto mt-1 h-px bg-brand-gold/70"
           />
         </motion.div>
       </div>

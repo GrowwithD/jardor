@@ -1,13 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
 type EventItem = {
     id: string;
     title: string;
-    date: string; // ISO / string
+    date: string; // YYYY-MM-DD
     image: string;
     excerpt: string;
 };
@@ -47,40 +47,63 @@ const events: EventItem[] = [
     },
 ];
 
-const now = new Date();
+// parse date pakai UTC supaya konsisten di server & client
+const parseDate = (value: string) => new Date(`${value}T00:00:00Z`);
 
-// sort sebelum split biar rapi
+// sort sekali di level module
 const sorted = [...events].sort(
-    (a, b) => +new Date(a.date) - +new Date(b.date)
+    (a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime()
 );
 
-const upcomingEvents = sorted.filter((e) => new Date(e.date) >= now);
-const pastEvents = sorted
-    .filter((e) => new Date(e.date) < now)
-    .sort((a, b) => +new Date(b.date) - +new Date(a.date));
+// "today" di-normalize ke UTC (tanpa jam)
+const now = new Date();
+const today = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
+);
 
-const gridVariants = {
+const upcomingEvents = sorted.filter(
+    (e) => parseDate(e.date).getTime() >= today.getTime()
+);
+
+const pastEvents = sorted
+    .filter((e) => parseDate(e.date).getTime() < today.getTime())
+    .sort(
+        (a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime()
+    );
+
+// Framer Motion variants (diketik biar TS nggak komplain)
+const gridVariants: Variants = {
     hidden: { opacity: 0, y: 18 },
     show: {
         opacity: 1,
         y: 0,
         transition: {
             duration: 0.5,
-            ease: "easeOut",
+            ease: "easeOut", // pakai literal yang valid
             when: "beforeChildren",
             staggerChildren: 0.06,
         },
     },
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
     hidden: { opacity: 0, y: 18, scale: 0.98 },
     show: {
         opacity: 1,
         y: 0,
         scale: 1,
-        transition: { duration: 0.5, ease: "easeOut" },
+        transition: {
+            duration: 0.5,
+            ease: "easeOut",
+        },
     },
+};
+
+type EventSectionProps = {
+    title: string;
+    items: EventItem[];
+    accent: "gold" | "muted";
+    emptyLabel: string;
 };
 
 function EventSection({
@@ -88,12 +111,7 @@ function EventSection({
     items,
     accent,
     emptyLabel,
-}: {
-    title: string;
-    items: EventItem[];
-    accent: "gold" | "muted";
-    emptyLabel: string;
-}) {
+}: EventSectionProps) {
     const isGold = accent === "gold";
 
     return (
@@ -108,7 +126,7 @@ function EventSection({
                 </p>
                 <div className="flex items-center gap-2">
                     <span
-                        className={`h-[1px] w-8 ${isGold ? "bg-brand-gold/80" : "bg-brand-cream/22"
+                        className={`h-px w-8 ${isGold ? "bg-brand-gold/80" : "bg-brand-cream/22"
                             }`}
                     />
                     <span
@@ -116,7 +134,7 @@ function EventSection({
                             }`}
                     />
                     <span
-                        className={`h-[1px] flex-1 ${isGold
+                        className={`h-px flex-1 ${isGold
                                 ? "bg-gradient-to-r from-brand-gold/40 to-transparent"
                                 : "bg-gradient-to-r from-brand-cream/16 to-transparent"
                             }`}
@@ -124,16 +142,9 @@ function EventSection({
                 </div>
             </div>
 
-            {/* Kalau tidak ada event */}
+            {/* Empty state */}
             {!items.length && (
-                <div
-                    className="
-            rounded-2xl bg-black/82 border border-white/6
-            px-4 py-4 md:px-5 md:py-5
-            text-[9px] md:text-[10px] text-brand-cream/70
-            shadow-[0_14px_40px_rgba(0,0,0,0.9)]
-          "
-                >
+                <div className="rounded-2xl bg-black/82 border border-white/6 px-4 py-4 md:px-5 md:py-5 text-[9px] md:text-[10px] text-brand-cream/70 shadow-[0_14px_40px_rgba(0,0,0,0.9)]">
                     {emptyLabel}
                 </div>
             )}
@@ -151,10 +162,7 @@ function EventSection({
                         <motion.article
                             key={event.id}
                             variants={cardVariants}
-                            whileHover={{
-                                y: -4,
-                                scale: 1.02,
-                            }}
+                            whileHover={{ y: -4, scale: 1.02 }}
                             whileTap={{ scale: 0.99 }}
                             className="
                 group relative overflow-hidden rounded-2xl
@@ -166,39 +174,39 @@ function EventSection({
                 hover:shadow-[0_0_26px_rgba(200,169,107,0.26)]
               "
                         >
-                            {/* Image full-width on top */}
+                            {/* Image */}
                             <div className="relative w-full h-44 md:h-52 overflow-hidden">
                                 <Image
                                     src={event.image}
                                     alt={event.title}
                                     fill
-                                    className="
-                    object-cover
-                    transition-transform duration-[1.1s]
-                    group-hover:scale-110
-                  "
+                                    sizes="(min-width: 768px) 50vw, 100vw"
+                                    className="object-cover transition-transform duration-[1100ms] group-hover:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/88 via-black/35 to-transparent" />
                             </div>
 
-                            {/* Text overlay at bottom */}
-                            <div className="absolute inset-x-0 bottom-0 px-4 pb-4 pt-6 md:px-5 md:pb-5 md:pt-7 bg-gradient-to-t from-black/92 via-black/40 to-transparent">
+                            {/* Content */}
+                            <div
+                                className="
+                  absolute inset-x-0 bottom-0
+                  px-4 pb-4 pt-6 md:px-5 md:pb-5 md:pt-7
+                  bg-gradient-to-t from-black/92 via-black/40 to-transparent
+                "
+                            >
                                 <p className="text-[8px] uppercase tracking-[0.2em] text-brand-gold/80 mb-1">
-                                    {new Date(event.date).toLocaleDateString("en-GB", {
+                                    {parseDate(event.date).toLocaleDateString("en-GB", {
                                         day: "2-digit",
                                         month: "short",
                                         year: "numeric",
+                                        timeZone: "UTC",
                                     })}
                                 </p>
-                                <h3
-                                    className="
-                    font-serif text-[13px] md:text-[14px]
-                    text-brand-cream tracking-[0.05em] leading-snug
-                    group-hover:text-brand-gold transition-colors
-                  "
-                                >
+
+                                <h3 className="font-serif text-[13px] md:text-[14px] text-brand-cream tracking-[0.05em] leading-snug group-hover:text-brand-gold transition-colors">
                                     {event.title}
                                 </h3>
+
                                 <p className="mt-1 text-[9px] md:text-[10px] text-brand-cream/78 leading-relaxed line-clamp-2">
                                     {event.excerpt}
                                 </p>
@@ -214,20 +222,12 @@ function EventSection({
                   "
                                 >
                                     <span>View Details</span>
-                                    <span className="text-[10px] translate-y-[-1px]">↗</span>
+                                    <span className="text-[10px] -translate-y-px">↗</span>
                                 </Link>
                             </div>
 
-                            {/* Glow frame on hover */}
-                            <div
-                                className="
-                  pointer-events-none absolute inset-0 rounded-2xl
-                  border border-transparent
-                  group-hover:border-brand-gold/18
-                  group-hover:shadow-[0_0_35px_rgba(200,169,107,0.18)]
-                  transition-all duration-500
-                "
-                            />
+                            {/* Hover frame */}
+                            <div className="pointer-events-none absolute inset-0 rounded-2xl border border-transparent group-hover:border-brand-gold/18 group-hover:shadow-[0_0_35px_rgba(200,169,107,0.18)] transition-all duration-500" />
                         </motion.article>
                     ))}
                 </motion.div>
@@ -239,14 +239,13 @@ function EventSection({
 export default function EventsList() {
     return (
         <section className="relative bg-gradient-to-b from-[#0B1C13] via-[#050806] to-[#020303] py-16">
-            {/* Soft vignette, beda dari footer */}
+            {/* Background glow */}
             <div className="pointer-events-none absolute inset-0">
                 <div className="absolute top-[6%] left-1/2 -translate-x-1/2 w-[780px] h-[780px] bg-[radial-gradient(circle,rgba(200,169,107,0.06),transparent_75%)] blur-3xl opacity-35" />
                 <div className="absolute bottom-0 w-full h-[140px] bg-gradient-to-t from-black via-transparent to-transparent" />
             </div>
 
             <div className="relative z-10 max-w-6xl mx-auto px-5 space-y-14">
-                {/* UPCOMING */}
                 <EventSection
                     title="Upcoming Experiences"
                     items={upcomingEvents}
@@ -254,7 +253,6 @@ export default function EventsList() {
                     emptyLabel="No upcoming events at the moment — new collaborations and journeys will be announced soon."
                 />
 
-                {/* PAST */}
                 <div className="pt-8 border-t border-white/6">
                     <EventSection
                         title="Past Moments at Jard’or"

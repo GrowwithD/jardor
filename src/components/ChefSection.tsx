@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import AOS from "aos";
+
 import "aos/dist/aos.css";
 
 export default function ChefSection() {
@@ -17,11 +18,11 @@ export default function ChefSection() {
     }, []);
 
     return (
-  <section className="relative bg-gradient-to-l from-20% via-50% to-70% from-black via-[#0c0c0b] to-brand-green/95 py-24 overflow-hidden">
+  <section className="relative bg-linear-to-l from-20% via-50% to-70% from-black via-[#0c0c0b] to-brand-green/95 py-24 overflow-hidden">
             {/* decorative glow */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute right-[12%] -top-24 w-[420px] h-[420px] bg-[radial-gradient(circle,rgba(200,169,107,0.14)_0%,transparent_72%)] blur-3xl opacity-60" />
-                <div className="absolute left-0 bottom-[-140px] w-[320px] h-[320px] bg-[radial-gradient(circle,rgba(200,169,107,0.06)_0%,transparent_75%)] blur-2xl opacity-70" />
+                <div className="absolute left-0 bottom-[-140px] w-[320px] h-80 bg-[radial-gradient(circle,rgba(200,169,107,0.06)_0%,transparent_75%)] blur-2xl opacity-70" />
             </div>
 
             <div className="mx-auto flex max-w-6xl flex-col-reverse md:flex-row items-center md:items-center justify-between gap-14 md:gap-20 px-4 relative">
@@ -43,7 +44,7 @@ export default function ChefSection() {
                             initial={{ width: 0 }}
                             whileInView={{ width: 40 }}
                             transition={{ duration: 1, ease: "easeOut" }}
-                            className="h-[1px] bg-brand-gold/60 hidden md:inline-block"
+                            className="h-px bg-brand-gold/60 hidden md:inline-block"
                         />
                     </div>
 
@@ -83,12 +84,12 @@ export default function ChefSection() {
                         src="/images/somilier.png" // ganti dengan path foto chef kamu
                         alt="Our Executive Chef"
                         fill
-                        className="object-cover transition-transform duration-[1600ms] hover:scale-110"
+                        className="object-cover transition-transform duration-1600 hover:scale-110"
                     />
 
                     {/* layered glow */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
-                    <div className="absolute inset-[6px] rounded-[34px] border border-brand-gold/18" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/35 to-transparent" />
+                    <div className="absolute inset-1.5 rounded-[34px] border border-brand-gold/18" />
                     <motion.div
                         animate={{ opacity: [0.18, 0.45, 0.18] }}
                         transition={{ repeat: Infinity, duration: 3.2 }}

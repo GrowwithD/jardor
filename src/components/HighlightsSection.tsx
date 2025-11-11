@@ -326,7 +326,7 @@ export default function HighlightsSection() {
     }, []);
 
     return (
-        <section className="bg-gradient-to-tl from-10% via-30% to-70% from-black via-[#0c0c0b] to-brand-green/95 py-16 md:py-20 overflow-hidden">
+        <section className="bg-linear-to-tl from-10% via-30% to-70% from-black via-[#0c0c0b] to-brand-green/95 py-16 md:py-20 overflow-hidden">
             <div className="mx-auto max-w-6xl px-4">
                 {/* Header */}
                 <div className="text-center mb-16 space-y-4" data-aos="fade-up">
@@ -343,7 +343,7 @@ export default function HighlightsSection() {
 
                     <div className="flex justify-center">
                         <motion.span
-                            className="block h-[1px] bg-brand-gold/70"
+                            className="block h-px bg-brand-gold/70"
                             initial={{ width: 0 }}
                             animate={{ width: 82 }}
                             transition={{ duration: 1, ease: "easeInOut" }}
@@ -390,7 +390,7 @@ export default function HighlightsSection() {
                                         ].join(" ")}
                                     >
                                         <div className="flex items-center gap-2 text-brand-gold/60 text-[8px] tracking-[0.22em] uppercase">
-                                            <span className="w-4 h-[1px] bg-brand-gold/30" />
+                                            <span className="w-4 h-px bg-brand-gold/30" />
                                             <span>{String(index + 1).padStart(2, "0")}</span>
                                             <span className="hidden xs:inline">Highlight</span>
                                         </div>
@@ -419,7 +419,7 @@ export default function HighlightsSection() {
                                         >
                                             {isRight && (
                                                 <motion.span
-                                                    className="hidden md:block h-[1px] bg-brand-gold/30"
+                                                    className="hidden md:block h-px bg-brand-gold/30"
                                                     variants={{
                                                         rest: { width: 24, opacity: 0.7 },
                                                         hover: { width: 40, opacity: 1 },
@@ -436,7 +436,7 @@ export default function HighlightsSection() {
 
                                             {!isRight && (
                                                 <motion.span
-                                                    className="hidden md:block h-[1px] bg-brand-gold/30"
+                                                    className="hidden md:block h-px bg-brand-gold/30"
                                                     variants={{
                                                         rest: { width: 24, opacity: 0.7 },
                                                         hover: { width: 40, opacity: 1 },
@@ -458,8 +458,8 @@ export default function HighlightsSection() {
 
                                 {/* Slider */}
                                 <div className="relative">
-                                    <div className="pointer-events-none hidden sm:block absolute inset-y-5 left-0 w-10 bg-gradient-to-r from-brand-green to-transparent z-10" />
-                                    <div className="pointer-events-none hidden sm:block absolute inset-y-5 right-0 w-10 bg-gradient-to-l from-brand-green to-transparent z-10" />
+                                    <div className="pointer-events-none hidden sm:block absolute inset-y-5 left-0 w-10 bg-linear-to-r from-brand-green to-transparent z-10" />
+                                    <div className="pointer-events-none hidden sm:block absolute inset-y-5 right-0 w-10 bg-linear-to-l from-brand-green to-transparent z-10" />
 
                                     <motion.div
                                         ref={(el) => {
@@ -471,7 +471,7 @@ export default function HighlightsSection() {
                       snap-x snap-mandatory
                       rounded-3xl
                       border border-brand-gold/14
-                      bg-gradient-to-br
+                      bg-linear-to-br
                         from-brand-green-soft/94
                         via-brand-green-soft/88
                         to-black/82
@@ -507,7 +507,7 @@ export default function HighlightsSection() {
                           bg-black/30
                           border border-black/55
                           w-[78%] xs:w-[64%] sm:w-[46%] md:w-[30%] lg:w-[23%]
-                          aspect-[4/5]
+                          aspect-4/5
                           hover:border-brand-gold/85
                           hover:shadow-[0_18px_65px_rgba(0,0,0,0.98)]
                           transition-colors
@@ -520,7 +520,7 @@ export default function HighlightsSection() {
                                                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                                                 />
 
-                                                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/96 via-black/28 to-transparent" />
+                                                <div className="absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-black/96 via-black/28 to-transparent" />
 
                                                 <div className="absolute left-3 right-3 bottom-2.5 space-y-0.5 text-left">
                                                     <p className="text-[8px] uppercase tracking-[0.2em] text-brand-gold">
@@ -549,7 +549,7 @@ export default function HighlightsSection() {
                 {activeItem && (
                     <motion.div
                         className="
-              fixed inset-0 z-[80]
+              fixed inset-0 z-80
               flex items-center justify-center
               bg-black/80 backdrop-blur-md
               px-3
@@ -562,7 +562,7 @@ export default function HighlightsSection() {
                         <motion.div
                             className="
                 relative w-full max-w-4xl
-                rounded-[32px]
+                rounded-4xl
                 bg-brand-green-soft/98
                 border border-brand-gold/40
                 shadow-[0_30px_120px_rgba(0,0,0,1)]
@@ -599,7 +599,7 @@ export default function HighlightsSection() {
                                     fill
                                     className="object-cover"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent md:bg-gradient-to-r md:from-black/75 md:via-black/15 md:to-transparent" />
+                                <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/10 to-transparent md:bg-linear-to-r md:from-black/75 md:via-black/15 md:to-transparent" />
                                 <div className="absolute bottom-3 left-3 right-3 md:hidden">
                                     <p className="text-[8px] uppercase tracking-[0.22em] text-brand-gold/85">
                                         {activeItem.highlight}
@@ -655,16 +655,7 @@ export default function HighlightsSection() {
                 )}
             </AnimatePresence>
 
-            {/* hide scrollbar */}
-            <style jsx global>{`
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
+
         </section>
     );
 }

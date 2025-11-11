@@ -17,7 +17,7 @@ export default function MapSection() {
     }, []);
 
     return (
-        <section className="relative isolate overflow-hidden bg-gradient-to-b from-[#0a1815] via-brand-green-soft/95 to-black py-20">
+        <section className="relative isolate overflow-hidden bg-linear-to-b from-[#0a1815] via-brand-green-soft/95 to-black py-20">
             {/* Gold glow */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle,rgba(200,169,107,0.12),transparent_70%)] blur-3xl opacity-50" />
@@ -42,7 +42,7 @@ export default function MapSection() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     viewport={{ once: true }}
-                    className="relative overflow-hidden rounded-[24px] border border-brand-gold/25 shadow-[0_22px_80px_rgba(0,0,0,0.85)] bg-gradient-to-br from-black/70 via-brand-green-soft/60 to-black/90"
+                    className="relative overflow-hidden rounded-3xl border border-brand-gold/25 shadow-[0_22px_80px_rgba(0,0,0,0.85)] bg-linear-to-br from-black/70 via-brand-green-soft/60 to-black/90"
                 >
                     <iframe
                         title="Jard’or Location"

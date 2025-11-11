@@ -57,10 +57,10 @@ export default function HeroSlider() {
             </AnimatePresence>
 
             {/* Overlays */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-brand-green/95" />
+            <div className="absolute inset-0 bg-linear-to-b from-black/85 via-black/40 to-brand-green/95" />
             <div className="pointer-events-none absolute inset-0">
                 <div className="absolute inset-x-0 top-10 h-40 bg-[radial-gradient(circle_at_center,rgba(200,169,107,0.25),transparent)]" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_transparent,_rgba(0,0,0,0.55))]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,transparent,rgba(0,0,0,0.55))]" />
             </div>
 
             {/* Content */}
