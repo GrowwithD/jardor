@@ -20,11 +20,7 @@ const galleryImages = [
 export default function GalleryGrid() {
     return (
         <section className="relative bg-linear-to-b from-black via-[#060807] to-brand-green py-16">
-            {/* Background glow (beda dari footer) */}
-            <div className="pointer-events-none absolute inset-0">
-                <div className="absolute top-[6%] left-1/2 -translate-x-1/2 w-[640px] h-[640px] bg-[radial-gradient(circle,rgba(200,169,107,0.06),transparent_75%)] blur-3xl opacity-35" />
-                <div className="absolute -bottom-10 right-[10%] w-[380px] h-[380px] bg-[radial-gradient(circle,rgba(200,169,107,0.04),transparent_80%)] blur-3xl opacity-30" />
-            </div>
+
 
             <div className="relative z-10 max-w-6xl mx-auto px-4">
                 <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-5 space-y-5">

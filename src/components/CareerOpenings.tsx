@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
 
-const fadeUp = {
+const fadeUp:  Variants = {
   hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
@@ -11,6 +11,8 @@ const fadeUp = {
     transition: { duration: 0.7, ease: "easeOut" },
   },
 };
+
+
 
 export default function CareerOpenings() {
   const featuredRoles = [

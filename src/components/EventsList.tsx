@@ -239,12 +239,6 @@ function EventSection({
 export default function EventsList() {
     return (
         <section className="relative bg-linear-to-b from-[#0B1C13] via-[#050806] to-[#020303] py-16">
-            {/* Background glow */}
-            <div className="pointer-events-none absolute inset-0">
-                <div className="absolute top-[6%] left-1/2 -translate-x-1/2 w-[780px] h-[780px] bg-[radial-gradient(circle,rgba(200,169,107,0.06),transparent_75%)] blur-3xl opacity-35" />
-                <div className="absolute bottom-0 w-full h-[140px] bg-linear-to-t from-black via-transparent to-transparent" />
-            </div>
-
             <div className="relative z-10 max-w-6xl mx-auto px-5 space-y-14">
                 <EventSection
                     title="Upcoming Experiences"
