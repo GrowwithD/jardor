@@ -1,0 +1,153 @@
+"use client";
+
+import { useState } from "react";
+import { useParams } from "next/navigation";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import Link from "next/link";
+
+// sementara: samakan data dengan EventsList
+const eventsMap = {
+  "champagne-soiree": {
+    title: "Champagne Soirée: Grower Cuvées & Canapés",
+    date: "2025-01-18",
+    image: "/images/main-food-2.jpg",
+    intro:
+      "An intimate evening dedicated to grower champagnes, thoughtfully paired canapés, and live jazz under the Jard’or night sky.",
+  },
+  "chef-collab": {
+    title: "Four Hands Dinner with Chef Invité",
+    date: "2024-12-05",
+    image: "/images/main-food-3.jpg",
+    intro:
+      "Two chefs, one kitchen — a collaborative tasting journey that bridges French precision with coastal Bali expression.",
+  },
+  "christmas-eve": {
+    title: "Christmas Eve Tasting Journey",
+    date: "2024-12-24",
+    image: "/images/main-food.jpg",
+    intro:
+      "A celebratory multi-course experience, rare pours, and candlelit atmosphere for an unforgettable Christmas Eve.",
+  },
+  "past-bordeaux": {
+    title: "Bordeaux Library Night",
+    date: "2024-07-20",
+    image: "/images/menu-hero.jpg",
+    intro:
+      "A look back at distinguished Bordeaux vintages from our cellar, shared in an intimate salon-style setting.",
+  },
+} as const;
+
+export default function EventDetailPage() {
+  const { slug } = useParams<{ slug: keyof typeof eventsMap }>();
+  const event = eventsMap[slug];
+
+  const [content, setContent] = useState(
+    "Use this space to write or refine the event description, menu highlights, schedule, and reservation details."
+  );
+
+  if (!event) {
+    return (
+      <div className="min-h-screen bg-brand-green text-brand-cream flex items-center justify-center">
+        <p className="text-xs">
+          Event not found.{" "}
+          <Link href="/events" className="text-brand-gold underline">
+            Back to Events
+          </Link>
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-brand-green text-brand-cream min-h-screen pb-16">
+      {/* compact header */}
+      <section className="pt-28 pb-10 max-w-4xl mx-auto px-4">
+        <Link
+          href="/events"
+          className="text-[9px] uppercase tracking-[0.18em] text-brand-gold/80 hover:text-brand-gold flex items-center gap-1 mb-4"
+        >
+          <span>←</span> Back to Events
+        </Link>
+
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-[9px] uppercase tracking-[0.22em] text-brand-gold/75"
+        >
+          Jard&apos;or Nusa Dua •{" "}
+          {new Date(event.date).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          })}
+        </motion.p>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-1 font-serif text-2xl md:text-3xl tracking-[0.12em] uppercase text-brand-cream"
+        >
+          {event.title}
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="mt-3 text-[10px] md:text-[11px] text-brand-cream/82 leading-relaxed"
+        >
+          {event.intro}
+        </motion.p>
+      </section>
+
+      {/* hero image + body */}
+      <section className="max-w-4xl mx-auto px-4 space-y-8">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative w-full h-52 md:h-72 overflow-hidden rounded-2xl border border-brand-gold/18 shadow-[0_18px_60px_rgba(0,0,0,0.95)]"
+        >
+          <Image
+            src={event.image}
+            alt={event.title}
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+        </motion.div>
+
+        {/* "Text editor" area */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="
+            rounded-2xl bg-black/80 border border-brand-gold/18
+            px-4 md:px-6 py-5 md:py-6
+            shadow-[0_18px_70px_rgba(0,0,0,0.98)]
+            space-y-3
+          "
+        >
+          <p className="text-[9px] uppercase tracking-[0.18em] text-brand-gold/75">
+            Event Details / Editor
+          </p>
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className="
+              w-full bg-transparent outline-none border-none
+              text-[10px] md:text-[11px] leading-relaxed
+              text-brand-cream/90 resize-vertical
+              placeholder:text-brand-cream/40
+            "
+            rows={8}
+          />
+          <p className="text-[8px] text-brand-cream/40">
+            This content area is editable on page (for now). Connect it to your
+            CMS or admin panel to manage event copy.
+          </p>
+        </motion.div>
+      </section>
+    </div>
+  );
+}
