@@ -13,13 +13,8 @@ const fadeIn: Variants = {
 
 export default function CareerCultureSection() {
     return (
-        <section className="relative overflow-hidden py-24 md:py-28">
-            {/* 🌌 Gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#08110C] via-black to-[#020303]" />
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[620px] h-[300px] bg-[radial-gradient(circle,rgba(200,169,107,0.12),transparent_75%)] opacity-70 blur-3xl" />
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[220px] bg-[radial-gradient(circle,rgba(200,169,107,0.08),transparent_80%)] opacity-60 blur-3xl" />
-            </div>
+       <section className="relative bg-linear-to-b from-[#0B1C13] via-[#050806] to-[#020303] py-16">
+
 
             <div className="relative max-w-6xl mx-auto px-6">
                 <motion.div

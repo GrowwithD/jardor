@@ -10,19 +10,50 @@
 }
 
 @theme {
-    /* Brand colors */
+    /* === BRAND COLORS === */
     --color-brand-bg: #111111;
     --color-brand-green: #0C392D;
     --color-brand-green-soft: #164636;
     --color-brand-gold: #C8A96B;
     --color-brand-cream: #F5F2E8;
-
-    /* Utility color */
     --color-fg: #0C392D;
 
-    /* Radius & shadow untuk pill navbar */
+    /* === TYPOGRAPHY SCALE === */
+    --text-xs: 9px;
+    --text-xs-line: 14px;
+    --text-sm: 10px;
+    --text-sm-line: 16px;
+    --text-base: 11px;
+    --text-base-line: 18px;
+    --text-md: 13px;
+    --text-md-line: 20px;
+    --text-lg: 16px;
+    --text-lg-line: 24px;
+    --text-xl: 20px;
+    --text-xl-line: 28px;
+    --text-2xl: 24px;
+    --text-2xl-line: 32px;
+    --text-3xl: 30px;
+    --text-3xl-line: 40px;
+    --text-4xl: 36px;
+    --text-4xl-line: 46px;
+
+    /* === RADIUS & SHADOW === */
     --radius-pill: 999px;
+    --radius-xl: 24px;
+    --radius-2xl: 32px;
+
     --shadow-pill: 0 10px 40px rgba(0, 0, 0, 0.85);
+    --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.9);
+    --shadow-strong: 0 22px 70px rgba(0, 0, 0, 0.98);
 
+    /* === TEXT UTILITIES === */
+    --tracking-wide: 0.22em;
+    --tracking-wider: 0.26em;
+    --tracking-normal: 0.05em;
 
+    /* === BACKDROP GRADIENTS === */
+    --gradient-bg: linear-gradient(to bottom, #0B1C13, #050806, #020303);
+    --gradient-card: linear-gradient(to bottom, rgba(0, 0, 0, 0.94), rgba(5, 8, 6, 0.98), rgba(0, 0, 0, 0.98));
+    --gradient-overlay: linear-gradient(to top, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.35), transparent);
 }

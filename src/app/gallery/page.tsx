@@ -5,7 +5,7 @@ import GalleryGrid from "@/components//GalleryGrid";
 
 export default function GalleryPage() {
     return (
-        <div className="text-brand-cream bg-brand-green">
+       <div className="bg-black text-brand-cream pb-20">
             <HeroGallery />
             <div className="bg-black">
                 <GalleryGrid />
