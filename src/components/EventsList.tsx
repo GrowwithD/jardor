@@ -135,8 +135,8 @@ function EventSection({
                     />
                     <span
                         className={`h-px flex-1 ${isGold
-                                ? "bg-gradient-to-r from-brand-gold/40 to-transparent"
-                                : "bg-gradient-to-r from-brand-cream/16 to-transparent"
+                                ? "bg-linear-to-r from-brand-gold/40 to-transparent"
+                                : "bg-linear-to-r from-brand-cream/16 to-transparent"
                             }`}
                     />
                 </div>
@@ -166,7 +166,7 @@ function EventSection({
                             whileTap={{ scale: 0.99 }}
                             className="
                 group relative overflow-hidden rounded-2xl
-                bg-gradient-to-b from-black/90 via-[#07110A]/96 to-black
+                bg-linear-to-b from-black/90 via-[#07110A]/96 to-black
                 border border-brand-gold/12
                 shadow-[0_18px_60px_rgba(0,0,0,0.95)]
                 transition-all duration-500
@@ -181,9 +181,9 @@ function EventSection({
                                     alt={event.title}
                                     fill
                                     sizes="(min-width: 768px) 50vw, 100vw"
-                                    className="object-cover transition-transform duration-[1100ms] group-hover:scale-110"
+                                    className="object-cover transition-transform duration-1100 group-hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/88 via-black/35 to-transparent" />
+                                <div className="absolute inset-0 bg-linear-to-t from-black/88 via-black/35 to-transparent" />
                             </div>
 
                             {/* Content */}
@@ -191,7 +191,7 @@ function EventSection({
                                 className="
                   absolute inset-x-0 bottom-0
                   px-4 pb-4 pt-6 md:px-5 md:pb-5 md:pt-7
-                  bg-gradient-to-t from-black/92 via-black/40 to-transparent
+                  bg-linear-to-t from-black/92 via-black/40 to-transparent
                 "
                             >
                                 <p className="text-[8px] uppercase tracking-[0.2em] text-brand-gold/80 mb-1">
@@ -238,11 +238,11 @@ function EventSection({
 
 export default function EventsList() {
     return (
-        <section className="relative bg-gradient-to-b from-[#0B1C13] via-[#050806] to-[#020303] py-16">
+        <section className="relative bg-linear-to-b from-[#0B1C13] via-[#050806] to-[#020303] py-16">
             {/* Background glow */}
             <div className="pointer-events-none absolute inset-0">
                 <div className="absolute top-[6%] left-1/2 -translate-x-1/2 w-[780px] h-[780px] bg-[radial-gradient(circle,rgba(200,169,107,0.06),transparent_75%)] blur-3xl opacity-35" />
-                <div className="absolute bottom-0 w-full h-[140px] bg-gradient-to-t from-black via-transparent to-transparent" />
+                <div className="absolute bottom-0 w-full h-[140px] bg-linear-to-t from-black via-transparent to-transparent" />
             </div>
 
             <div className="relative z-10 max-w-6xl mx-auto px-5 space-y-14">

@@ -11,7 +11,9 @@ const navItems = [
     { label: "THE MENUS", href: "/menus" },
     { label: "GALLERY", href: "/gallery" },
     { label: "EVENTS", href: "/events" },
+    { label: "BLOG", href: "/blog" },
     { label: "RESERVATION", href: "/reservation" },
+    { label: "CONTACT", href: "/contact" },
 ];
 
 export default function Navbar() {
