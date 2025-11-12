@@ -6,11 +6,14 @@ import { useEffect, useState } from "react";
 
 const primaryLinks = [
     { label: "Home", href: "/" },
-    { label: "About Us", href: "/about" },
     { label: "The Menus", href: "/menus" },
-    { label: "Gallery", href: "/gallery" },
     { label: "Events", href: "/events" },
+    { label: "Gallery", href: "/gallery" },
+    { label: "About Us", href: "/about" },
+    { label: "Blog", href: "/blog" },
+    { label: "Careers", href: "/careers" },
     { label: "Reservation", href: "/reservation" },
+    { label: "Contact", href: "/contact" },
 ];
 
 const socials = [

@@ -1,0 +1,507 @@
+"use client";
+
+import Image from "next/image";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { useState } from "react";
+
+type HighlightItem = {
+    title: string;
+    image: string;
+    description: string;
+    meta?: string;
+};
+
+type Highlight = {
+    id: string;
+    label: string;
+    tagline: string;
+    subtitle: string;
+    items: HighlightItem[];
+};
+
+type ActiveItem = HighlightItem & { highlight: string };
+
+const HIGHLIGHTS: Highlight[] = [
+    {
+        id: "food-beverage",
+        label: "Food & Beverage",
+        tagline: "Cuisine & Cellar",
+        subtitle:
+            "Modern French with coastal Bali nuance — focused, layered, quietly confident.",
+        items: [
+            {
+                title: "Chef's Tasting Menu",
+                image: "/images/main-food.jpg",
+                description:
+                    "A seven-course journey from bright coastal notes to slow, comforting finishes. French fundamentals, island details, no filler plates.",
+                meta: "7 Courses · Seasonal",
+            },
+            {
+                title: "Caviar & Oyster Ritual",
+                image: "/images/main-food.jpg",
+                description:
+                    "A cool, saline ritual — iced service, warm light, precise garnishes.",
+                meta: "Raw Bar",
+            },
+            {
+                title: "Wine Pairing Selection",
+                image: "/images/main-food-2.jpg",
+                description:
+                    "Pairings that echo, support, and never overshadow the plate.",
+                meta: "Sommelier Curated",
+            },
+            {
+                title: "Dessert Atelier",
+                image: "/images/main-food-3.jpg",
+                description:
+                    "Architectural pâtisserie with restrained sweetness and clean finishes.",
+                meta: "Pâtisserie Fine",
+            },
+        ],
+    },
+    {
+        id: "place",
+        label: "The Place",
+        tagline: "Space & Setting",
+        subtitle:
+            "Deep greens, brass, linen, and glass framing Nusa Dua’s horizon.",
+        items: [
+            {
+                title: "Main Dining Room",
+                image: "/images/main-food-2.jpg",
+                description:
+                    "Spaced seating, tuned light, and softened acoustics for long conversations.",
+                meta: "Up to 60 Guests",
+            },
+            {
+                title: "Private Salon",
+                image: "/images/main-food.jpg",
+                description:
+                    "Concealed, quiet, made for inner-circle gatherings.",
+                meta: "Discrete",
+            },
+            {
+                title: "Wine Library",
+                image: "/images/main-food-3.jpg",
+                description:
+                    "Shelves of character bottles, low seating, unhurried tastings.",
+                meta: "Cellar Experience",
+            },
+            {
+                title: "Terrace & Pavilion",
+                image: "/images/main-food.jpg",
+                description:
+                    "Golden-hour terrace and pavilion for proposals and intimate celebrations.",
+                meta: "Sunset Scene",
+            },
+        ],
+    },
+    {
+        id: "experience",
+        label: "The Experience",
+        tagline: "Atmosphere",
+        subtitle:
+            "Music, scent, pacing, and service tuned to feel orchestrated, not staged.",
+        items: [
+            {
+                title: "Live Piano Evenings",
+                image: "/images/main-food-3.jpg",
+                description:
+                    "Soft instrumentals framing the room, never overtaking it.",
+                meta: "Fri–Sun · 7–10 PM",
+            },
+            {
+                title: "Seasonal Journeys",
+                image: "/images/main-food.jpg",
+                description:
+                    "Menus that follow tides, markets, and returning guests.",
+                meta: "Four Seasons",
+            },
+            {
+                title: "Wine & Pairing Nights",
+                image: "/images/main-food-2.jpg",
+                description:
+                    "Quietly guided flights around regions and stories.",
+                meta: "Limited Seats",
+            },
+            {
+                title: "Midnight Soirée",
+                image: "/images/main-food-2.jpg",
+                description:
+                    "Later service, deeper playlists, smaller circles.",
+                meta: "By Invitation",
+            },
+        ],
+    },
+    {
+        id: "team-craft",
+        label: "The Team & Craft",
+        tagline: "Behind the Room",
+        subtitle:
+            "Chefs, sommeliers, and hosts working in one calm, precise language.",
+        items: [
+            {
+                title: "Executive Chef",
+                image: "/images/main-food-2.jpg",
+                description:
+                    "The flavor architecture of Jard’or — minimal, exact, narrative.",
+                meta: "Culinary Direction",
+            },
+            {
+                title: "Pastry Atelier",
+                image: "/images/main-food-3.jpg",
+                description:
+                    "Endings that land light, clear, and considered.",
+                meta: "Signature Desserts",
+            },
+            {
+                title: "Sommelier",
+                image: "/images/main-food.jpg",
+                description:
+                    "A cellar built on character over spectacle.",
+                meta: "WSET Certified",
+            },
+            {
+                title: "Hospitality Ensemble",
+                image: "/images/main-food-2.jpg",
+                description:
+                    "Reading the room, never rehearsed, always exact.",
+                meta: "Warm Precision",
+            },
+        ],
+    },
+];
+
+const fadeSlide: Variants = {
+    initial: { opacity: 0, y: 18 },
+    animate: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.45, ease: "easeOut" },
+    },
+    exit: {
+        opacity: 0,
+        y: -14,
+        transition: { duration: 0.3, ease: "easeIn" },
+    },
+};
+
+export default function CinematicHighlightsSection() {
+    const [activeId, setActiveId] = useState<string>(HIGHLIGHTS[0].id);
+    const [activeItem, setActiveItem] = useState<ActiveItem | null>(null);
+
+    const active =
+        HIGHLIGHTS.find((highlight) => highlight.id === activeId) ??
+        HIGHLIGHTS[0];
+
+    const hero = active.items[0];
+
+    return (
+        <section className="relative bg-black text-brand-cream overflow-hidden">
+            {/* Soft background vignette */}
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(200,169,107,0.08),transparent_65%)] opacity-80" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(0,0,0,0.9),transparent_70%)]" />
+
+            {/* Layout container */}
+            <div className="relative z-10 mx-auto max-w-6xl px-4 py-18 md:py-24">
+                {/* Top heading */}
+                <div className="mb-10 space-y-3 text-center">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-brand-gold/30 bg-black/70 px-4 py-1.5 backdrop-blur-sm">
+                        <span className="h-1.5 w-1.5 rounded-full bg-brand-gold" />
+                        <span className="text-[8px] uppercase tracking-[0.26em] text-brand-gold/90">
+                            Jard&apos;or Curated Chapters
+                        </span>
+                    </div>
+                    <h2 className="font-serif text-3xl md:text-4xl uppercase tracking-[0.18em] text-brand-cream">
+                        Jard&apos;or Cinematic Tableau
+                    </h2>
+                    <p className="mx-auto max-w-xl text-[9px] md:text-[10px] text-brand-cream/72 leading-relaxed">
+                        One still frame at a time — menus, rooms, and people rendered as a quiet gallery.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-[0.9fr_minmax(0,1.6fr)_minmax(0,1.2fr)] gap-8 items-stretch">
+                    {/* Left: vertical nav */}
+                    <div className="flex md:flex-col gap-3 md:gap-4 md:pt-4 md:border-l md:border-brand-gold/14 md:pl-4">
+                        {HIGHLIGHTS.map((h) => {
+                            const isActive = h.id === activeId;
+                            return (
+                                <button
+                                    key={h.id}
+                                    onClick={() => setActiveId(h.id)}
+                                    className={[
+                                        "group flex flex-col items-start gap-0.5 text-left transition-colors",
+                                        isActive
+                                            ? "text-brand-gold"
+                                            : "text-brand-cream/46 hover:text-brand-gold/80",
+                                    ].join(" ")}
+                                >
+                                    <span className="text-[7px] uppercase tracking-[0.22em]">
+                                        {h.tagline}
+                                    </span>
+                                    <span className="font-serif text-[10px] md:text-xs uppercase tracking-[0.16em]">
+                                        {h.label}
+                                    </span>
+                                    {isActive && (
+                                        <motion.span
+                                            layoutId="cinematic-nav"
+                                            className="mt-0.5 h-[1px] w-8 bg-brand-gold"
+                                            transition={{ duration: 0.25 }}
+                                        />
+                                    )}
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {/* Center: tall hero image */}
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={active.id + "-hero"}
+                            variants={fadeSlide}
+                            initial="initial"
+                            animate="animate"
+                            exit="exit"
+                            className="relative h-64 md:h-[360px] rounded-3xl overflow-hidden border border-brand-gold/18 bg-black/70 backdrop-blur-xl shadow-[0_26px_120px_rgba(0,0,0,0.98)]"
+                        >
+                            <Image
+                                src={hero.image}
+                                alt={hero.title}
+                                fill
+                                className="object-cover transition-transform duration-[1400ms] hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
+                            <div className="absolute left-4 right-4 bottom-4 flex items-end justify-between gap-4">
+                                <div className="space-y-1">
+                                    <p className="text-[7px] uppercase tracking-[0.25em] text-brand-gold/90">
+                                        {active.tagline}
+                                    </p>
+                                    <h3 className="font-serif text-base md:text-lg text-brand-cream tracking-[0.14em] uppercase">
+                                        {active.label}
+                                    </h3>
+                                    <p className="max-w-xs text-[7px] md:text-[8px] text-brand-cream/78 leading-relaxed">
+                                        {active.subtitle}
+                                    </p>
+                                </div>
+                                <div className="hidden md:flex flex-col items-end gap-1">
+                                    <p className="text-[7px] uppercase tracking-[0.22em] text-brand-gold/80">
+                                        Scroll the gallery
+                                    </p>
+                                    <span className="h-[1px] w-7 bg-brand-gold/85" />
+                                </div>
+                            </div>
+                        </motion.div>
+                    </AnimatePresence>
+
+                    {/* Right: signature & mini gallery */}
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={active.id + "-sidepanel"}
+                            variants={fadeSlide}
+                            initial="initial"
+                            animate="animate"
+                            exit="exit"
+                            className="flex flex-col gap-4 md:gap-5 justify-between"
+                        >
+                            {/* Signature highlight card */}
+                            <motion.button
+                                onClick={() =>
+                                    setActiveItem({
+                                        ...hero,
+                                        highlight: active.label,
+                                    })
+                                }
+                                className="
+                  group relative overflow-hidden rounded-2xl
+                  bg-black/82 backdrop-blur-2xl
+                  border border-brand-gold/22
+                  px-4 py-4
+                  text-left
+                  shadow-[0_18px_80px_rgba(0,0,0,1)]
+                "
+                                whileHover={{
+                                    y: -2,
+                                    boxShadow: "0 26px 120px rgba(0,0,0,1)",
+                                    borderColor: "rgba(200,169,107,0.4)",
+                                }}
+                                transition={{ type: "spring", stiffness: 220, damping: 24 }}
+                            >
+                                <p className="text-[7px] uppercase tracking-[0.24em] text-brand-gold/90">
+                                    Signature Highlight
+                                </p>
+                                <h4 className="mt-1 font-serif text-base md:text-lg text-brand-cream leading-snug">
+                                    {hero.title}
+                                </h4>
+                                {hero.meta && (
+                                    <p className="mt-0.5 text-[7px] uppercase tracking-[0.2em] text-brand-gold/82">
+                                        {hero.meta}
+                                    </p>
+                                )}
+                                <p className="mt-2 text-[7px] md:text-[8px] text-brand-cream/70 line-clamp-3">
+                                    {hero.description}
+                                </p>
+                                <div className="mt-3 flex items-center justify-between">
+                                    <span className="text-[7px] text-brand-cream/60">
+                                        Tap for full story
+                                    </span>
+                                    <span className="h-[1px] w-6 bg-brand-gold/80" />
+                                </div>
+                                <div className="pointer-events-none absolute inset-0 rounded-2xl border border-transparent group-hover:border-brand-gold/26 transition-colors duration-300" />
+                            </motion.button>
+
+                            {/* Minimal visual selections */}
+                            <div className="space-y-2">
+                                <p className="text-[7px] uppercase tracking-[0.22em] text-brand-gold/76">
+                                    {active.label} — Visual Selections
+                                </p>
+                                <div className="flex gap-2.5 overflow-x-auto no-scrollbar">
+                                    {active.items.map((item, index) => (
+                                        <motion.button
+                                            key={`${active.id}-${index}-${item.title}`}
+                                            className="
+                        group relative shrink-0
+                        w-20 h-20 md:w-24 md:h-24
+                        rounded-2xl overflow-hidden
+                        bg-black/80 border border-brand-gold/16
+                      "
+                                            whileHover={{
+                                                y: -2,
+                                                scale: 1.04,
+                                            }}
+                                            onClick={() =>
+                                                setActiveItem({
+                                                    ...item,
+                                                    highlight: active.label,
+                                                })
+                                            }
+                                        >
+                                            <Image
+                                                src={item.image}
+                                                alt={item.title}
+                                                fill
+                                                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                                            <p className="absolute bottom-1 left-1 right-1 text-[6px] uppercase tracking-[0.16em] text-brand-gold/90 line-clamp-1">
+                                                {item.title}
+                                            </p>
+                                        </motion.button>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
+            </div>
+
+            {/* Modal Detail */}
+            <AnimatePresence>
+                {activeItem && (
+                    <motion.div
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/82 backdrop-blur-md px-3"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setActiveItem(null)}
+                    >
+                        <motion.div
+                            className="
+                relative w-full max-w-4xl
+                grid grid-cols-1 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1.6fr)]
+                overflow-hidden rounded-3xl
+                border border-brand-gold/40
+                bg-gradient-to-br from-black/98 via-[#0b0f0c] to-brand-green/20
+                shadow-[0_32px_150px_rgba(0,0,0,1)]
+              "
+                            initial={{ scale: 0.94, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            transition={{ duration: 0.22, ease: "easeOut" }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button
+                                onClick={() => setActiveItem(null)}
+                                className="
+                  absolute right-3 top-3 z-20
+                  flex h-8 w-8 items-center justify-center
+                  rounded-full border border-brand-gold/60
+                  bg-black/80 text-brand-gold text-xs
+                  hover:bg-brand-gold hover:text-black
+                  transition-all
+                "
+                            >
+                                ×
+                            </button>
+
+                            {/* Image */}
+                            <div className="relative h-56 md:h-auto md:min-h-[260px]">
+                                <Image
+                                    src={activeItem.image}
+                                    alt={activeItem.title}
+                                    fill
+                                    className="object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/45 to-transparent" />
+                                <div className="absolute bottom-4 left-4 right-4 md:hidden">
+                                    <p className="text-[8px] uppercase tracking-[0.26em] text-brand-gold/90">
+                                        {activeItem.highlight}
+                                    </p>
+                                    <h4 className="font-serif text-xl text-brand-cream">
+                                        {activeItem.title}
+                                    </h4>
+                                    {activeItem.meta && (
+                                        <p className="mt-1 text-[7px] text-brand-gold/80">
+                                            {activeItem.meta}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Content */}
+                            <div className="flex flex-col gap-3 md:gap-4 p-5 md:p-7">
+                                <div className="hidden md:block">
+                                    <p className="mb-1 text-[8px] uppercase tracking-[0.26em] text-brand-gold/90">
+                                        {activeItem.highlight}
+                                    </p>
+                                    <h4 className="font-serif text-2xl md:text-3xl text-brand-cream leading-snug">
+                                        {activeItem.title}
+                                    </h4>
+                                    {activeItem.meta && (
+                                        <p className="mt-1 text-[8px] uppercase tracking-[0.2em] text-brand-gold/82">
+                                            {activeItem.meta}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div className="mt-1 space-y-2 text-[9px] md:text-sm text-brand-cream/94 leading-relaxed">
+                                    {activeItem.description
+                                        .split(/\n{2,}/)
+                                        .map((block, idx) => (
+                                            <p key={idx}>{block}</p>
+                                        ))}
+                                </div>
+
+                                <div className="mt-auto flex justify-end pt-2">
+                                    <button
+                                        onClick={() => setActiveItem(null)}
+                                        className="
+                      rounded-full border border-brand-gold/55
+                      px-4 py-1.5
+                      text-[8px] md:text-[9px]
+                      uppercase tracking-[0.22em]
+                      text-brand-gold
+                      hover:bg-brand-gold/12
+                      transition-all
+                    "
+                                    >
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </section>
+    );
+}

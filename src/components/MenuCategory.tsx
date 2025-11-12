@@ -1,3 +1,4 @@
+// components/MenuCategory.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -7,6 +8,7 @@ export type MenuItem = {
     name: string;
     image: string;
     description: string;
+    price?: number; // e.g. 112000
 };
 
 export type MenuCategoryData = {
@@ -14,6 +16,13 @@ export type MenuCategoryData = {
     label: string;
     subtitle: string;
     items: MenuItem[];
+};
+
+// 112000 -> "112K"
+const formatK = (n?: number) => {
+    if (typeof n !== "number") return undefined;
+    const k = Math.round(n / 1000);
+    return `${k}K`;
 };
 
 export default function MenuCategory({
@@ -55,39 +64,56 @@ export default function MenuCategory({
             {/* Menu Panel */}
             <div className="relative overflow-hidden rounded-xl bg-[#050505] border border-brand-gold/15 ring-1 ring-inset ring-brand-gold/8 shadow-[0_22px_80px_rgba(0,0,0,0.95)] backdrop-blur-sm px-4 md:px-7 py-7 md:py-9 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_top_left,rgba(200,169,107,0.05),transparent_65%)] before:opacity-80 before:pointer-events-none">
                 <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 md:gap-y-8">
-                    {category.items.map((item, i) => (
-                        <motion.div
-                            key={`${item.name}-${i}`}
-                            whileHover={{ y: -3, scale: 1.012 }}
-                            transition={{ type: "spring", stiffness: 240, damping: 22 }}
-                            className="group relative flex items-start gap-4"
-                        >
-                            {/* Image */}
-                            <div className="relative w-20 h-20 md:w-24 md:h-24 shrink-0 overflow-hidden rounded-xl border border-brand-gold/22 bg-black/70 shadow-[0_8px_24px_rgba(0,0,0,0.9)] transition-all duration-500 group-hover:border-brand-gold/40 group-hover:shadow-[0_0_24px_rgba(200,169,107,0.22)]">
-                                <Image
-                                    src={item.image}
-                                    alt={item.name}
-                                    fill
-                                    sizes="96px"
-                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent" />
-                            </div>
+                    {category.items.map((item, i) => {
+                        const priceK = formatK(item.price);
+                        return (
+                            <motion.div
+                                key={`${item.name}-${i}`}
+                                whileHover={{ y: -3, scale: 1.012 }}
+                                transition={{ type: "spring", stiffness: 240, damping: 22 }}
+                                className="group relative flex items-start gap-4"
+                            >
+                                {/* Image */}
+                                <div className="relative w-20 h-20 md:w-24 md:h-24 shrink-0 overflow-hidden rounded-xl border border-brand-gold/22 bg-black/70 shadow-[0_8px_24px_rgba(0,0,0,0.9)] transition-all duration-500 group-hover:border-brand-gold/40 group-hover:shadow-[0_0_24px_rgba(200,169,107,0.22)]">
+                                    <Image
+                                        src={item.image}
+                                        alt={item.name}
+                                        fill
+                                        sizes="96px"
+                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                    />
+                                    <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent" />
+                                </div>
 
-                            {/* Text */}
-                            <div className="flex-1 pt-1">
-                                <p className="font-serif text-[10px] md:text-xs uppercase tracking-[0.14em] text-brand-gold mb-1">
-                                    {item.name}
-                                </p>
-                                <p className="text-[10px] md:text-[11px] text-brand-cream/80 leading-relaxed">
-                                    {item.description}
-                                </p>
-                            </div>
+                                {/* Text */}
+                                <div className="flex-1 pt-1">
+                                    <p className="font-serif text-[10px] md:text-xs uppercase tracking-[0.14em] text-brand-gold mb-1">
+                                        {item.name}
+                                    </p>
+                                    <p className="text-[10px] md:text-[11px] text-brand-cream/80 leading-relaxed">
+                                        {item.description}
+                                    </p>
 
-                            {/* Hover line */}
-                            <div className="absolute left-0 bottom-0 h-px w-0 bg-linear-to-r from-brand-gold/55 to-transparent group-hover:w-full transition-all duration-700 ease-out" />
-                        </motion.div>
-                    ))}
+                                    {/* Price */}
+                                    {priceK && (
+                                        <div className="mt-2">
+                                            <span
+                                                className="
+                          font-serif text-[13px] md:text-[15px] tracking-wide text-brand-gold
+                          group-hover:text-brand-gold/95 transition-colors
+                        "
+                                            >
+                                                {priceK}
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Hover line */}
+                                <div className="absolute left-0 bottom-0 h-px w-0 bg-linear-to-r from-brand-gold/55 to-transparent group-hover:w-full transition-all duration-700 ease-out" />
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </div>
         </motion.div>
