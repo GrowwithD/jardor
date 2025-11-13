@@ -12,10 +12,10 @@
 @theme {
     /* === BRAND COLORS === */
     --color-brand-bg: #111111;
-    --color-brand-green: #0C392D;
+    --color-brand-green: #14312c;
     --color-brand-green-soft: #164636;
-    --color-brand-gold: #C8A96B;
-    --color-brand-cream: #F5F2E8;
+    --color-brand-gold: #c8b482;
+    --color-brand-cream: #c8b482;
     --color-fg: #0C392D;
 
     /* === TYPOGRAPHY SCALE === */

@@ -62,7 +62,7 @@ export default function MenuCategory({
             </div>
 
             {/* Menu Panel */}
-            <div className="relative overflow-hidden rounded-xl bg-[#050505] border border-brand-gold/15 ring-1 ring-inset ring-brand-gold/8 shadow-[0_22px_80px_rgba(0,0,0,0.95)] backdrop-blur-sm px-4 md:px-7 py-7 md:py-9 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_top_left,rgba(200,169,107,0.05),transparent_65%)] before:opacity-80 before:pointer-events-none">
+            <div className="relative overflow-hidden rounded-xl bg-[#050505]/50 border border-brand-gold/15 ring-1 ring-inset ring-brand-gold/8 shadow-[0_22px_80px_rgba(0,0,0,0.95)] backdrop-blur-[1px] px-4 md:px-7 py-7 md:py-9 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_top_left,rgba(200,169,107,0.05),transparent_65%)] before:opacity-80 before:pointer-events-none">
                 <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 md:gap-y-8">
                     {category.items.map((item, i) => {
                         const priceK = formatK(item.price);

@@ -83,6 +83,9 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.35 }}
                 >
+
+
+
                     {navItems.map((item) => {
                         const isActive =
                             item.href === "/" ? pathname === "/" : pathname?.startsWith(item.href);
@@ -117,12 +120,33 @@ export default function Navbar() {
                                 )}
                                 <Link
                                     href={item.href}
-                                    className={`relative px-4 py-2 rounded-full font-sans transition-all duration-200 ${isActive
+                                    className={`
+                    relative px-4 py-2 rounded-full font-sans
+                    transition-all duration-260
+                    ${isActive
                                             ? "text-brand-gold tracking-[0.18em]"
                                             : "text-brand-cream/68 tracking-[0.14em] hover:text-brand-cream"
-                                        }`}
+                                        }
+                  `}
                                 >
-                                    <span className="relative z-10">{item.label}</span>
+                                    <span className="relative z-10">
+                                        {item.label}
+                                    </span>
+
+                                    {isActive && (
+                                        <motion.span
+                                            className="
+                        absolute left-1/2 -bottom-[3px]
+                        w-2 h-2
+                        bg-brand-gold rounded-full
+                        -translate-x-1/2
+                      "
+                                            initial={{ opacity: 0, scale: 0.4, y: 3 }}
+                                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                                            exit={{ opacity: 0, scale: 0.4, y: 3 }}
+                                            transition={{ duration: 0.22 }}
+                                        />
+                                    )}
                                 </Link>
                             </div>
                         );
@@ -146,8 +170,7 @@ export default function Navbar() {
                             width={88}
                             height={24}
                             priority
-                            sizes="(max-width: 768px) 88px"
-                            className="h-6 w-auto object-contain"
+                            className="h-16 w-auto object-contain"
                         />
                     </Link>
 
@@ -208,8 +231,7 @@ export default function Navbar() {
                                                     alt="Jard’or — Logo"
                                                     width={110}
                                                     height={28}
-                                                    sizes="(max-width: 768px) 110px"
-                                                    className="h-7 w-auto object-contain"
+                                                    className="h-16 w-auto object-contain"
                                                 />
                                             </Link>
                                             <button

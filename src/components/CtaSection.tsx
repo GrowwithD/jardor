@@ -5,25 +5,50 @@ import { motion } from "framer-motion";
 
 export default function CtaSection() {
     return (
-        <section className="relative isolate overflow-hidden py-24 bg-black">
-            {/* Background image */}
+        <section className="relative isolate overflow-hidden py-24 bg-brand-green">
+            {/* ===== BACKGROUND LAYERS ===== */}
             <div className="absolute inset-0">
-                <div
-                    className="absolute inset-0 bg-[url('/images/batik.jpg')] bg-cover bg-center opacity-50"
-                />
-                {/* Overlay gradient biar readable */}
-                <div className="absolute inset-0 bg-transparent" />
+                {/* Base brand green */}
+                <div className="absolute inset-0 bg-brand-green" />
+
+                {/* Batik PNG repeated (memenuhi full area) */}
+                <div className="absolute inset-0">
+                    <div
+                        className="
+                            absolute inset-0
+                            [transform:scaleX(-1)]
+                        "
+                    >
+                        <div
+                            className="
+                                absolute inset-0
+                                bg-[url('/images/batik1.png')]
+                                bg-repeat
+                                bg-[length:2200px_auto]  /* ukuran tile biar rapih */
+                                opacity-25
+                            "
+                        />
+                    </div>
+                </div>
+
+                {/* Tint hijau supaya pattern tidak terlalu kontras */}
+                <div className="absolute inset-0 bg-brand-green/80 mix-blend-multiply" />
+
+                {/* Vignette untuk fokus tengah */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/70" />
             </div>
 
-            {/* subtle top separator */}
+            {/* ===== TOP GOLD LINE ===== */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[220px] h-px bg-linear-to-r from-transparent via-brand-gold/50 to-transparent" />
 
-            {/* gold aura */}
+            {/* ===== GOLD AURA ===== */}
             <div className="pointer-events-none absolute inset-0">
-                <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-[radial-gradient(circle,rgba(200,169,107,0.16),transparent_70%)] blur-3xl opacity-60" />
+                <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-[radial-gradient(circle,rgba(200,169,107,0.2),transparent_70%)] blur-3xl opacity-70" />
             </div>
 
+            {/* ===== CONTENT ===== */}
             <div className="relative mx-auto max-w-4xl px-5 text-center space-y-6">
+                {/* Badge */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -37,6 +62,7 @@ export default function CtaSection() {
                     </span>
                 </motion.div>
 
+                {/* Title */}
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -47,6 +73,7 @@ export default function CtaSection() {
                     A Voyage of Taste at Jard’or
                 </motion.h2>
 
+                {/* Description */}
                 <motion.p
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -59,6 +86,7 @@ export default function CtaSection() {
                     a warm golden glow. Choose your moment — we’ll compose the rest.
                 </motion.p>
 
+                {/* Button */}
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -81,6 +109,7 @@ export default function CtaSection() {
                     </Link>
                 </motion.div>
 
+                {/* Note */}
                 <motion.p
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}

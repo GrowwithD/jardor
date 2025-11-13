@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const heroImages = [
-    "/images/main-food.jpg",
-    "/images/main-food-2.jpg",
-    "/images/main-food-3.jpg",
+    "/images/slide1.jpg",
+    "/images/slide2.jpg",
+    "/images/slide3.jpg",
 ];
 
 export default function HeroSlider() {
@@ -96,10 +96,17 @@ export default function HeroSlider() {
                         transition={{ duration: 0.8, ease: "easeOut" }}
                         className="font-serif text-5xl md:text-6xl lg:text-7xl tracking-[0.18em] text-brand-cream drop-shadow-[0_3px_8px_rgba(0,0,0,0.6)]"
                     >
-                        JARD’OR
+                        <Image
+                            src="/images/logo.png"
+                            alt="Jard’or — Logo"
+                            width={88}
+                            height={24}
+                            priority
+                            className="h-56 -my-20 w-auto object-contain"
+                        />
                     </motion.h1>
 
-                    <motion.p
+                    {/* <motion.p
                         variants={{
                             hidden: { opacity: 0, y: 15 },
                             visible: { opacity: 1, y: 0 },
@@ -108,7 +115,7 @@ export default function HeroSlider() {
                         className="font-serif text-xs md:text-sm tracking-[0.25em] uppercase text-brand-gold"
                     >
                         Un Voyage de Goût
-                    </motion.p>
+                    </motion.p> */}
 
                     <motion.div
                         variants={{
@@ -137,7 +144,7 @@ export default function HeroSlider() {
                             href="/reservation"
                             className="rounded-pill bg-brand-gold px-8 py-2 text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.22em] text-black transition-all duration-300 hover:bg-brand-gold/90 hover:shadow-[0_0_22px_rgba(200,169,107,0.55)] hover:scale-[1.03]"
                         >
-                            Reservation Now
+                            Booking Now
                         </Link>
                         <Link
                             href="/menus"
@@ -161,8 +168,8 @@ export default function HeroSlider() {
                                 key={i}
                                 onClick={() => setHeroIndex(i)}
                                 className={`h-1.5 rounded-full transition-all duration-300 ${i === heroIndex
-                                        ? "w-5 bg-brand-gold"
-                                        : "w-2 bg-brand-cream/35 hover:bg-brand-gold/60"
+                                    ? "w-5 bg-brand-gold"
+                                    : "w-2 bg-brand-cream/35 hover:bg-brand-gold/60"
                                     }`}
                                 aria-label={`Go to slide ${i + 1}`}
                             />

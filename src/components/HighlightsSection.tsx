@@ -23,259 +23,370 @@ type Highlight = {
 type ActiveItem = HighlightItem & { highlight: string };
 
 const highlights: Highlight[] = [
+    /**
+     * 1) FOOD & BEVERAGE – pakai foto plating single-dish
+     */
     {
         id: "food-beverage",
         label: "Food & Beverage",
         subtitle:
-            "Signature tasting menus, artisanal plates, and curated pairings crafted from the finest seasonal ingredients.",
+            "Signature tasting menus, crafted plates, and quietly confident flavors — each course composed for balance and clarity.",
         items: [
             {
-                title: "Chef's Tasting Menu",
-                image: "/images/main-food.jpg",
+                title: "Amuse-Bouche Selection",
+                image: "/images/DSC00222.jpg",
                 description:
-                    "A 7-course journey that moves with deliberate calm - from bright, precise starters to deep, comforting finales. Each transition is designed so the palate is guided, never shocked.\n\nIngredients are sourced daily: line-caught seafood, dry-aged meats, garden herbs, and refined details. Technique leans on French fundamentals with subtle island influences.\n\nIdeal for guests who want the full Jard'or narrative in one sitting.",
-                meta: "7-course • Seasonal • Limited Seat",
+                    "One-bite introductions that set the tone of the evening — precise, bright, and intentionally light on the palate.",
+                meta: "Opening Course",
             },
             {
-                title: "Wine Pairing Selection",
-                image: "/images/main-food-2.jpg",
+                title: "Bread & Butter Service",
+                image: "/images/DSC00229.jpg",
                 description:
-                    "Curated pairings that follow the menu's rhythm - clean acidity to start, layered structure through the middle, and textured finishes towards dessert.\n\nThe focus is balance and nuance, not label flex.\n\nPerfect for guests who appreciate being gently led through the cellar.",
-                meta: "Sommelier Curated",
+                    "House-baked breads with cultured butter and subtle accents — treated as a course, not a side.",
+                meta: "Warm Start",
             },
             {
-                title: "Dessert Atelier",
-                image: "/images/main-food-3.jpg",
+                title: "Signature Entrée",
+                image: "/images/DSC00265.jpg",
                 description:
-                    "Desserts are treated as a final chapter, not an afterthought.\n\nExpect restrained sweetness, temperature contrast, and clean lines.\n\nFor guests who prefer an elegant finish over heavy sugar.",
-                meta: "Signature Sweets",
+                    "Thoughtfully plated mains where sauce, garnish, and texture move in the same direction, never competing.",
+                meta: "Main Course",
             },
             {
-                title: "Chef's Table Experience",
-                image: "/images/main-food.jpg",
+                title: "Sauce at the Pass",
+                image: "/images/DSC00263.jpg",
                 description:
-                    "A table within sight of the open kitchen. Courses are served directly by the brigade with just enough storytelling.\n\nOften includes off-menu elements and library bottles.\n\nFor guests who value proximity to the craft.",
-                meta: "Reservation Only",
+                    "A focus on sauces built slowly — reductions, jus, and emulsions that quietly anchor each plate.",
+                meta: "Kitchen Craft",
             },
             {
-                title: "Lunch Degustation",
-                image: "/images/main-food-2.jpg",
+                title: "Seasonal Fish Course",
+                image: "/images/DSC00279.jpg",
                 description:
-                    "A lighter expression of Jard'or for daylight.\n\nStructured to be vibrant, clean, and time-conscious without losing depth.",
-                meta: "Midday Special",
+                    "Line-caught fish with restrained accompaniments, emphasizing freshness, temperature, and clean flavor.",
+                meta: "From the Sea",
             },
             {
-                title: "Vegetarian Menu",
-                image: "/images/main-food-3.jpg",
+                title: "Plated Tasting Course",
+                image: "/images/DSC00309.jpg",
                 description:
-                    "Vegetables leading with confidence: smoked roots, charred brassicas, layered grains, rich broths.\n\nBuilt with the same discipline as the classic menu.",
-                meta: "Green Tasting • Limited Availability",
+                    "Small-format dishes designed to move the menu forward without overwhelming, ideal within the tasting sequence.",
+                meta: "Tasting Menu",
             },
             {
-                title: "Caviar & Oyster Bar",
-                image: "/images/main-food.jpg",
+                title: "Cheese & Savory Finish",
+                image: "/images/DSC00381.jpg",
                 description:
-                    "Premium caviar, freshly shucked oysters, and precise garnishes.\n\nBest as a prologue to the tasting menu or a stand-alone ritual.",
-                meta: "Signature Pairing",
+                    "A composed plate of cheese and savory elements for guests who prefer a gentle transition before dessert.",
+                meta: "Pre-Dessert",
             },
             {
-                title: "Afternoon Tea Ritual",
-                image: "/images/main-food-2.jpg",
+                title: "Dessert Composition",
+                image: "/images/DSC00404.jpg",
                 description:
-                    "Miniature patisserie, refined savories, and considered tea selection in soft daylight.\n\nA calm way to experience the space before evening service.",
-                meta: "Daily 3-5 PM",
+                    "Measured sweetness, precise geometry, and temperature contrast — endings built to refresh, not fatigue.",
+                meta: "Signature Dessert",
             },
         ],
     },
+
+    /**
+     * 2) ATMOSPHERE – tetap seperti versi kamu
+     */
     {
-        id: "place",
-        label: "The Place",
+        id: "atmosphere",
+        label: "Atmosphere",
         subtitle:
-            "An intimate ambience in deep green tones, soft lighting, and brass accents overlooking Nusa Dua.",
+            "Spaces curated with quiet geometry, warm brass, natural textures, and intimate lighting — each corner offering a different mood of Jard’or.",
         items: [
             {
-                title: "Main Dining Hall",
-                image: "/images/main-food-2.jpg",
+                title: "Main Dining Room",
+                image: "/images/DSC04919-HDR.jpg",
                 description:
-                    "Generous spacing, warm pools of light, and surfaces that soften sound.\n\nTables are composed but not over-staged.\n\nFor evenings where comfort and detail align.",
-                meta: "Up to 60 Guests",
+                    "The heart of Jard’or — polished wood, brass accents, soft lines, and a quiet energy. Designed for evenings where conversations linger and plates move with subtle rhythm.",
+                meta: "Central Seating",
             },
             {
-                title: "Private Room",
-                image: "/images/main-food.jpg",
+                title: "Rustic Corner Table",
+                image: "/images/DSC04927-HDR.jpg",
                 description:
-                    "A concealed room for executives, families, and inner-circle gatherings.\n\nFull privacy, tailored menus, and dedicated service.",
-                meta: "Up to 10 Guests",
+                    "Warm stone textures and vintage European tones create a pocket of calm. Ideal for anniversaries or slow, unhurried dinners.",
+                meta: "Intimate Spot",
             },
             {
-                title: "Wine Library",
-                image: "/images/main-food-3.jpg",
+                title: "Wine Cellar Alcove",
+                image: "/images/DSC04930-HDR.jpg",
                 description:
-                    "Walls of bottles chosen for character.\n\nUsed for intimate tastings and pre-dinner pours.",
-                meta: "Sommelier Guided",
+                    "Surrounded by the house’s private wine collection — a refined atmosphere for tastings and conversations that move deeper through the evening.",
+                meta: "Wine Collection",
+            },
+            {
+                title: "The Bottle Wall",
+                image: "/images/DSC04933-HDR.jpg",
+                description:
+                    "A curated display of spirits and rare bottles. A visual anchor that sets the tone for aperitifs and after-dinner rituals.",
+                meta: "Cellar Feature",
+            },
+            {
+                title: "Garden Window Table",
+                image: "/images/DSC04936-HDR.jpg",
+                description:
+                    "Natural light meets warm interior textures. Perfect for daylight brunch or soft twilight dining with greenery as the backdrop.",
+                meta: "Indoor Garden View",
+            },
+            {
+                title: "Floral Lounge Nook",
+                image: "/images/DSC05669-HDR.jpg",
+                description:
+                    "A relaxed seating corner with greenery and soft pillows — a favorite for pre-dinner drinks and effortless conversations.",
+                meta: "Cozy Lounge",
             },
             {
                 title: "Outdoor Terrace",
-                image: "/images/main-food.jpg",
+                image: "/images/DSC05705-HDR.jpg",
                 description:
-                    "Open air, soft breeze, candlelight, and a golden-hour horizon.\n\nReserved for aperitifs, sundowners, and select menus.",
-                meta: "Sunset Favorite",
+                    "Sunlit umbrellas, quiet breeze, and tropical calm. Ideal for daylight dining, light meals, or long coffees.",
+                meta: "Open Air",
             },
             {
-                title: "Chef's Counter",
-                image: "/images/main-food-2.jpg",
+                title: "Private Warm Setting",
+                image: "/images/DSC05811-HDR.jpg",
                 description:
-                    "Seats along the open kitchen where plates land seconds from the pass.\n\nFor guests who enjoy service in motion.",
-                meta: "Interactive",
+                    "Soft shadows, candlelit tables, and close seating. Made for personal celebrations, proposals, or quiet two-person evenings.",
+                meta: "Private Seating",
             },
             {
-                title: "Lounge & Bar",
-                image: "/images/main-food-3.jpg",
+                title: "Classic Interior Room",
+                image: "/images/DSC05823-HDR.jpg",
                 description:
-                    "Low tables, tuned playlists, and a bar that favors clarity over theatrics.\n\nIdeal for a martini, aperitif, or nightcap.",
-                meta: "Mixology Corner",
+                    "Classic wood textures with refined lighting. A room that balances tradition and modernity in a gentle, understated way.",
+                meta: "Timeless Corner",
             },
             {
-                title: "Garden Pavilion",
-                image: "/images/main-food.jpg",
+                title: "Bar Terrace",
+                image: "/images/DSC05865-HDR.jpg",
                 description:
-                    "A tucked pavilion framed by greenery.\n\nBuilt for proposals, elopements, and small ceremonies.",
-                meta: "Private Venue",
+                    "A high-seat bar framed by natural light — perfect for martinis, aperitifs, and short casual visits.",
+                meta: "Bar Seating",
             },
             {
-                title: "Art Corridor",
-                image: "/images/main-food-2.jpg",
+                title: "Washroom Interior",
+                image: "/images/DSC05886-HDR.jpg",
                 description:
-                    "Curated regional works echoing Jard'or's geometry.\n\nActs as quiet punctuation between rooms.",
-                meta: "Curated Details",
+                    "Stone, brass, and warm reflections. Even transitional spaces at Jard’or are built with detail and quiet elegance.",
+                meta: "Interior Detail",
+            },
+            {
+                title: "Garden Entrance",
+                image: "/images/DSC05955-HDR.jpg",
+                description:
+                    "A soft transition from nature to architecture. The gateway that sets the tone before guests enter the main room.",
+                meta: "Green Pathway",
+            },
+            {
+                title: "Terrace Bench",
+                image: "/images/DSC05973-HDR.jpg",
+                description:
+                    "A peaceful spot beneath open sky and filtered light. Great for slow moments before or after dinner.",
+                meta: "Outdoor Seating",
+            },
+            {
+                title: "Glass Pavilion",
+                image: "/images/DSC05995-HDR.jpg",
+                description:
+                    "Surrounded by glass and foliage — a spacious yet intimate pavilion for gatherings, private events, or afternoon tea.",
+                meta: "Garden Pavilion",
             },
         ],
     },
+
+    /**
+     * 3) WINE – tetap seperti versi kamu
+     */
+    {
+        id: "wine",
+        label: "Wine & Cellar",
+        subtitle:
+            "A cellar shaped around character, balance, and the stories behind each bottle — curated to complement Jard’or’s cadence.",
+        items: [
+            {
+                title: "Private Wine Cellar",
+                image: "/images/DSC04930-HDR.jpg",
+                description:
+                    "Rows of carefully stored bottles kept at precise temperature and humidity. A collection built slowly, focusing not on prestige labels but on expressive regions and vintners with depth.",
+                meta: "Cellar Access",
+            },
+            {
+                title: "Bottle Lineup Showcase",
+                image: "/images/DSC04933-HDR.jpg",
+                description:
+                    "A curated wall of selections spanning old-world classics and modern expressions, used for pre-dinner conversations, sommelier recommendations, and custom pairing sessions.",
+                meta: "Signature Display",
+            },
+            {
+                title: "Gastronomic Pairing",
+                image: "/images/DSC05255.jpg",
+                description:
+                    "Plates and bottles selected to speak the same language — balancing acidity, structure, and aromatics around Jard’or’s tasting menus.",
+                meta: "Food Collaboration",
+            },
+            {
+                title: "Wine Service Ritual",
+                image: "/images/DSC05264.jpg",
+                description:
+                    "Precise pouring, considered glassware, and controlled pacing, allowing each bottle to open gradually and follow the rhythm of the evening.",
+                meta: "Service Ritual",
+            },
+            {
+                title: "Cigar & Digestif Drawer",
+                image: "/images/DSC05801.jpg",
+                description:
+                    "A refined after-dinner ritual with hand-rolled cigars, digestifs, and rare bottles curated for the last quiet minutes of the night.",
+                meta: "After-Dinner Experience",
+            },
+            {
+                title: "Dark Cellar Selection",
+                image: "/images/DSC05908.jpg",
+                description:
+                    "A deeper corner of the cellar showcasing limited and late-release vintages, reserved for guests seeking something off-menu and quietly exceptional.",
+                meta: "Limited Release",
+            },
+        ],
+    },
+
+    /**
+     * 4) EXPERIENCE – pakai foto meja dengan beberapa plate & wine
+     */
     {
         id: "experience",
         label: "The Experience",
         subtitle:
-            "Beyond the plate - music, scent, pacing, and visual details composed as one narrative.",
+            "Beyond the plate — music, pacing, service, and visual details composed as a single narrative.",
         items: [
             {
-                title: "Live Piano Evenings",
-                image: "/images/main-food-3.jpg",
+                title: "Tasting Table for Two",
+                image: "/images/DSC00300.jpg",
                 description:
-                    "Soft instrumentals that frame, not dominate, the room.\n\nFor nights when guests want a quietly alive atmosphere.",
-                meta: "Fri-Sun 7-10 PM",
+                    "A quietly staged table for two with multiple courses, where service is timed to conversation instead of the clock.",
+                meta: "Intimate Dining",
             },
             {
-                title: "Chef's Showcase",
-                image: "/images/main-food-2.jpg",
+                title: "Champagne & Small Plates",
+                image: "/images/DSC00321.jpg",
                 description:
-                    "Occasional previews of future ideas: unlisted courses and experimental pairings.",
-                meta: "Exclusive Access",
+                    "Carefully chilled glasses and light courses that open the evening with brightness and lift.",
+                meta: "Aperitif Hour",
             },
             {
-                title: "Seasonal Journey",
-                image: "/images/main-food.jpg",
+                title: "Chef’s Flight",
+                image: "/images/DSC00326.jpg",
                 description:
-                    "Menus that follow tides and markets.\n\nInvites guests to return each season.",
-                meta: "Four Seasons Menu",
+                    "A sequence of plates served in quick, clean rhythm — ideal for guests who enjoy experiencing the menu as a curated journey.",
+                meta: "Progressive Courses",
             },
             {
-                title: "Wine Tasting Night",
-                image: "/images/main-food-3.jpg",
+                title: "Shared Table Setting",
+                image: "/images/DSC00342.jpg",
                 description:
-                    "Focused flights around a region or varietal.\n\nGuided with minimal jargon.",
-                meta: "Every First Friday",
+                    "An arrangement designed for small groups: shared dishes, central pieces, and synchronized service.",
+                meta: "Small Group",
             },
             {
-                title: "House Scent",
-                image: "/images/main-food.jpg",
+                title: "Wine-Focused Evening",
+                image: "/images/DSC00368.jpg",
                 description:
-                    "A subtle blend of herbs, woods, and coastal notes, traced lightly across the room.",
-                meta: "Custom Blend",
+                    "Pairings and pours are given center stage while courses are structured to frame the bottles, not overshadow them.",
+                meta: "Sommelier Guided",
             },
             {
-                title: "Art of Plating",
-                image: "/images/main-food-2.jpg",
+                title: "Celebration Spread",
+                image: "/images/DSC00371.jpg",
                 description:
-                    "Negative space, clean cuts, measured color.\n\nReplicated plate after plate with precision.",
-                meta: "Front Row Experience",
+                    "Multiple plates and glasses laid out for milestones, proposals, and private celebrations.",
+                meta: "Occasion Ready",
             },
             {
-                title: "Bespoke Pairing Events",
-                image: "/images/main-food.jpg",
+                title: "Late-Night Service",
+                image: "/images/DSC00395.jpg",
                 description:
-                    "Custom evenings built around a story: a region, a vintage, a memory.",
-                meta: "Reservation Required",
+                    "Warmer lighting and deeper flavors for guests who prefer to dine later in the evening.",
+                meta: "After Dark",
             },
             {
-                title: "Midnight Soiree",
-                image: "/images/main-food-2.jpg",
+                title: "Final Dessert Moment",
+                image: "/images/DSC00409.jpg",
                 description:
-                    "Late service with longer courses and deeper playlists for a small circle.",
-                meta: "By Invitation Only",
+                    "A composed dessert course and warm service tone that let the evening close gently and intentionally.",
+                meta: "Closing Note",
             },
         ],
     },
+
+    /**
+     * 5) TEAM & CRAFT – pakai foto tangan plating, menu di tangan, dll
+     */
     {
         id: "team-craft",
         label: "The Team & Craft",
         subtitle:
-            "Artisans, sommeliers, and chefs working in sync to keep standards exact and the room warm.",
+            "Artisans, sommeliers, and service team working in sync to keep standards exact while the room stays warm.",
         items: [
             {
-                title: "Executive Chef",
-                image: "/images/main-food-2.jpg",
+                title: "Plating at the Pass",
+                image: "/images/DSC00237.jpg",
                 description:
-                    "The mind behind Jard'or's flavor language.\n\nMinimal text, confident structure, no filler dishes.",
-                meta: "French-trained • 20+ Years",
+                    "Hands focused on alignment, temperature, and detail — each plate checked before it ever leaves the kitchen.",
+                meta: "Kitchen Brigade",
             },
             {
-                title: "Pastry Maestro",
-                image: "/images/main-food-3.jpg",
+                title: "Precise Garnishing",
+                image: "/images/DSC00252.jpg",
                 description:
-                    "Designs endings that refresh instead of tire.\n\nFor guests who care how the last five minutes feel.",
-                meta: "Dessert Innovator",
+                    "Final touches added seconds before service so every element arrives at the correct texture.",
+                meta: "Last Detail",
             },
             {
-                title: "Sommelier",
-                image: "/images/main-food.jpg",
+                title: "Sauce Service",
+                image: "/images/DSC00258.jpg",
                 description:
-                    "Listens first, then curates.\n\nKeeps the cellar approachable and precise.",
-                meta: "WSET Certified",
+                    "Sauces poured with intention, either in the kitchen or table-side depending on the course.",
+                meta: "Classic Technique",
             },
             {
-                title: "Mixologist",
-                image: "/images/main-food-2.jpg",
+                title: "Composed Starters",
+                image: "/images/DSC00269.jpg",
                 description:
-                    "Clean, layered drinks that sit beside the menu, not above it.",
-                meta: "House Signatures",
+                    "Starters assembled by a dedicated garde-manger team, keeping cold dishes bright and structured.",
+                meta: "Cold Section",
             },
             {
-                title: "Culinary Artisans",
-                image: "/images/main-food-3.jpg",
+                title: "Course Timing",
+                image: "/images/DSC00287.jpg",
                 description:
-                    "The brigade that keeps scales, sauces, and timing exact.\n\nRarely seen, always present.",
-                meta: "Detail-Driven",
+                    "Coordinated passes between kitchen and front-of-house so courses land quietly and on cue.",
+                meta: "Service Rhythm",
             },
             {
-                title: "Hospitality Team",
-                image: "/images/main-food.jpg",
+                title: "Wine & Glassware",
+                image: "/images/DSC00316.jpg",
                 description:
-                    "Front-of-house that reads the room and keeps refinement relaxed.",
-                meta: "Guest Experience",
+                    "Stemware polished by hand and matched to each bottle for clarity of aroma and structure.",
+                meta: "Sommelier Team",
             },
             {
-                title: "Culinary Research Lab",
-                image: "/images/main-food-2.jpg",
+                title: "Menu Presentation",
+                image: "/images/DSC00411.jpg",
                 description:
-                    "Quiet R&D for stocks, ferments, and preserved elements that appear as subtle details.",
-                meta: "R&D Division",
+                    "Menus presented with a brief, confident explanation — enough context, never pressure.",
+                meta: "Guest Guidance",
             },
             {
-                title: "Training Academy",
-                image: "/images/main-food-3.jpg",
+                title: "Final Check",
+                image: "/images/DSC00416.jpg",
                 description:
-                    "Internal training so every team member speaks one language of detail and timing.",
-                meta: "Mentorship Program",
+                    "A quiet moment before service to review reservations, dietary notes, and timing for the night ahead.",
+                meta: "Service Briefing",
             },
         ],
     },
