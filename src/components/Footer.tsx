@@ -38,7 +38,7 @@ export default function Footer() {
     }, []);
 
     return (
-        <footer className="relative text-[9px] md:text-[10px] text-brand-cream/75">
+        <footer className="relative text-base text-brand-cream/75">
 
             {/* MAIN */}
             <motion.div
@@ -73,7 +73,7 @@ export default function Footer() {
                 <div className="flex flex-col gap-3 md:min-w-[190px]">
                     {/* Address */}
                     <div>
-                        <p className="text-[7px] uppercase tracking-[0.22em] text-brand-cream/45">
+                        <p className="text-sm uppercase tracking-[0.22em] text-brand-cream/45">
                             Address
                         </p>
                         <p className="text-brand-cream/80">
@@ -84,7 +84,7 @@ export default function Footer() {
 
                     {/* Hours */}
                     <div>
-                        <p className="text-[7px] uppercase tracking-[0.22em] text-brand-cream/45">
+                        <p className="text-sm uppercase tracking-[0.22em] text-brand-cream/45">
                             Hours
                         </p>
                         <p className="text-brand-cream/80">
@@ -94,7 +94,7 @@ export default function Footer() {
 
                     {/* Reservation */}
                     <div>
-                        <p className="text-[7px] uppercase tracking-[0.22em] text-brand-cream/45">
+                        <p className="text-sm uppercase tracking-[0.22em] text-brand-cream/45">
                             Reservations
                         </p>
                         <p className="text-brand-cream/80">
@@ -127,7 +127,7 @@ export default function Footer() {
                                 className="
                                     flex h-6 w-6 items-center justify-center
                                     rounded-full border border-brand-gold/40
-                                    text-[7px] text-brand-gold/88
+                                    text-sm text-brand-gold/88
                                     hover:bg-brand-gold hover:text-black
                                     transition-colors
                                 "
@@ -143,7 +143,7 @@ export default function Footer() {
                 <div className="flex flex-col gap-4 md:items-end text-right">
                     {/* Navigation */}
                     <div>
-                        <p className="text-[7px] uppercase tracking-[0.22em] text-brand-cream/45">
+                        <p className="text-sm uppercase tracking-[0.22em] text-brand-cream/45">
                             Navigate
                         </p>
 
@@ -172,7 +172,7 @@ export default function Footer() {
                 <div className="
                     mx-auto max-w-6xl px-4 py-4
                     flex flex-col md:flex-row items-center justify-between
-                    gap-1.5 text-[7px] md:text-[8px] text-brand-cream/50
+                    gap-1.5 text-sm md:text-sm text-brand-cream/50
                 ">
                     <p className="tracking-[0.18em] uppercase text-center md:text-left">
                         © {currentYear} Jard&apos;or Restaurant • All Rights Reserved

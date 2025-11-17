@@ -38,11 +38,13 @@ export function EventDetailClient({ event }: { event: Event }) {
   );
 
   const paragraphs =
-    event.longDescription?.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean) ??
-    [];
+    event.longDescription
+      ?.split(/\n{2,}/)
+      .map((p) => p.trim())
+      .filter(Boolean) ?? [];
 
   return (
-    <section className="relative pt-32 md:pt-40 pb-20 bg-linear-to-b from-[#050807] via-[#020303] to-black">
+    <section className="relative pt-32 md:pt-40 pb-20 bg-brand-green">
       {/* subtle background glow */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,rgba(200,169,107,0.08),transparent_70%)] opacity-30 blur-3xl" />
@@ -54,7 +56,7 @@ export function EventDetailClient({ event }: { event: Event }) {
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="text-[8px] md:text-[9px] uppercase tracking-[0.22em] text-brand-cream/55 flex gap-1"
+          className="text-xs-line uppercase tracking-[0.22em] text-brand-cream/55 flex gap-1"
         >
           <Link href="/" className="hover:text-brand-gold/90 transition-colors">
             Home
@@ -77,7 +79,7 @@ export function EventDetailClient({ event }: { event: Event }) {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          className="relative w-full h-[280px] md:h-[420px] rounded-3xl overflow-hidden border border-brand-gold/20 shadow-[0_24px_80px_rgba(0,0,0,0.9)]"
+          className="relative w-full h-[280px] md:h-[420px] overflow-hidden border border-brand-gold/20"
         >
           <Image
             src={event.hero}
@@ -98,21 +100,21 @@ export function EventDetailClient({ event }: { event: Event }) {
         >
           <motion.p
             variants={fadeInUp}
-            className="text-[8px] md:text-[9px] tracking-[0.26em] text-brand-gold/80 uppercase"
+            className="text-xs-line tracking-[0.26em] text-brand-gold/80 uppercase"
           >
             Jard&apos;or Signature Experience
           </motion.p>
 
           <motion.h1
             variants={fadeInUp}
-            className="text-2xl md:text-4xl lg:text-[42px] text-brand-cream tracking-[0.03em]"
+            className="text-md text-brand-cream tracking-[0.06em]"
           >
             {event.title}
           </motion.h1>
 
           <motion.div
             variants={fadeInUp}
-            className="flex flex-wrap justify-center gap-2 text-[9px] md:text-[10px] text-brand-cream/75"
+            className="flex flex-wrap justify-center gap-2 text-xs-line text-brand-cream/75"
           >
             <span>{date}</span>
             <span className="text-brand-cream/35">•</span>
@@ -125,7 +127,7 @@ export function EventDetailClient({ event }: { event: Event }) {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          className="text-center text-[10px] md:text-[11px] leading-relaxed text-brand-cream/80 max-w-3xl mx-auto"
+          className="text-center text-base leading-relaxed text-brand-cream/80 max-w-3xl mx-auto"
         >
           {event.shortIntro}
         </motion.p>
@@ -137,7 +139,7 @@ export function EventDetailClient({ event }: { event: Event }) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            className="max-w-3xl mx-auto space-y-4 md:space-y-5 text-[10px] md:text-[11px] leading-relaxed text-brand-cream/80"
+            className="max-w-3xl mx-auto space-y-4 md:space-y-5 text-base leading-relaxed text-brand-cream/80"
           >
             {paragraphs.map((p, i) => (
               <motion.p key={i} variants={fadeInUp}>
@@ -157,7 +159,7 @@ export function EventDetailClient({ event }: { event: Event }) {
         >
           <motion.p
             variants={fadeInUp}
-            className="text-[8px] md:text-[9px] uppercase tracking-[0.22em] text-brand-cream/55"
+            className="text-xs-line uppercase tracking-[0.22em] text-brand-cream/55"
           >
             Visual Notes from the Experience
           </motion.p>
@@ -169,7 +171,7 @@ export function EventDetailClient({ event }: { event: Event }) {
                 variants={fadeInUp}
                 whileHover={{ y: -4, scale: 1.02 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="relative h-24 md:h-32 lg:h-36 overflow-hidden rounded-2xl border border-brand-gold/14 bg-black/60 shadow-[0_10px_40px_rgba(0,0,0,0.95)]"
+                className="relative h-24 md:h-32 lg:h-36 overflow-hidden border border-brand-gold/14"
               >
                 <Image
                   src={src}
@@ -187,7 +189,7 @@ export function EventDetailClient({ event }: { event: Event }) {
         <div className="flex justify-center pt-10">
           <Link
             href="/events"
-            className="text-[8px] md:text-[9px] uppercase tracking-[0.22em] text-brand-cream/55 hover:text-brand-gold/85 transition-colors"
+            className="text-xs-line uppercase tracking-[0.22em] text-brand-cream/55 hover:text-brand-gold/85 transition-colors"
           >
             ← Back to Events
           </Link>

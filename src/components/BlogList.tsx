@@ -57,7 +57,7 @@ export default function BlogList() {
                 {/* GRID + PAGINATION */}
                 <div className="max-w-6xl mx-auto px-5 space-y-10">
                     {/* Grid of posts */}
-                    <div className="mt-6 md:mt-10 grid gap-6 md:gap-7 md:grid-cols-3">
+                    <div className="mt-6 md:mt-10 grid gap-6 md:gap-7 grid-cols-2 md:grid-cols-3">
                         {paginatedPosts.map((post, index) => (
                             <BlogCard key={post.id} post={post} index={index} />
                         ))}

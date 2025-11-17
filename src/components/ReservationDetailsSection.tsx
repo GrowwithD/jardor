@@ -47,7 +47,7 @@ export default function ReservationContent() {
                         your evening.
                     </p>
 
-                    <ul className="space-y-1.5 pt-3 text-brand-cream/70">
+                    <ul className="space-y-1.5 pt-3 text-brand-cream/70 list-disc">
                         <li>• Dinner service by reservation only.</li>
                         <li>• Groups of 6+ guests may require a deposit or set menu.</li>
                         <li>• Kindly inform us of dietary preferences &amp; allergies.</li>
@@ -63,21 +63,19 @@ export default function ReservationContent() {
                     data-aos-easing="ease-out-cubic"
                     data-aos-once="true"
                     className="
-            bg-black/30
+
             border border-brand-gold/40
-            rounded-2xl
+
             p-8
             backdrop-blur-sm
-            shadow-[0_0_55px_rgba(0,0,0,0.75)]
             h-fit
             ring-1 ring-brand-gold/10
-            hover:ring-brand-gold/25
             transition-all duration-500
           "
                 >
                     <p className="text-eyebrow mb-4">Book Online</p>
 
-                    <p className="text-[12px] text-brand-cream/70 leading-relaxed mb-6">
+                    <p className="text-base text-brand-cream/70 leading-relaxed mb-6">
                         Secure your table instantly via Chope. You will receive a confirmation
                         directly from the platform — when needed, our team will follow up.
                     </p>
@@ -87,7 +85,7 @@ export default function ReservationContent() {
                             Book via Chope
                         </ButtonGold>
 
-                        <p className="text-[10px] text-brand-cream/40 tracking-wide text-center -mt-1">
+                        <p className="text-md text-brand-cream/75 text-center mt-3">
                             For urgent inquiries, you may also reach our concierge via WhatsApp.
                         </p>
 

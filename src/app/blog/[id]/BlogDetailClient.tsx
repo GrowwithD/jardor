@@ -41,11 +41,8 @@ export function BlogDetailClient({ post }: { post: BlogPost }) {
       .filter(Boolean) ?? [];
 
   return (
-    <section className="relative pt-32 md:pt-40 pb-28 bg-gradient-to-b from-[#050807] via-[#030404] to-black">
-      {/* Subtle glow */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,rgba(200,169,107,0.08),transparent_70%)] opacity-40 blur-3xl" />
-      </div>
+    <section className="relative pt-32 md:pt-40 pb-28 bg-brand-green">
+
 
       <div className="relative z-10 max-w-4xl mx-auto px-6">
         {/* Breadcrumb */}
@@ -74,7 +71,7 @@ export function BlogDetailClient({ post }: { post: BlogPost }) {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          className="relative w-full h-[300px] md:h-[460px] rounded-3xl overflow-hidden border border-brand-gold/20 shadow-[0_24px_80px_rgba(0,0,0,0.9)] mb-12"
+          className="relative w-full h-[300px] md:h-[460px] overflow-hidden border border-brand-gold/20 mb-12"
         >
           <Image
             src={post.hero}
@@ -147,19 +144,19 @@ export function BlogDetailClient({ post }: { post: BlogPost }) {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/menus"
-              className="px-5 py-2 rounded-full border border-brand-gold/40 text-[9px] uppercase tracking-[0.18em] text-brand-gold/90 hover:bg-brand-gold/10 transition-all"
+              className="px-5 py-2 border border-brand-gold/40 text-[9px] uppercase tracking-[0.18em] text-brand-gold/90 hover:bg-brand-gold/10 transition-all"
             >
               Explore Menus
             </Link>
             <Link
               href="/events"
-              className="px-5 py-2 rounded-full border border-brand-gold/20 text-[9px] uppercase tracking-[0.18em] text-brand-cream/80 hover:text-brand-gold hover:border-brand-gold/50 transition-all"
+              className="px-5 py-2 border border-brand-gold/20 text-[9px] uppercase tracking-[0.18em] text-brand-cream/80 hover:text-brand-gold hover:border-brand-gold/50 transition-all"
             >
               View Events
             </Link>
             <Link
               href="/reservation"
-              className="px-5 py-2 rounded-full bg-brand-gold text-black text-[9px] uppercase tracking-[0.2em] hover:bg-brand-gold/90 transition-all"
+              className="px-5 py-2 bg-brand-gold text-black text-[9px] uppercase tracking-[0.2em] hover:bg-brand-gold/90 transition-all"
             >
               Reserve
             </Link>

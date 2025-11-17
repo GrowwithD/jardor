@@ -34,14 +34,12 @@ export default function UpcomingEventCard({ event, index }: UpcomingEventCardPro
             data-aos-delay={index * 140}
             className="
         group relative
-        rounded-lg
+
         overflow-hidden
         border border-brand-gold/25
         bg-black/90
-        shadow-[0_22px_70px_rgba(0,0,0,0.95)]
         hover:border-brand-gold/50
-        hover:shadow-[0_0_45px_rgba(200,169,107,0.25)]
-        transition-all duration-500
+        transition-all duration-4000
       "
         >
             {/* MAIN IMAGE FULL */}
@@ -52,7 +50,7 @@ export default function UpcomingEventCard({ event, index }: UpcomingEventCardPro
                     fill
                     className="
             object-cover
-            transition-transform duration-[1200ms]
+            transition-transform duration-4000
             group-hover:scale-110
           "
                 />
@@ -103,7 +101,7 @@ export default function UpcomingEventCard({ event, index }: UpcomingEventCardPro
                         {thumbs.map((thumb, i) => (
                             <div
                                 key={`${event.id}-thumb-${i}`}
-                                className="relative aspect-[4/3] rounded-lg overflow-hidden bg-black/40"
+                                className="relative aspect-[4/3]  overflow-hidden bg-black/40"
                             >
                                 <Image
                                     src={thumb}
@@ -111,7 +109,7 @@ export default function UpcomingEventCard({ event, index }: UpcomingEventCardPro
                                     fill
                                     className="
                     object-cover
-                    transition-transform duration-[900ms]
+                    transition-transform duration-4000
                     group-hover:scale-105
                   "
                                 />

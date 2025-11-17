@@ -52,10 +52,9 @@ export default function NavLinkItem({
             scale: { duration: 0.24 },
           }}
           className="
-            absolute inset-0 rounded-full
+            absolute inset-0
             bg-brand-gold/5
             border border-brand-gold/70
-            shadow-[0_0_10px_rgba(200,169,107,0.15)]
           "
         />
       )}
@@ -63,15 +62,15 @@ export default function NavLinkItem({
       <Link
         href={href}
         className={`
-          relative px-4 py-1.5 rounded-full
+          relative px-4 py-1.5
           transition-all duration-200
-          font-medium
+          font-normal text-md
           ${
             isHighlighted
-              ? "text-brand-gold tracking-[0.12em]"
+              ? "text-brand-gold"
               : isCurrent
-              ? "text-brand-gold/90 tracking-widest"
-              : "text-brand-cream/95 tracking-[0.08em] hover:text-brand-gold/90"
+              ? "text-brand-gold/90"
+              : "text-brand-cream/95 hover:text-brand-gold/90"
           }
         `}
       >

@@ -146,7 +146,6 @@ export default function GalleryMasonry() {
                   group mb-5 break-inside-avoid
                   block w-full
                   overflow-hidden bg-black
-                  shadow-[0_18px_60px_rgba(0,0,0,0.95)]
                   transition-transform duration-500
                   focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8A96B]/60
                   ${item.aspect}
@@ -157,10 +156,9 @@ export default function GalleryMasonry() {
                     src={item.src}
                     alt={`Jard’or gallery ${idx + 1}`}
                     fill
-                    className="object-cover transition-transform duration-[1100ms] group-hover:scale-110"
+                    className="object-cover transition-transform duration-4000 group-hover:scale-110 cursor-pointer"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="pointer-events-none absolute inset-0 border border-transparent group-hover:border-[#C8A96B]/25 group-hover:shadow-[0_0_32px_rgba(200,169,107,0.25)] transition-all duration-500" />
+
                 </div>
               </button>
             ))}
@@ -205,14 +203,14 @@ export default function GalleryMasonry() {
                            shadow-[0_0_18px_rgba(0,0,0,0.9)]"
                 aria-label="Close"
               >
-                <span className="text-[#C8A96B] text-lg leading-none">×</span>
+                <span className="">X</span>
               </button>
 
               {/* Main image + nav animation */}
               <div
                 className="relative w-full aspect-[16/10] md:aspect-[21/9]
                            overflow-hidden rounded-3xl
-                           bg-gradient-to-b from-white/5 via-black/80 to-black"
+                          "
               >
                 <AnimatePresence custom={direction} mode="wait" initial={false}>
                   <motion.div

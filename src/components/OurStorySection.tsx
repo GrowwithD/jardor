@@ -34,30 +34,19 @@ export default function OurStorySection() {
                 <div
                     data-aos="fade-up"
                     className="
-                        relative rounded-[26px]
-                        border border-brand-gold/25
-                        bg-black/40
-                        shadow-[0_0_40px_rgba(200,169,107,0.12)]
-                        backdrop-blur-[2px]
+                        relative rounded-lg
+
+                        bg-brand-green
                         p-6 md:p-10
                     "
                 >
-                    {/* Soft highlight */}
-                    <div
-                        className="
-                            pointer-events-none absolute inset-0
-                            rounded-[26px]
-                            bg-gradient-to-b from-white/5 via-transparent to-transparent
-                            opacity-10
-                        "
-                    />
 
                     {/* CONTENT */}
                     <div
                         className="
                             relative z-10
                             space-y-5 md:space-y-6
-                            text-[12px] md:text-sm
+                            text-[12px] md:text-base
                             text-brand-cream/85
                             leading-relaxed md:leading-loose
                             text-center md:text-left

@@ -14,7 +14,7 @@ type PageHeroProps = {
 
 export default function PageHero({ image, alt, title, subtitle, eyebrow }: PageHeroProps) {
     return (
-        <section className="relative h-[360px] md:h-[420px] w-full overflow-hidden">
+        <section className="relative h-[360px] md:h-[600px] w-full overflow-hidden pt-20">
             {/* BG IMAGE */}
             <motion.div
                 initial={{ opacity: 0, scale: 1.04 }}
@@ -33,6 +33,9 @@ export default function PageHero({ image, alt, title, subtitle, eyebrow }: PageH
 
             {/* CONTENT */}
             <div className="relative z-10 flex h-full items-center">
+
+
+
                 <motion.div
                     initial="hidden"
                     animate="visible"
@@ -42,12 +45,15 @@ export default function PageHero({ image, alt, title, subtitle, eyebrow }: PageH
                     }}
                     className="mx-auto max-w-xl px-6 text-center space-y-3"
                 >
+
+
                     {eyebrow && (
                         <motion.p
                             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
                             transition={{ duration: 0.6 }}
                             className="text-eyebrow"
                         >
+
                             {eyebrow}
                         </motion.p>
                     )}

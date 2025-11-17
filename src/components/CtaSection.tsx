@@ -1,29 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
+import ButtonGold from "@/components/atoms/ButtonGold";
 
 export default function CtaSection() {
     return (
-        <section className="relative isolate overflow-hidden py-24 bg-brand-green">
-            {/* ===== BACKGROUND LAYERS ===== */}
-            <div className="absolute inset-0 bg-black/90 backdrop-blur-2xl">
-                <div
-                    className="absolute inset-0
-                            [transform:scaleX(-1)]
-                        "
-                >
-                    <div
-                        className="
-                                absolute inset-0
-                                bg-[url('/images/batik1.png')]
-                                bg-repeat
-                                bg-[length:420px_auto]  /* ukuran tile biar rapih */
-                                opacity-5
-                            "
-                    />
-                </div>
-            </div>
+        <section className="relative isolate overflow-hidden py-24 bg-brand-black">
 
 
 
@@ -79,12 +61,7 @@ export default function CtaSection() {
                 >
 
 
-                    <Link
-                        href="/reservation"
-                        className="rounded-pill bg-brand-gold px-8 py-2 text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.22em] text-black transition-all duration-300 hover:bg-brand-gold/10 hover:text-brand-gold hover:backdrop-blur-[3px] hover:border-brand-gold/70 border border-transparent"
-                    >
-                        Booking Now
-                    </Link>
+                    <ButtonGold href="/reservation">Booking Now</ButtonGold>
 
                 </motion.div>
 

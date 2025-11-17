@@ -4,117 +4,59 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-export type MenuItem = {
-    name: string;
-    image: string;
-    description: string;
-    price?: number; // e.g. 112000
-};
-
 export type MenuCategoryData = {
     id: string;
     label: string;
     subtitle: string;
-    items: MenuItem[];
+    hero: string;
+    pdfUrl: string;
+    location?: string; // optional: "TASTING MENU", "BAR", dll
 };
 
-// 112000 -> "112K"
-const formatK = (n?: number) => {
-    if (typeof n !== "number") return undefined;
-    const k = Math.round(n / 1000);
-    return `${k}K`;
-};
-
-export default function MenuCategory({
-    category,
-    index,
-}: {
+type Props = {
     category: MenuCategoryData;
     index: number;
-}) {
-    const orderLabel = String(index + 1).padStart(2, "0");
+};
 
+export default function MenuCategory({ category, index }: Props) {
     return (
-        <motion.div
-            id={category.id}
+        <motion.a
+            href={category.pdfUrl}
+            download
             initial={{ opacity: 0, y: 26 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: index * 0.04 }}
-            className="space-y-8"
+            transition={{ duration: 0.7, ease: "easeOut", delay: index * 0.06 }}
+            className="group block cursor-pointer"
         >
-            {/* Header */}
-            <div className="text-left md:text-center space-y-2">
-                <p className="text-sm uppercase tracking-[0.26em] text-brand-gold/70">
-                    {orderLabel} ~ Selection
-                </p>
-                <h2 className="text-2xl uppercase">
+            {/* IMAGE */}
+            <div className="relative aspect-square w-full overflow-hidden bg-black/40">
+                <Image
+                    src={category.hero}
+                    alt={category.label}
+                    fill
+                    sizes="(min-width: 1024px) 40vw, 80vw"
+                    className="object-cover transition-transform duration-4000 group-hover:scale-[1.04]"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
+            </div>
+
+            {/* TEXT */}
+            <div className="mt-6 text-center">
+                {category.location && (
+                    <p className="text-[9px] md:text-[10px] uppercase tracking-[0.26em] text-brand-cream/55">
+                        {category.location}
+                    </p>
+                )}
+
+                <h3 className="mt-1 text-[15px] md:text-[17px] tracking-[0.12em] text-brand-cream group-hover:text-brand-gold transition-colors">
                     {category.label}
-                </h2>
-                <p className="max-w-2xl md:mx-auto text-xs md:text-base text-brand-cream/80 leading-relaxed">
+                </h3>
+
+                <p className="mt-2 text-[11px] md:text-[12px] text-brand-cream/78 max-w-sm mx-auto leading-relaxed">
                     {category.subtitle}
                 </p>
-                <div className="flex items-center md:justify-center gap-2 pt-1">
-                    <span className="h-px w-8 bg-brand-gold/30" />
-                    <span className="h-[3px] w-[3px] rounded-full bg-brand-gold/80" />
-                    <span className="h-px w-8 bg-brand-gold/30" />
-                </div>
             </div>
-
-            {/* Menu Panel */}
-            <div className="relative overflow-hidden rounded-lg bg-[#050505]/50 border border-brand-gold/15 ring-1 ring-inset ring-brand-gold/8 shadow-[0_22px_80px_rgba(0,0,0,0.95)] backdrop-blur-[1px] px-4 md:px-7 py-7 md:py-9 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_top_left,rgba(200,169,107,0.05),transparent_65%)] before:opacity-80 before:pointer-events-none">
-                <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 md:gap-y-8">
-                    {category.items.map((item, i) => {
-                        const priceK = formatK(item.price);
-                        return (
-                            <motion.div
-                                key={`${item.name}-${i}`}
-                                transition={{ type: "spring", stiffness: 240, damping: 22 }}
-                                className="group relative flex items-start gap-4"
-                            >
-                                {/* Image */}
-                                <div className="relative w-20 h-20 md:w-24 md:h-24 shrink-0 overflow-hidden rounded-lg border border-brand-gold/22 bg-black/70 shadow-[0_8px_24px_rgba(0,0,0,0.9)] transition-all duration-500 group-hover:border-brand-gold/40">
-                                    <Image
-                                        src={item.image}
-                                        alt={item.name}
-                                        fill
-                                        sizes="96px"
-                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                    />
-                                    <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent" />
-                                </div>
-
-                                {/* Text */}
-                                <div className="flex-1 pt-1">
-                                    <p className="text-[10px] md:text-base uppercase tracking-[0.14em] text-brand-gold mb-1">
-                                        {item.name}
-                                    </p>
-                                    <p className="text-[10px] md:text-sm text-brand-cream/80 leading-relaxed italic">
-                                        {item.description}
-                                    </p>
-
-                                    {/* Price */}
-                                    {priceK && (
-                                        <div className="mt-2">
-                                            <span
-                                                className="
-                          text-[13px] md:text-[15px] tracking-wide text-brand-gold
-                          group-hover:text-brand-gold/95 transition-colors
-                        "
-                                            >
-                                                {priceK}
-                                            </span>
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Hover line */}
-                                <div className="absolute left-0 -bottom-2 h-px w-0 bg-linear-to-r from-brand-gold/55 to-transparent group-hover:w-full transition-all duration-700 ease-out" />
-                            </motion.div>
-                        );
-                    })}
-                </div>
-            </div>
-        </motion.div>
+        </motion.a>
     );
 }

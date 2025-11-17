@@ -29,8 +29,8 @@ export default function PastEventCard({ event, index }: PastEventCardProps) {
             data-aos-delay={index * 90}
             className="
                 group relative overflow-hidden
-                rounded-lg border border-brand-gold/20
-                bg-black/90 shadow-[0_18px_60px_rgba(0,0,0,0.9)]
+                 border border-brand-gold/20
+                bg-black/90
                 hover:border-brand-gold/45
                 transition-all duration-500
             "
@@ -43,7 +43,7 @@ export default function PastEventCard({ event, index }: PastEventCardProps) {
                     fill
                     className="
                         object-cover
-                        transition-transform duration-[1100ms]
+                        transition-transform duration-4000
                         group-hover:scale-110
                     "
                 />

@@ -16,59 +16,54 @@ export default function BlogPagination({
     return (
         <div
             data-aos="fade-up"
-            data-aos-duration="800"
+            data-aos-duration="700"
             data-aos-easing="ease-out-cubic"
-            data-aos-delay={150}
+            data-aos-delay={120}
             className="mt-6 flex flex-col items-center gap-3"
         >
+            {/* Page Info */}
             <p className="text-[9px] md:text-[10px] text-brand-cream/70 tracking-[0.16em] uppercase">
                 Page {currentPage} of {totalPages}
             </p>
 
             <div className="flex items-center gap-2">
+
                 {/* Prev */}
                 <button
-                    type="button"
                     onClick={() => onPageChange(currentPage - 1)}
                     disabled={currentPage === 1}
                     className={`
-            px-3 py-1.5 rounded-full text-[9px] uppercase tracking-[0.18em]
-            border border-brand-gold/35
-            bg-black/60
-            text-brand-cream/80
-            disabled:opacity-35 disabled:cursor-not-allowed
-            hover:bg-brand-gold/10 hover:text-brand-gold
-            transition-all
-          `}
+                        px-3 py-1.5 rounded-full text-[9px] uppercase tracking-[0.18em]
+                        text-brand-cream/70
+                        disabled:opacity-30 disabled:cursor-not-allowed
+                        hover:text-brand-gold
+                        transition-colors
+                    `}
                 >
                     Prev
                 </button>
 
-                {/* Page numbers */}
+                {/* Page Numbers */}
                 <div className="flex items-center gap-1.5">
                     {Array.from({ length: totalPages }).map((_, idx) => {
                         const page = idx + 1;
-                        const isActive = page === currentPage;
+                        const active = page === currentPage;
 
                         return (
                             <button
                                 key={page}
-                                type="button"
                                 onClick={() => onPageChange(page)}
                                 className={`
-                  min-w-[32px]
-                  px-2.5 py-1.5
-                  rounded-full
-                  text-[9px]
-                  tracking-[0.14em]
-                  uppercase
-                  border
-                  transition-all
-                  ${isActive
-                                        ? "border-brand-gold bg-brand-gold text-black shadow-[0_0_24px_rgba(200,169,107,0.35)]"
-                                        : "border-brand-gold/25 bg-black/70 text-brand-cream/70 hover:border-brand-gold/60 hover:text-brand-gold hover:bg-brand-gold/5"
+                                    min-w-[30px] px-2.5 py-1.5 rounded-full
+                                    text-[9px] uppercase tracking-[0.14em]
+                                    transition-all
+
+                                    ${
+                                        active
+                                            ? "border border-brand-gold text-brand-gold"
+                                            : "text-brand-cream/70 hover:text-brand-gold hover:border-brand-gold/50 border border-transparent"
                                     }
-                `}
+                                `}
                             >
                                 {page}
                             </button>
@@ -78,21 +73,19 @@ export default function BlogPagination({
 
                 {/* Next */}
                 <button
-                    type="button"
                     onClick={() => onPageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
                     className={`
-            px-3 py-1.5 rounded-full text-[9px] uppercase tracking-[0.18em]
-            border border-brand-gold/35
-            bg-black/60
-            text-brand-cream/80
-            disabled:opacity-35 disabled:cursor-not-allowed
-            hover:bg-brand-gold/10 hover:text-brand-gold
-            transition-all
-          `}
+                        px-3 py-1.5 rounded-full text-[9px] uppercase tracking-[0.18em]
+                        text-brand-cream/70
+                        disabled:opacity-30 disabled:cursor-not-allowed
+                        hover:text-brand-gold
+                        transition-colors
+                    `}
                 >
                     Next
                 </button>
+
             </div>
         </div>
     );

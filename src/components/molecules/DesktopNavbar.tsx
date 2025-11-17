@@ -11,15 +11,15 @@ import NavLinkItem from "@/components/atoms/NavLinkItem";
 export default function DesktopNavbar() {
   const pathname = usePathname();
 
-  // index berdasarkan route aktif
+  // index active route
   const activeIndex = navItems.findIndex((i) =>
     i.href === "/" ? pathname === "/" : pathname?.startsWith(i.href)
   );
 
-  // index untuk hover
+  // index hover
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  // index yang dipakai pill (hover kalau ada, else active)
+  // index dipakai pill (hover > active)
   const effectiveIndex = hoveredIndex ?? activeIndex;
 
   const prevEffectiveIndexRef = useRef(effectiveIndex);
@@ -39,22 +39,42 @@ export default function DesktopNavbar() {
   return (
     <LayoutGroup>
       <motion.nav
-        className="hidden md:flex relative bg-brand-green/98 text-sm tracking-[0.12em] px-8 lg:px-10 py-4 rounded-full shadow-pill items-center gap-4 lg:gap-0 pointer-events-auto border border-brand-gold/14 backdrop-blur-md"
+        className="
+          hidden md:flex relative bg-brand-green/98
+          text-sm tracking-[0.12em]
+          px-8 lg:px-10 py-4
+          items-center gap-0
+          pointer-events-auto
+          border border-brand-gold/14 backdrop-blur-md
+        "
         initial={{ opacity: 0, y: -6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35 }}
       >
-        {/* Logo */}
-        <NavLogo className="mr-4" heightClass="h-32 -my-40" />
-
         {navItems.map((item, index) => {
+          const isLogo = item.label === "LOGO";
+
           const isCurrent =
-            item.href === "/"
-              ? pathname === "/"
-              : pathname?.startsWith(item.href);
+            item.href === "/" ? pathname === "/" : pathname?.startsWith(item.href);
 
           const isHighlighted = index === effectiveIndex;
 
+          // 🟡 LOGO item
+          if (isLogo) {
+            return (
+              <div
+                key="center-logo"
+                className="px-3 mx-4 flex items-center justify-center"
+              >
+                <NavLogo
+                  heightClass="h-36 -my-40"
+                  className="select-none pointer-events-auto"
+                />
+              </div>
+            );
+          }
+
+          // 🟢 Normal navigation item
           return (
             <NavLinkItem
               key={item.href}

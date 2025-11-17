@@ -28,7 +28,7 @@ export default function ButtonGold({
     onClick,
 }: ButtonGoldProps) {
     const baseClass = `
-    text-center rounded-pill bg-brand-gold px-8 py-2
+    text-center  bg-brand-gold px-8 py-2
     text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.22em]
     text-black transition-all duration-300 border border-transparent
     hover:bg-brand-gold/10 hover:text-brand-gold hover:backdrop-blur-[3px]

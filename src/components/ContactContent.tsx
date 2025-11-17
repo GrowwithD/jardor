@@ -45,7 +45,7 @@ export default function ContactContent() {
                 <div
                     className="
             space-y-7
-            text-[12px] md:text-[13px]
+            text-base
             text-brand-cream/82
             leading-relaxed
           "
@@ -54,7 +54,7 @@ export default function ContactContent() {
                     data-aos-easing="ease-out-cubic"
                     data-aos-once="true"
                 >
-                    <h3 className="font-optima text-[18px] md:text-[20px] tracking-[0.14em] text-brand-gold uppercase">
+                    <h3 className="font-optima text-base tracking-[0.14em] text-brand-gold uppercase">
                         Reach Our Team
                     </h3>
 
@@ -126,12 +126,11 @@ export default function ContactContent() {
                 <form
                     onSubmit={handleSubmit}
                     className="
-            bg-black/30
+
             border border-brand-gold/40
-            rounded-2xl
+
             p-8
             backdrop-blur-sm
-            shadow-[0_0_55px_rgba(0,0,0,0.75)]
             space-y-5
             ring-1 ring-brand-gold/10
             hover:ring-brand-gold/25
@@ -157,9 +156,9 @@ export default function ContactContent() {
                             name="name"
                             placeholder="Your Name*"
                             className="
-                bg-black/60
+
                 border border-brand-gold/40
-                rounded-xl
+
                 px-3 py-2.5
                 text-[12px]
                 text-brand-cream
@@ -177,9 +176,9 @@ export default function ContactContent() {
                             type="email"
                             placeholder="Your Email*"
                             className="
-                bg-black/60
+
                 border border-brand-gold/40
-                rounded-xl
+
                 px-3 py-2.5
                 text-[12px]
                 text-brand-cream
@@ -198,9 +197,9 @@ export default function ContactContent() {
                         placeholder="Subject (optional)"
                         className="
               w-full
-              bg-black/60
+
               border border-brand-gold/40
-              rounded-xl
+
               px-3 py-2.5
               text-[12px]
               text-brand-cream
@@ -220,9 +219,9 @@ export default function ContactContent() {
                         placeholder="Your Message* — inquiry, feedback, or request."
                         className="
               w-full
-              bg-black/60
+
               border border-brand-gold/40
-              rounded-2xl
+
               px-3 py-2.5
               text-[12px]
               text-brand-cream

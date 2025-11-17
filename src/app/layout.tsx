@@ -111,7 +111,7 @@ export default function RootLayout({
         <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
             <body
                 suppressHydrationWarning
-                className="min-h-screen bg-brand-green text-brand-cream flex flex-col font-optima"
+                className="min-h-screen bg-brand-green text-brand-cream flex flex-col font-optima text-md"
             >
                 {/* JSON-LD global */}
                 <script
@@ -121,6 +121,21 @@ export default function RootLayout({
                 />
                 <Navbar />
                 <main className="flex-1">{children}</main>
+
+
+ <div
+            className="
+                w-full
+                h-24
+                bg-brand-green
+                bg-[url('/images/batik3.png')]
+                bg-repeat
+                bg-center
+                opacity-60
+                  bg-[length:420px_auto]
+            "
+        />
+
                 <Footer />
             </body>
         </html>

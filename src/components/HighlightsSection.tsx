@@ -85,7 +85,7 @@ export default function HighlightsSection() {
             className="relative overflow-hidden bg-black text-brand-cream"
         >
             {/* Parallax Background */}
-            <div className="pointer-events-none absolute inset-0">
+            <div className="pointer-events-none absolute inset-0 -top-10">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={`${active.id}-${heroIndex}`}
@@ -127,7 +127,7 @@ export default function HighlightsSection() {
                 </div>
 
                 {/* Tabs */}
-                <div className="flex flex-wrap items-center justify-center gap-4 border-y border-brand-gold/16 py-3 bg-black/40 backdrop-blur-sm rounded">
+                <div className="flex flex-wrap items-center justify-center gap-4 border-y border-brand-gold/16 py-3 bg-black/40 backdrop-blur-sm">
                     {highlightsData.map((h) => {
                         const isActive = h.id === activeId;
                         return (
@@ -138,13 +138,13 @@ export default function HighlightsSection() {
                                     "relative px-3 md:px-4 py-1 flex flex-col items-center gap-0.5 transition-colors",
                                     isActive
                                         ? "text-brand-gold"
-                                        : "text-brand-cream/60 hover:text-brand-gold/80",
+                                        : "text-brand-cream/70 hover:text-brand-gold/80",
                                 ].join(" ")}
                             >
-                                <span className="text-[7px] uppercase tracking-[0.22em]">
+                                <span className="text-[10px] uppercase tracking-[0.22em]">
                                     {h.tagline}
                                 </span>
-                                <span className="text-[10px] md:text-xs uppercase tracking-[0.16em]">
+                                <span className="text-xs md:text-sm uppercase tracking-[0.16em]">
                                     {h.label}
                                 </span>
                                 {isActive && (
@@ -172,30 +172,27 @@ export default function HighlightsSection() {
                         {/* Title row */}
                         <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
                             <div className="space-y-1 text-left">
-                                <p className="text-[7px] uppercase tracking-[0.26em] text-brand-gold/90">
+                                <p className="text-xs uppercase tracking-[0.26em] text-brand-gold/90">
                                     {active.tagline}
                                 </p>
                                 <h3 className="text-lg md:text-xl text-brand-cream tracking-[0.14em] uppercase">
                                     {active.label}
                                 </h3>
-                                <p className="max-w-md text-[8px] md:text-[9px] text-brand-cream/78 leading-relaxed">
+                                <p className="max-w-md text-xs md:text-xs-line text-brand-cream/80 leading-relaxed">
                                     {active.subtitle}
                                 </p>
                             </div>
-                            <div className="text-[7px] md:text-[8px] uppercase tracking-[0.18em] text-brand-gold/70">
-                                Scroll &amp; hover the selections
-                            </div>
+
                         </div>
 
                         {/* Hero card */}
                         <motion.div
                             className="
-                                group relative overflow-hidden rounded
-                                border border-brand-gold/32
-                                bg-black/40 backdrop-blur-2xl
-                                cursor-pointer
-                            "
-
+                group relative overflow-hidden rounded
+                border border-brand-gold/32
+                bg-black/40 backdrop-blur-2xl
+                cursor-pointer
+              "
                             transition={{ type: "spring", stiffness: 220, damping: 24 }}
                             onClick={() =>
                                 setActiveItem({
@@ -209,27 +206,27 @@ export default function HighlightsSection() {
                                     src={hero.image}
                                     alt={hero.title}
                                     fill
-                                    className="object-cover opacity-80 transition-opacity duration-500 group-hover:opacity-100"
+                                    className="object-cover opacity-80 transition-opacity duration-4000 group-hover:opacity-100"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/45 to-black/10" />
                             </div>
-                            <div className="absolute inset-0 pointer-events-none rounded border border-transparent group-hover:border-brand-gold/26 transition-colors duration-300" />
+                            <div className="absolute inset-0 pointer-events-none border border-transparent group-hover:border-brand-gold/26 transition-colors duration-300" />
                             <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 px-4 pb-3 md:px-6 md:pb-4">
                                 <div className="space-y-1">
-                                    <p className="text-[7px] uppercase tracking-[0.22em] text-brand-gold/90">
+                                    <p className="text-xs uppercase tracking-[0.22em] text-brand-gold/90">
                                         Signature Highlight
                                     </p>
                                     <h4 className="text-base md:text-lg text-brand-cream leading-snug">
                                         {hero.title}
                                     </h4>
                                     {hero.meta && (
-                                        <p className="text-[7px] text-brand-gold/78 uppercase tracking-[0.18em]">
+                                        <p className="text-xs text-brand-gold/78 uppercase tracking-[0.18em]">
                                             {hero.meta}
                                         </p>
                                     )}
                                 </div>
                                 <div className="flex flex-col items-end gap-1">
-                                    <p className="text-[7px] text-brand-gold/75 uppercase tracking-[0.2em]">
+                                    <p className="text-xs text-brand-gold/75 uppercase tracking-[0.2em]">
                                         Tap for details
                                     </p>
                                     <span className="h-[1px] w-8 bg-brand-gold/80" />
@@ -239,7 +236,7 @@ export default function HighlightsSection() {
 
                         {/* Thumbnails */}
                         <div className="space-y-2">
-                            <p className="text-[7px] md:text-[8px] uppercase tracking-[0.22em] text-brand-gold/76">
+                            <p className="text-xs md:text-sm uppercase tracking-[0.22em] text-brand-gold/80">
                                 {active.label} — Visual Selections
                             </p>
                             <div className="flex gap-3 md:gap-4 overflow-x-auto no-scrollbar pb-1">
@@ -247,13 +244,13 @@ export default function HighlightsSection() {
                                     <motion.button
                                         key={`${active.id}-${index}-${item.title}`}
                                         className="
-                                            group relative shrink-0
-                                            w-[64%] xs:w-[48%] sm:w-[34%] md:w-[24%] lg:w-[20%]
-                                            overflow-hidden rounded
-                                            border border-brand-gold/16
-                                            bg-black/70 backdrop-blur-xl
-                                            text-left
-                                        "
+                      group relative shrink-0
+                      w-[64%] xs:w-[48%] sm:w-[34%] md:w-[24%] lg:w-[20%]
+                      overflow-hidden
+                      border border-brand-gold/16
+                      bg-black/70 backdrop-blur-xl
+                      text-left
+                    "
                                         variants={thumbMotion}
                                         initial="rest"
                                         whileHover="hover"
@@ -271,15 +268,15 @@ export default function HighlightsSection() {
                                                 src={item.image}
                                                 alt={item.title}
                                                 fill
-                                                className="object-cover transition-transform duration-[1400ms] group-hover:scale-110"
+                                                className="object-cover transition-transform duration-4000 group-hover:scale-110"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/96 via-black/45 to-transparent" />
                                             <div className="absolute bottom-2 left-2 right-2 space-y-0.5">
-                                                <p className="text-[7px] uppercase tracking-[0.22em] text-brand-gold/95 line-clamp-1">
+                                                <p className="text-xs uppercase tracking-[0.22em] text-brand-gold/95 line-clamp-1">
                                                     {item.title}
                                                 </p>
                                                 {item.meta && (
-                                                    <p className="text-[7px] text-brand-cream/78 line-clamp-1">
+                                                    <p className="text-xs text-brand-cream/85 line-clamp-1">
                                                         {item.meta}
                                                     </p>
                                                 )}
@@ -305,33 +302,34 @@ export default function HighlightsSection() {
                     >
                         <motion.div
                             className="
-                                relative w-full max-w-4xl
-                                grid grid-cols-1 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1.6fr)]
-                                overflow-hidden rounded-3xl
-                                border border-brand-gold/45
-                                bg-gradient-to-br from-black/98 via-[#0b0f0c] to-brand-green/24
-                                shadow-[0_32px_150px_rgba(0,0,0,1)]
-                            "
+                relative w-full max-w-4xl
+                grid grid-cols-1 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1.6fr)]
+                overflow-hidden
+                border border-brand-gold/45
+                bg-gradient-to-br from-black/98 via-[#0b0f0c] to-brand-green/24
+                shadow-[0_32px_150px_rgba(0,0,0,1)]
+              "
                             initial={{ scale: 0.94, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.9, opacity: 0 }}
-                            transition={{ duration: 0.22, ease: "easeOut" }}
+                            exit={{ scale: 1, opacity: 0 }}
+                            transition={{ duration: 1, ease: "easeOut" }}
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button
                                 onClick={() => setActiveItem(null)}
                                 className="
-                                    absolute right-3 top-3 z-20
-                                    flex h-8 w-8 items-center justify-center
-                                    rounded-full border border-brand-gold/60
-                                    bg-black/80 text-brand-gold text-xs
-                                    hover:bg-brand-gold hover:text-black
-                                    transition-all
-                                "
+                  absolute right-3 top-3 z-20
+                  flex h-8 w-8 items-center justify-center
+                  rounded-full border border-brand-gold/60
+                  bg-black/80 text-brand-gold text-xs
+                  hover:bg-brand-gold hover:text-black
+                  transition-all
+                "
                             >
                                 ×
                             </button>
 
+                            {/* Modal left: image */}
                             <div className="relative h-56 md:h-auto md:min-h-[260px]">
                                 <Image
                                     src={activeItem.image}
@@ -341,36 +339,37 @@ export default function HighlightsSection() {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/45 to-transparent" />
                                 <div className="absolute bottom-4 left-4 right-4 md:hidden">
-                                    <p className="text-[8px] uppercase tracking-[0.26em] text-brand-gold/90">
+                                    <p className="mb-1 text-xs uppercase tracking-[0.26em] text-brand-gold/90">
                                         {activeItem.highlight}
                                     </p>
-                                    <h4 className="text-xl text-brand-cream">
+                                    <h4 className="text-xl text-brand-cream leading-snug">
                                         {activeItem.title}
                                     </h4>
                                     {activeItem.meta && (
-                                        <p className="mt-1 text-[7px] text-brand-gold/80">
+                                        <p className="mt-1 text-xs text-brand-gold/80">
                                             {activeItem.meta}
                                         </p>
                                     )}
                                 </div>
                             </div>
 
+                            {/* Modal right: text */}
                             <div className="flex flex-col gap-3 md:gap-4 p-5 md:p-7">
                                 <div className="hidden md:block">
-                                    <p className="mb-1 text-[8px] uppercase tracking-[0.26em] text-brand-gold/90">
+                                    <p className="mb-1 text-xs uppercase tracking-[0.26em] text-brand-gold/90">
                                         {activeItem.highlight}
                                     </p>
                                     <h4 className="text-2xl md:text-3xl text-brand-cream leading-snug">
                                         {activeItem.title}
                                     </h4>
                                     {activeItem.meta && (
-                                        <p className="mt-1 text-[8px] uppercase tracking-[0.2em] text-brand-gold/82">
+                                        <p className="mt-1 text-xs uppercase tracking-[0.2em] text-brand-gold/82">
                                             {activeItem.meta}
                                         </p>
                                     )}
                                 </div>
 
-                                <div className="mt-1 space-y-2 text-[9px] md:text-sm text-brand-cream/94 leading-relaxed">
+                                <div className="mt-1 space-y-2 text-sm md:text-base text-brand-cream/94 leading-relaxed">
                                     {activeItem.description
                                         .split(/\n{2,}/)
                                         .map((block, idx) => (
@@ -382,14 +381,14 @@ export default function HighlightsSection() {
                                     <button
                                         onClick={() => setActiveItem(null)}
                                         className="
-                                            rounded-full border border-brand-gold/55
-                                            px-4 py-1.5
-                                            text-[8px] md:text-[9px]
-                                            uppercase tracking-[0.22em]
-                                            text-brand-gold
-                                            hover:bg-brand-gold/12
-                                            transition-all
-                                        "
+                      rounded-full border border-brand-gold/55
+                      px-4 py-1.5
+                      text-xs md:text-sm
+                      uppercase tracking-[0.22em]
+                      text-brand-gold
+                      hover:bg-brand-gold/12
+                      transition-all
+                    "
                                     >
                                         Close
                                     </button>
