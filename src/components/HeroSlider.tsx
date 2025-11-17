@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ButtonGold from "@/components/atoms/ButtonGold";
+import ButtonOutlineGold from "@/components/atoms/ButtonOutlineGold";
+
 
 const heroImages = [
     "/images/slide1.jpg",
@@ -27,7 +30,7 @@ export default function HeroSlider() {
     }, []);
 
     return (
-        <section className="relative h-[520px] md:h-[640px] w-full overflow-hidden">
+        <section className="relative h-[520px] md:h-screen w-full overflow-hidden">
             {/* Slides */}
             <AnimatePresence>
                 {heroImages.map(
@@ -59,12 +62,12 @@ export default function HeroSlider() {
             {/* Overlays */}
             <div className="absolute inset-0 bg-linear-to-b from-black/85 via-black/40 to-brand-green/95" />
             <div className="pointer-events-none absolute inset-0">
-                <div className="absolute inset-x-0 top-10 h-40 bg-[radial-gradient(circle_at_center,rgba(200,169,107,0.25),transparent)]" />
+
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,transparent,rgba(0,0,0,0.55))]" />
             </div>
 
             {/* Content */}
-            <div className="relative z-10 flex h-full items-center">
+            <div className="relative z-10 flex h-full items-center pt-28">
                 <motion.div
                     key={heroIndex}
                     initial="hidden"
@@ -75,7 +78,7 @@ export default function HeroSlider() {
                             transition: { staggerChildren: 0.15 },
                         },
                     }}
-                    className="mx-auto flex max-w-4xl flex-col items-center text-center gap-3 px-4"
+                    className="mx-auto flex max-w-xl flex-col items-center text-center gap-3 px-4"
                 >
                     <motion.p
                         variants={{
@@ -83,9 +86,9 @@ export default function HeroSlider() {
                             visible: { opacity: 1, y: 0 },
                         }}
                         transition={{ duration: 0.6 }}
-                        className="text-[9px] md:text-[10px] uppercase tracking-[0.26em] text-brand-gold/80"
+                        className="text-eyebrow"
                     >
-                        Fine Dining &amp; Wine Experience
+                        A Night of French Festivities
                     </motion.p>
 
                     <motion.h1
@@ -94,42 +97,21 @@ export default function HeroSlider() {
                             visible: { opacity: 1, y: 0, scale: 1 },
                         }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="font-serif text-5xl md:text-6xl lg:text-7xl tracking-[0.18em] text-brand-cream drop-shadow-[0_3px_8px_rgba(0,0,0,0.6)]"
+                        className="heading-hero"
                     >
-                        <Image
-                            src="/images/logo.png"
-                            alt="Jard’or — Logo"
-                            width={88}
-                            height={24}
-                            priority
-                            className="h-56 -my-20 w-auto object-contain"
-                        />
+                        Christmas Eve Dinner
                     </motion.h1>
 
-                    {/* <motion.p
+                    <motion.p
                         variants={{
                             hidden: { opacity: 0, y: 15 },
                             visible: { opacity: 1, y: 0 },
                         }}
                         transition={{ duration: 0.6 }}
-                        className="font-serif text-xs md:text-sm tracking-[0.25em] uppercase text-brand-gold"
+                        className="text-subtitle"
                     >
-                        Un Voyage de Goût
-                    </motion.p> */}
-
-                    <motion.div
-                        variants={{
-                            hidden: { opacity: 0, y: 25 },
-                            visible: { opacity: 1, y: 0 },
-                        }}
-                        transition={{ duration: 0.8 }}
-                        className="mt-3 text-[10px] md:text-xs text-brand-cream/85 space-y-1"
-                    >
-                        <p>Open Daily • 11.00 AM – 11.00 PM</p>
-                        <p className="text-brand-cream/60">
-                            Nusa Dua – Bali, where cuisine, wine, and ambiance intertwine.
-                        </p>
-                    </motion.div>
+                        Celebrate Christmas Eve with a curated 5-course French degustation, crafted to warm the heart and elevate the holiday spirit.
+                    </motion.p>
 
                     {/* CTAs */}
                     <motion.div
@@ -140,18 +122,8 @@ export default function HeroSlider() {
                         transition={{ duration: 0.8, delay: 0.4 }}
                         className="mt-6 flex flex-wrap items-center justify-center gap-3"
                     >
-                        <Link
-                            href="/reservation"
-                            className="rounded-pill bg-brand-gold px-8 py-2 text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.22em] text-black transition-all duration-300 hover:bg-brand-gold/90 hover:shadow-[0_0_22px_rgba(200,169,107,0.55)] hover:scale-[1.03]"
-                        >
-                            Booking Now
-                        </Link>
-                        <Link
-                            href="/menus"
-                            className="rounded-pill border border-brand-gold/70 px-6 py-2 text-[8px] md:text-[9px] uppercase tracking-[0.22em] text-brand-gold bg-black/25 backdrop-blur-[3px] transition-all duration-300 hover:bg-brand-gold/10 hover:text-brand-cream hover:scale-[1.03]"
-                        >
-                            View Our Menus
-                        </Link>
+                        <ButtonGold href="/reservation">Booking Now</ButtonGold>
+                        <ButtonOutlineGold href="/menus">View Our Menus</ButtonOutlineGold>
                     </motion.div>
 
                     {/* Dots */}

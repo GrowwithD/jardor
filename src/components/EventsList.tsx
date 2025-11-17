@@ -135,8 +135,8 @@ function EventSection({
                     />
                     <span
                         className={`h-px flex-1 ${isGold
-                                ? "bg-linear-to-r from-brand-gold/40 to-transparent"
-                                : "bg-linear-to-r from-brand-cream/16 to-transparent"
+                            ? "bg-linear-to-r from-brand-gold/40 to-transparent"
+                            : "bg-linear-to-r from-brand-cream/16 to-transparent"
                             }`}
                     />
                 </div>
@@ -238,7 +238,27 @@ function EventSection({
 
 export default function EventsList() {
     return (
-        <section className="relative bg-linear-to-b from-[#0B1C13] via-[#050806] to-[#020303] py-16">
+        <section className="relative bg-gradient-to-b from-[#0D0F11] via-[#0A0C0E] to-black py-16">
+
+            <div className="absolute inset-0">
+                <div
+                    className="
+                            absolute inset-0
+                            [transform:scaleX(-1)]
+                        "
+                >
+                    <div
+                        className="
+                                absolute inset-0
+                                bg-[url('/images/batik1.png')]
+                                bg-repeat
+                                bg-[length:420px_auto]  /* ukuran tile biar rapih */
+                                opacity-5
+                            "
+                    />
+                </div>
+            </div>
+
             <div className="relative z-10 max-w-6xl mx-auto px-5 space-y-14">
                 <EventSection
                     title="Upcoming Experiences"

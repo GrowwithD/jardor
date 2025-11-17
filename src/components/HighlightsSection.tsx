@@ -441,29 +441,26 @@ export default function HighlightsSection() {
             <div className="mx-auto max-w-6xl px-4">
                 {/* Header */}
                 <div className="text-center mb-16 space-y-4" data-aos="fade-up">
-                    <div className="inline-flex items-center gap-2 rounded-full border border-brand-gold/30 px-4 py-1.5 bg-black/20 backdrop-blur-sm">
-                        <span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />
-                        <span className="text-[8px] uppercase tracking-[0.28em] text-brand-gold/90">
-                            Jard&apos;or Selection
+
+                    {/* Eyebrow pill */}
+                    <div className="section-eyebrow-pill">
+                        <span className="section-eyebrow-dot" />
+                        <span className="text-eyebrow">
+                            Jard’or Selection
                         </span>
                     </div>
 
-                    <h2 className="font-serif text-3xl md:text-4xl text-brand-cream tracking-[0.12em]">
-                        A Curated Glimpse of Jard&apos;or
+                    {/* Section Title */}
+                    <h2 className="section-title">
+                        A Curated Glimpse of Jard’or
                     </h2>
 
-                    <div className="flex justify-center">
-                        <motion.span
-                            className="block h-px bg-brand-gold/70"
-                            initial={{ width: 0 }}
-                            animate={{ width: 82 }}
-                            transition={{ duration: 1, ease: "easeInOut" }}
-                        />
-                    </div>
 
-                    <p className="text-[10px] md:text-xs text-brand-cream/78 max-w-2xl mx-auto leading-relaxed">
-                        A refined showcase of our signature experiences - composed dishes,
-                        spaces, and moments that define Jard&apos;or.
+
+                    {/* Section Subtitle */}
+                    <p className="section-subtitle max-w-2xl mx-auto">
+                        A refined showcase of our signature experiences – composed dishes,
+                        spaces, and moments that define Jard’or.
                     </p>
                 </div>
 

@@ -7,79 +7,63 @@ export default function CtaSection() {
     return (
         <section className="relative isolate overflow-hidden py-24 bg-brand-green">
             {/* ===== BACKGROUND LAYERS ===== */}
-            <div className="absolute inset-0">
-                {/* Base brand green */}
-                <div className="absolute inset-0 bg-brand-green" />
-
-                {/* Batik PNG repeated (memenuhi full area) */}
-                <div className="absolute inset-0">
-                    <div
-                        className="
-                            absolute inset-0
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-2xl">
+                <div
+                    className="absolute inset-0
                             [transform:scaleX(-1)]
                         "
-                    >
-                        <div
-                            className="
+                >
+                    <div
+                        className="
                                 absolute inset-0
                                 bg-[url('/images/batik1.png')]
                                 bg-repeat
-                                bg-[length:2200px_auto]  /* ukuran tile biar rapih */
-                                opacity-25
+                                bg-[length:420px_auto]  /* ukuran tile biar rapih */
+                                opacity-5
                             "
-                        />
-                    </div>
+                    />
                 </div>
-
-                {/* Tint hijau supaya pattern tidak terlalu kontras */}
-                <div className="absolute inset-0 bg-brand-green/80 mix-blend-multiply" />
-
-                {/* Vignette untuk fokus tengah */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/70" />
             </div>
 
             {/* ===== TOP GOLD LINE ===== */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[220px] h-px bg-linear-to-r from-transparent via-brand-gold/50 to-transparent" />
 
-            {/* ===== GOLD AURA ===== */}
-            <div className="pointer-events-none absolute inset-0">
-                <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-[radial-gradient(circle,rgba(200,169,107,0.2),transparent_70%)] blur-3xl opacity-70" />
-            </div>
+
 
             {/* ===== CONTENT ===== */}
             <div className="relative mx-auto max-w-4xl px-5 text-center space-y-6">
-                {/* Badge */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    viewport={{ once: true }}
-                    className="inline-flex items-center gap-2 rounded-pill border border-brand-gold/30 px-4 py-1.5 bg-black/25 backdrop-blur-sm"
+
+                <motion.p
+                    variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: { opacity: 1, y: 0 },
+                    }}
+                    transition={{ duration: 0.6 }}
+                    className="text-[9px] md:text-[10px] uppercase tracking-[0.26em] text-brand-gold/80"
                 >
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />
-                    <span className="text-[8px] md:text-[9px] uppercase tracking-[0.26em] text-brand-gold/85">
-                        Reserve Your Evening
-                    </span>
-                </motion.div>
+                    Reserve Your Evening
+                </motion.p>
 
                 {/* Title */}
                 <motion.h2
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-                    viewport={{ once: true }}
-                    className="font-serif text-2xl md:text-3xl text-brand-cream tracking-[0.08em]"
+                    variants={{
+                        hidden: { opacity: 0, y: 30, scale: 0.98 },
+                        visible: { opacity: 1, y: 0, scale: 1 },
+                    }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="text-5xl md:text-5xl font-thin lg:text-[52px] text-brand-cream "
                 >
                     A Voyage of Taste at Jard’or
                 </motion.h2>
 
                 {/* Description */}
                 <motion.p
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
-                    viewport={{ once: true }}
-                    className="text-[10px] md:text-sm text-brand-cream/78 leading-relaxed max-w-2xl mx-auto"
+                    variants={{
+                        hidden: { opacity: 0, y: 15 },
+                        visible: { opacity: 1, y: 0 },
+                    }}
+                    transition={{ duration: 0.6 }}
+                    className="text-base font-extralight md:text-md text-brand-gold "
                 >
                     Immerse yourself in an intimate dining experience where curated seasonal menus,
                     crafted cocktails, and a thoughtfully assembled cellar come together beneath
@@ -96,17 +80,15 @@ export default function CtaSection() {
                     whileTap={{ scale: 0.97 }}
                     className="pt-3 flex justify-center"
                 >
+
+
                     <Link
                         href="/reservation"
-                        className="relative inline-flex items-center justify-center rounded-full px-9 py-2.5 text-[9px] md:text-[10px] uppercase tracking-[0.24em] font-semibold bg-[linear-gradient(120deg,rgba(200,169,107,0.2),rgba(200,169,107,0.95),rgba(200,169,107,0.3))] text-black border border-brand-gold/70 shadow-[0_0_26px_rgba(200,169,107,0.45)] transition-all duration-500 hover:shadow-[0_0_40px_rgba(200,169,107,0.9)]"
+                        className="rounded-pill bg-brand-gold px-8 py-2 text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.22em] text-black transition-all duration-300 hover:bg-brand-gold/10 hover:text-brand-gold hover:backdrop-blur-[3px] hover:border-brand-gold/70 border border-transparent"
                     >
-                        Reservation Now
-                        <motion.span
-                            className="absolute inset-0 rounded-full bg-linear-to-r from-transparent via-white/30 to-transparent opacity-0"
-                            whileHover={{ opacity: [0, 1, 0], x: ["-120%", "0%", "120%"] }}
-                            transition={{ duration: 1.4 }}
-                        />
+                        Booking Now
                     </Link>
+
                 </motion.div>
 
                 {/* Note */}

@@ -78,12 +78,21 @@ export default function Navbar() {
             {/* DESKTOP (unchanged) */}
             <LayoutGroup>
                 <motion.nav
-                    className="hidden md:flex relative bg-brand-green/98 text-[10px] tracking-[0.12em] px-8 lg:px-10 py-4 rounded-full shadow-pill items-center gap-4 lg:gap-6 pointer-events-auto border border-brand-gold/14 backdrop-blur-md"
+                    className="hidden md:flex relative bg-brand-green/98 text-sm tracking-[0.12em] px-8 lg:px-10 py-4 rounded-full shadow-pill items-center gap-4 lg:gap-0 pointer-events-auto border border-brand-gold/14 backdrop-blur-md"
                     initial={{ opacity: 0, y: -6 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.35 }}
                 >
 
+
+                    <Image
+                        src="/images/logo.png"
+                        alt="Jard’or — Logo"
+                        width={88}
+                        height={24}
+                        priority
+                        className="h-32 -my-40 w-auto object-contain mr-4"
+                    />
 
 
                     {navItems.map((item) => {
@@ -103,25 +112,21 @@ export default function Navbar() {
                                             opacity: 1,
                                             scale: 1,
                                             x: 0,
-                                            boxShadow: [
-                                                "0 0 10px rgba(200,169,107,0.18)",
-                                                "0 0 22px rgba(200,169,107,0.55)",
-                                                "0 0 14px rgba(200,169,107,0.26)",
-                                            ],
+
                                         }}
                                         transition={{
                                             x: { type: "spring", stiffness: 420, damping: 32, mass: 0.6 },
                                             opacity: { duration: 0.18 },
                                             scale: { duration: 0.24 },
-                                            boxShadow: { duration: 0.8 },
+
                                         }}
-                                        className="absolute inset-0 rounded-full bg-black/86 border border-brand-gold/70"
+                                        className="absolute inset-0 rounded-full  border border-brand-gold/70"
                                     />
                                 )}
                                 <Link
                                     href={item.href}
                                     className={`
-                    relative px-4 py-2 rounded-full font-sans
+                    relative px-4 py-1.5 rounded-full
                     transition-all duration-260
                     ${isActive
                                             ? "text-brand-gold tracking-[0.18em]"
@@ -133,20 +138,7 @@ export default function Navbar() {
                                         {item.label}
                                     </span>
 
-                                    {isActive && (
-                                        <motion.span
-                                            className="
-                        absolute left-1/2 -bottom-[3px]
-                        w-2 h-2
-                        bg-brand-gold rounded-full
-                        -translate-x-1/2
-                      "
-                                            initial={{ opacity: 0, scale: 0.4, y: 3 }}
-                                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                                            exit={{ opacity: 0, scale: 0.4, y: 3 }}
-                                            transition={{ duration: 0.22 }}
-                                        />
-                                    )}
+
                                 </Link>
                             </div>
                         );

@@ -9,6 +9,56 @@
     display: none;
 }
 
+/* ===================== OPTIMA FONT ===================== */
+
+/* Regular */
+@font-face {
+    font-family: "Optima";
+    src: url("/fonts/optima/OPTIMA.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Medium */
+@font-face {
+    font-family: "Optima";
+    src: url("/fonts/optima/Optima%20Medium.woff") format("woff");
+    /* kalau file-nya kamu rename jadi "Optima-Medium.woff",
+       ganti url-nya ke /fonts/optima/Optima-Medium.woff */
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Bold */
+@font-face {
+    font-family: "Optima";
+    src: url("/fonts/optima/OPTIMA_B.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Italic */
+@font-face {
+    font-family: "Optima";
+    src: url("/fonts/optima/Optima_Italic.woff") format("woff");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Utility class supaya bisa dipakai di mana saja: className="font-optima" */
+@layer utilities {
+    .font-optima {
+        font-family: "Optima", system-ui, -apple-system, BlinkMacSystemFont,
+            "Segoe UI", sans-serif;
+    }
+}
+
+/* ===================== THEME TOKENS (TAILWIND V4) ===================== */
+
 @theme {
     /* === BRAND COLORS === */
     --color-brand-bg: #111111;
@@ -16,7 +66,12 @@
     --color-brand-green-soft: #164636;
     --color-brand-gold: #c8b482;
     --color-brand-cream: #c8b482;
-    --color-fg: #0C392D;
+    --color-fg: #0c392d;
+
+    /* Optional: mapping ke font bawaan Tailwind */
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    --font-serif: "Optima", "Times New Roman", serif;
 
     /* === TYPOGRAPHY SCALE === */
     --text-xs: 9px;
@@ -25,7 +80,7 @@
     --text-sm-line: 16px;
     --text-base: 11px;
     --text-base-line: 18px;
-    --text-md: 13px;
+    --text-md: 14px;
     --text-md-line: 20px;
     --text-lg: 16px;
     --text-lg-line: 24px;
@@ -53,7 +108,51 @@
     --tracking-normal: 0.05em;
 
     /* === BACKDROP GRADIENTS === */
-    --gradient-bg: linear-gradient(to bottom, #0B1C13, #050806, #020303);
-    --gradient-card: linear-gradient(to bottom, rgba(0, 0, 0, 0.94), rgba(5, 8, 6, 0.98), rgba(0, 0, 0, 0.98));
-    --gradient-overlay: linear-gradient(to top, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.35), transparent);
+    --gradient-bg: linear-gradient(to bottom, #0b1c13, #050806, #020303);
+    --gradient-card: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.94),
+            rgba(5, 8, 6, 0.98),
+            rgba(0, 0, 0, 0.98));
+    --gradient-overlay: linear-gradient(to top,
+            rgba(0, 0, 0, 0.88),
+            rgba(0, 0, 0, 0.35),
+            transparent);
+}
+
+@layer utilities {
+
+    /* === EYEBROW TEXT (SMALL UPPERCASE BRAND STYLE) === */
+    .text-eyebrow {
+        @apply text-[9px] md:text-[10px] uppercase tracking-[0.26em] text-brand-gold/80;
+    }
+
+    /* === HERO HEADING (BIG TITLE) === */
+    .heading-hero {
+        @apply text-brand-cream font-thin text-5xl md:text-5xl lg:text-[52px] leading-tight;
+    }
+
+    /* === SUBTITLE TEXT (LIGHT PARAGRAPH) === */
+    .text-subtitle {
+        @apply font-extralight text-brand-gold md:text-md leading-relaxed;
+    }
+
+    .eyebrow {
+        @apply uppercase tracking-[0.26em] text-[9px] md:text-[10px] text-brand-gold/80;
+    }
+
+    .hero-title {
+        @apply font-thin text-brand-cream text-5xl md:text-5xl lg:text-[52px];
+    }
+
+    .hero-subtitle {
+        @apply font-extralight md:text-md text-brand-gold;
+    }
+
+    .section-title {
+        @apply font-light text-brand-cream text-3xl md:text-2xl lg:text-[36px] tracking-[0.16em];
+    }
+
+    .section-subtitle {
+        @apply mt-3 text-sm md:text-base text-brand-gold/80;
+    }
 }

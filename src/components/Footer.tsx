@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const primaryLinks = [
     { label: "Home", href: "/" },
@@ -39,9 +40,9 @@ export default function Footer() {
     return (
         <footer className="relative text-[9px] md:text-[10px] text-brand-cream/75">
             {/* Background */}
-            <div className="absolute inset-0 bg-brand-green" />
-            <div className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 w-[360px] h-[360px] bg-[radial-gradient(circle,rgba(200,169,107,0.10),transparent_70%)] opacity-70" />
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(0,0,0,0.32),transparent_70%)]" />
+
+
+
 
             {/* Main bar */}
             <motion.div
@@ -53,18 +54,17 @@ export default function Footer() {
             >
                 {/* Left */}
                 <div className="flex flex-col gap-3 max-w-md">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-gold/25 bg-black/10 backdrop-blur-sm">
-                        <span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />
-                        <span className="font-serif text-[9px] tracking-[0.26em] uppercase text-brand-gold/90">
-                            Jard&apos;or
-                        </span>
-                        <span className="hidden sm:inline text-[7px] tracking-[0.18em] uppercase text-brand-cream/55">
-                            Nusa Dua — Bali
-                        </span>
+                    <div className="">
+                        <Image
+                            src="/images/logo.png"
+                            alt="Jard’or — Logo"
+                            width={88}
+                            height={24}
+                            priority
+                            className="h-32 -my-10 -ml-4 w-auto object-contain"
+                        />
                     </div>
-                    <h3 className="mt-1 font-serif text-sm md:text-base text-brand-gold tracking-[0.14em] uppercase">
-                        Un Voyage de Goût
-                    </h3>
+
                     <p className="text-brand-cream/78 leading-relaxed">
                         A restrained French-inspired dining room where candlelight, service,
                         and cellar move in quiet harmony with the sea breeze of Nusa Dua.
@@ -159,7 +159,7 @@ export default function Footer() {
             </motion.div>
 
             {/* Bottom strip */}
-            <div className="relative border-top border-brand-gold/10 bg-brand-green/98">
+            <div className="relative border-top border border-brand-gold/10 bg-brand-green">
                 <div className="mx-auto max-w-6xl px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-1.5 text-[7px] md:text-[8px] text-brand-cream/50">
                     <p className="tracking-[0.18em] uppercase text-center md:text-left">
                         © {currentYear} Jard&apos;or Restaurant &nbsp;•&nbsp; All Rights

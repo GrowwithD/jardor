@@ -132,7 +132,26 @@ export default function GalleryMasonry() {
 
     return (
         <>
-            <section className="relative bg-gradient-to-b from-[#0B1C13] via-[#050806] to-[#020303] py-16">
+            <section className="relative bg-gradient-to-b from-[#0D0F11] via-[#0A0C0E] to-black py-16">
+
+                <div className="absolute inset-0">
+                    <div
+                        className="
+                            absolute inset-0
+                            [transform:scaleX(-1)]
+                        "
+                    >
+                        <div
+                            className="
+                                absolute inset-0
+                                bg-[url('/images/batik1.png')]
+                                bg-repeat
+                                bg-[length:420px_auto]  /* ukuran tile biar rapih */
+                                opacity-5
+                            "
+                        />
+                    </div>
+                </div>
                 <div className="relative z-10 max-w-6xl mx-auto px-4">
                     <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-5 space-y-5">
                         {galleryImages.map((item, idx) => (
@@ -144,10 +163,9 @@ export default function GalleryMasonry() {
                                 className={`
                   group mb-5 break-inside-avoid
                   block w-full
-                  overflow-hidden rounded-2xl bg-black
+                  overflow-hidden bg-black
                   shadow-[0_18px_60px_rgba(0,0,0,0.95)]
-                  transition-transform duration-500 hover:-translate-y-1
-                  hover:shadow-[0_26px_80px_rgba(0,0,0,1)]
+                  transition-transform duration-500
                   focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8A96B]/60
                   ${item.aspect}
                 `}
@@ -160,7 +178,7 @@ export default function GalleryMasonry() {
                                         className="object-cover transition-transform duration-[1100ms] group-hover:scale-110"
                                     />
                                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-                                    <div className="pointer-events-none absolute inset-0 rounded-2xl border border-transparent group-hover:border-[#C8A96B]/25 group-hover:shadow-[0_0_32px_rgba(200,169,107,0.25)] transition-all duration-500" />
+                                    <div className="pointer-events-none absolute inset-0  border border-transparent group-hover:border-[#C8A96B]/25 group-hover:shadow-[0_0_32px_rgba(200,169,107,0.25)] transition-all duration-500" />
                                 </div>
                             </button>
                         ))}

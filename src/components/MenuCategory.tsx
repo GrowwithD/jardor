@@ -45,13 +45,13 @@ export default function MenuCategory({
         >
             {/* Header */}
             <div className="text-left md:text-center space-y-2">
-                <p className="text-[8px] uppercase tracking-[0.26em] text-brand-gold/70">
-                    {orderLabel} • Selection
+                <p className="text-sm uppercase tracking-[0.26em] text-brand-gold/70">
+                    {orderLabel} ~ Selection
                 </p>
-                <h2 className="font-serif text-xl md:text-2xl text-brand-cream tracking-[0.16em] uppercase">
+                <h2 className="text-2xl uppercase">
                     {category.label}
                 </h2>
-                <p className="max-w-2xl md:mx-auto text-[10px] md:text-xs text-brand-cream/80 leading-relaxed">
+                <p className="max-w-2xl md:mx-auto text-xs md:text-sm text-brand-cream/80 leading-relaxed">
                     {category.subtitle}
                 </p>
                 <div className="flex items-center md:justify-center gap-2 pt-1">
@@ -62,19 +62,18 @@ export default function MenuCategory({
             </div>
 
             {/* Menu Panel */}
-            <div className="relative overflow-hidden rounded-xl bg-[#050505]/50 border border-brand-gold/15 ring-1 ring-inset ring-brand-gold/8 shadow-[0_22px_80px_rgba(0,0,0,0.95)] backdrop-blur-[1px] px-4 md:px-7 py-7 md:py-9 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_top_left,rgba(200,169,107,0.05),transparent_65%)] before:opacity-80 before:pointer-events-none">
+            <div className="relative overflow-hidden rounded-lg bg-[#050505]/50 border border-brand-gold/15 ring-1 ring-inset ring-brand-gold/8 shadow-[0_22px_80px_rgba(0,0,0,0.95)] backdrop-blur-[1px] px-4 md:px-7 py-7 md:py-9 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_top_left,rgba(200,169,107,0.05),transparent_65%)] before:opacity-80 before:pointer-events-none">
                 <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 md:gap-y-8">
                     {category.items.map((item, i) => {
                         const priceK = formatK(item.price);
                         return (
                             <motion.div
                                 key={`${item.name}-${i}`}
-                                whileHover={{ y: -3, scale: 1.012 }}
                                 transition={{ type: "spring", stiffness: 240, damping: 22 }}
                                 className="group relative flex items-start gap-4"
                             >
                                 {/* Image */}
-                                <div className="relative w-20 h-20 md:w-24 md:h-24 shrink-0 overflow-hidden rounded-xl border border-brand-gold/22 bg-black/70 shadow-[0_8px_24px_rgba(0,0,0,0.9)] transition-all duration-500 group-hover:border-brand-gold/40 group-hover:shadow-[0_0_24px_rgba(200,169,107,0.22)]">
+                                <div className="relative w-20 h-20 md:w-24 md:h-24 shrink-0 overflow-hidden rounded-lg border border-brand-gold/22 bg-black/70 shadow-[0_8px_24px_rgba(0,0,0,0.9)] transition-all duration-500 group-hover:border-brand-gold/40">
                                     <Image
                                         src={item.image}
                                         alt={item.name}
@@ -87,10 +86,10 @@ export default function MenuCategory({
 
                                 {/* Text */}
                                 <div className="flex-1 pt-1">
-                                    <p className="font-serif text-[10px] md:text-xs uppercase tracking-[0.14em] text-brand-gold mb-1">
+                                    <p className="text-[10px] md:text-base uppercase tracking-[0.14em] text-brand-gold mb-1">
                                         {item.name}
                                     </p>
-                                    <p className="text-[10px] md:text-[11px] text-brand-cream/80 leading-relaxed">
+                                    <p className="text-[10px] md:text-sm text-brand-cream/80 leading-relaxed italic">
                                         {item.description}
                                     </p>
 
@@ -110,7 +109,7 @@ export default function MenuCategory({
                                 </div>
 
                                 {/* Hover line */}
-                                <div className="absolute left-0 bottom-0 h-px w-0 bg-linear-to-r from-brand-gold/55 to-transparent group-hover:w-full transition-all duration-700 ease-out" />
+                                <div className="absolute left-0 -bottom-2 h-px w-0 bg-linear-to-r from-brand-gold/55 to-transparent group-hover:w-full transition-all duration-700 ease-out" />
                             </motion.div>
                         );
                     })}
