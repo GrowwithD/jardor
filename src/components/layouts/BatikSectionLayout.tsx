@@ -21,7 +21,7 @@ export default function BatikSectionLayout({
                 <div
                     className="
             absolute inset-0
-            bg-[url('/images/batik1.png')]
+            bg-[url('/images/batik3.png')]
             bg-repeat
             bg-[length:420px_auto]
             opacity-[0.035]

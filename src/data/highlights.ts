@@ -220,7 +220,7 @@ export const highlightsData: Highlight[] = [
         items: [
             {
                 title: "Plating at the Pass",
-                image: "/images/DSC00237.jpg",
+                 image: "/images/DSC04919-HDR.jpg",
                 description:
                     "Precise hands shaping the plate before it meets the dining room.",
                 meta: "Kitchen Brigade",

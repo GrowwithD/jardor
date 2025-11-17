@@ -39,31 +39,29 @@ export default function Footer() {
 
     return (
         <footer className="relative text-[9px] md:text-[10px] text-brand-cream/75">
-            {/* Background */}
 
-
-
-
-            {/* Main bar */}
+            {/* MAIN */}
             <motion.div
                 variants={fadeUp}
                 initial="initial"
                 animate={mounted ? "animate" : "initial"}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="relative mx-auto max-w-6xl px-4 py-12 md:py-11 flex flex-col gap-7 md:flex-row md:items-start md:justify-between"
+                className="
+                    relative mx-auto max-w-6xl px-4 py-12 md:py-11
+                    flex flex-col gap-7
+                    md:flex-row md:items-start md:justify-between
+                "
             >
-                {/* Left */}
+                {/* LEFT */}
                 <div className="flex flex-col gap-3 max-w-md">
-                    <div className="">
-                        <Image
-                            src="/images/logo.png"
-                            alt="Jard’or — Logo"
-                            width={88}
-                            height={24}
-                            priority
-                            className="h-32 -my-10 -ml-4 w-auto object-contain"
-                        />
-                    </div>
+                    <Image
+                        src="/images/logo.png"
+                        alt="Jard’or — Logo"
+                        width={88}
+                        height={24}
+                        priority
+                        className="h-32 -my-10 -ml-4 w-auto object-contain"
+                    />
 
                     <p className="text-brand-cream/78 leading-relaxed">
                         A restrained French-inspired dining room where candlelight, service,
@@ -71,26 +69,30 @@ export default function Footer() {
                     </p>
                 </div>
 
-                {/* Middle */}
+                {/* MIDDLE */}
                 <div className="flex flex-col gap-3 md:min-w-[190px]">
+                    {/* Address */}
                     <div>
                         <p className="text-[7px] uppercase tracking-[0.22em] text-brand-cream/45">
                             Address
                         </p>
                         <p className="text-brand-cream/80">
-                            Jl. Example No. 1
-                            <br />
+                            Jl. Example No. 1<br />
                             Nusa Dua, Bali — Indonesia
                         </p>
                     </div>
+
+                    {/* Hours */}
                     <div>
                         <p className="text-[7px] uppercase tracking-[0.22em] text-brand-cream/45">
                             Hours
                         </p>
                         <p className="text-brand-cream/80">
-                            Daily &middot; 11.00 AM — 11.00 PM
+                            Daily · 11.00 AM — 11.00 PM
                         </p>
                     </div>
+
+                    {/* Reservation */}
                     <div>
                         <p className="text-[7px] uppercase tracking-[0.22em] text-brand-cream/45">
                             Reservations
@@ -113,16 +115,39 @@ export default function Footer() {
                             </a>
                         </p>
                     </div>
+
+                    {/* SOCIALS — MOVED HERE */}
+                    <div className="flex items-center gap-2 pt-1">
+                        {socials.map((s) => (
+                            <a
+                                key={s.label}
+                                href={s.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="
+                                    flex h-6 w-6 items-center justify-center
+                                    rounded-full border border-brand-gold/40
+                                    text-[7px] text-brand-gold/88
+                                    hover:bg-brand-gold hover:text-black
+                                    transition-colors
+                                "
+                                aria-label={s.label}
+                            >
+                                {s.short}
+                            </a>
+                        ))}
+                    </div>
                 </div>
 
-                {/* Right */}
+                {/* RIGHT */}
                 <div className="flex flex-col gap-4 md:items-end text-right">
-                    {/* Nav */}
+                    {/* Navigation */}
                     <div>
                         <p className="text-[7px] uppercase tracking-[0.22em] text-brand-cream/45">
                             Navigate
                         </p>
-                        <div className="mt-1 grid grid-cols-2 gap-x-4 gap-y-2 md:flex md:flex-wrap md:gap-2.5 md:justify-end">
+
+                        <div className="mt-2 flex flex-col gap-2 md:items-end">
                             {primaryLinks.map((item) => (
                                 <div
                                     key={item.href}
@@ -139,32 +164,20 @@ export default function Footer() {
                             ))}
                         </div>
                     </div>
-
-                    {/* Socials */}
-                    <div className="flex items-center justify-end gap-2">
-                        {socials.map((s) => (
-                            <a
-                                key={s.label}
-                                href={s.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex h-6 w-6 items-center justify-center rounded-full border border-brand-gold/40 text-[7px] text-brand-gold/88 hover:bg-brand-gold hover:text-black transition-colors"
-                                aria-label={s.label}
-                            >
-                                {s.short}
-                            </a>
-                        ))}
-                    </div>
                 </div>
             </motion.div>
 
-            {/* Bottom strip */}
+            {/* BOTTOM BAR */}
             <div className="relative border-top border border-brand-gold/10 bg-brand-green">
-                <div className="mx-auto max-w-6xl px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-1.5 text-[7px] md:text-[8px] text-brand-cream/50">
+                <div className="
+                    mx-auto max-w-6xl px-4 py-4
+                    flex flex-col md:flex-row items-center justify-between
+                    gap-1.5 text-[7px] md:text-[8px] text-brand-cream/50
+                ">
                     <p className="tracking-[0.18em] uppercase text-center md:text-left">
-                        © {currentYear} Jard&apos;or Restaurant &nbsp;•&nbsp; All Rights
-                        Reserved
+                        © {currentYear} Jard&apos;or Restaurant • All Rights Reserved
                     </p>
+
                     <div className="flex items-center gap-3">
                         <span className="tracking-[0.16em] uppercase">
                             Website by{" "}
@@ -177,12 +190,18 @@ export default function Footer() {
                                 Widhy Arsana
                             </a>
                         </span>
+
+                        {/* back to top */}
                         <button
                             onClick={() =>
-                                typeof window !== "undefined" &&
                                 window.scrollTo({ top: 0, behavior: "smooth" })
                             }
-                            className="hidden sm:flex h-6 w-6 items-center justify-center rounded-full border border-brand-gold/30 text-brand-gold/85 hover:bg-brand-gold hover:text-black transition-colors"
+                            className="
+                                hidden sm:flex h-6 w-6 items-center justify-center
+                                rounded-full border border-brand-gold/30
+                                text-brand-gold/85 hover:bg-brand-gold hover:text-black
+                                transition-colors
+                            "
                             aria-label="Back to top"
                         >
                             ↑

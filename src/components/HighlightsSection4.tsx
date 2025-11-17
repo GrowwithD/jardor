@@ -195,10 +195,7 @@ export default function HighlightsSection() {
                                 bg-black/40 backdrop-blur-2xl
                                 cursor-pointer
                             "
-                            whileHover={{
-                                y: -4,
-                                boxShadow: "0 30px 120px rgba(0,0,0,1)",
-                            }}
+
                             transition={{ type: "spring", stiffness: 220, damping: 24 }}
                             onClick={() =>
                                 setActiveItem({

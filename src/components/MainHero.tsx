@@ -60,12 +60,10 @@ export default function MainHero() {
             </AnimatePresence>
 
             {/* Overlays */}
-            <div className="absolute inset-0 bg-linear-to-b from-black/85 via-black/40 to-brand-green/95" />
+             <div className="absolute inset-0 bg-linear-to-b from-black/85 via-black/40 to-black/70" />
             <div className="pointer-events-none absolute inset-0">
-
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,transparent,rgba(0,0,0,0.55))]" />
             </div>
-
             {/* Content */}
             <div className="relative z-10 flex h-full items-center pt-28">
                 <motion.div
