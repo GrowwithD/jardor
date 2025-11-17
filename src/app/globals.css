@@ -123,7 +123,7 @@
 
     /* === EYEBROW TEXT (SMALL UPPERCASE BRAND STYLE) === */
     .text-eyebrow {
-        @apply text-[9px] md:text-[10px] uppercase tracking-[0.26em] text-brand-gold/80;
+        @apply text-[9px] md:text-base uppercase tracking-wider text-brand-gold/80;
     }
 
     /* === HERO HEADING (BIG TITLE) === */
@@ -145,7 +145,7 @@
     }
 
     .hero-subtitle {
-        @apply font-extralight md:text-md text-brand-gold;
+        @apply font-extralight md:text-lg text-brand-gold;
     }
 
     .section-title {
@@ -153,6 +153,6 @@
     }
 
     .section-subtitle {
-        @apply mt-3 text-sm md:text-base text-brand-gold/80;
+        @apply mt-3 text-sm md:text-lg text-brand-gold/80;
     }
 }

@@ -6,7 +6,24 @@ import { motion } from "framer-motion";
 export default function CtaSection() {
     return (
         <section className="relative isolate overflow-hidden py-24 bg-brand-green">
-
+            {/* ===== BACKGROUND LAYERS ===== */}
+            <div className="absolute inset-0 bg-black/90 backdrop-blur-2xl">
+                <div
+                    className="absolute inset-0
+                            [transform:scaleX(-1)]
+                        "
+                >
+                    <div
+                        className="
+                                absolute inset-0
+                                bg-[url('/images/batik1.png')]
+                                bg-repeat
+                                bg-[length:420px_auto]  /* ukuran tile biar rapih */
+                                opacity-5
+                            "
+                    />
+                </div>
+            </div>
 
 
 

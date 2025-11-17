@@ -1,667 +1,303 @@
+// src/components/sections/HighlightsSection.tsx
 "use client";
 
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import {
+    motion,
+    AnimatePresence,
+    useScroll,
+    useTransform,
+    type Variants,
+} from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 
-type HighlightItem = {
-    title: string;
-    image: string;
-    description: string;
-    meta?: string;
-};
-
-type Highlight = {
-    id: string;
-    label: string;
-    subtitle: string;
-    items: HighlightItem[];
-};
+import SectionHeader from "@/components/molecules/SectionHeader";
+import {
+    highlightsData,
+    type HighlightItem,
+} from "@/data/highlights";
 
 type ActiveItem = HighlightItem & { highlight: string };
 
-const highlights: Highlight[] = [
-    /**
-     * 1) FOOD & BEVERAGE – pakai foto plating single-dish
-     */
-    {
-        id: "food-beverage",
-        label: "Food & Beverage",
-        subtitle:
-            "Signature tasting menus, crafted plates, and quietly confident flavors — each course composed for balance and clarity.",
-        items: [
-            {
-                title: "Amuse-Bouche Selection",
-                image: "/images/DSC00222.jpg",
-                description:
-                    "One-bite introductions that set the tone of the evening — precise, bright, and intentionally light on the palate.",
-                meta: "Opening Course",
-            },
-            {
-                title: "Bread & Butter Service",
-                image: "/images/DSC00229.jpg",
-                description:
-                    "House-baked breads with cultured butter and subtle accents — treated as a course, not a side.",
-                meta: "Warm Start",
-            },
-            {
-                title: "Signature Entrée",
-                image: "/images/DSC00265.jpg",
-                description:
-                    "Thoughtfully plated mains where sauce, garnish, and texture move in the same direction, never competing.",
-                meta: "Main Course",
-            },
-            {
-                title: "Sauce at the Pass",
-                image: "/images/DSC00263.jpg",
-                description:
-                    "A focus on sauces built slowly — reductions, jus, and emulsions that quietly anchor each plate.",
-                meta: "Kitchen Craft",
-            },
-            {
-                title: "Seasonal Fish Course",
-                image: "/images/DSC00279.jpg",
-                description:
-                    "Line-caught fish with restrained accompaniments, emphasizing freshness, temperature, and clean flavor.",
-                meta: "From the Sea",
-            },
-            {
-                title: "Plated Tasting Course",
-                image: "/images/DSC00309.jpg",
-                description:
-                    "Small-format dishes designed to move the menu forward without overwhelming, ideal within the tasting sequence.",
-                meta: "Tasting Menu",
-            },
-            {
-                title: "Cheese & Savory Finish",
-                image: "/images/DSC00381.jpg",
-                description:
-                    "A composed plate of cheese and savory elements for guests who prefer a gentle transition before dessert.",
-                meta: "Pre-Dessert",
-            },
-            {
-                title: "Dessert Composition",
-                image: "/images/DSC00404.jpg",
-                description:
-                    "Measured sweetness, precise geometry, and temperature contrast — endings built to refresh, not fatigue.",
-                meta: "Signature Dessert",
-            },
-        ],
+const panelVariants: Variants = {
+    initial: { opacity: 0, y: 22 },
+    animate: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: "easeOut" },
     },
+    exit: {
+        opacity: 0,
+        y: -16,
+        transition: { duration: 0.32, ease: "easeIn" },
+    },
+};
 
-    /**
-     * 2) ATMOSPHERE – tetap seperti versi kamu
-     */
-    {
-        id: "atmosphere",
-        label: "Atmosphere",
-        subtitle:
-            "Spaces curated with quiet geometry, warm brass, natural textures, and intimate lighting — each corner offering a different mood of Jard’or.",
-        items: [
-            {
-                title: "Main Dining Room",
-                image: "/images/DSC04919-HDR.jpg",
-                description:
-                    "The heart of Jard’or — polished wood, brass accents, soft lines, and a quiet energy. Designed for evenings where conversations linger and plates move with subtle rhythm.",
-                meta: "Central Seating",
-            },
-            {
-                title: "Rustic Corner Table",
-                image: "/images/DSC04927-HDR.jpg",
-                description:
-                    "Warm stone textures and vintage European tones create a pocket of calm. Ideal for anniversaries or slow, unhurried dinners.",
-                meta: "Intimate Spot",
-            },
-            {
-                title: "Wine Cellar Alcove",
-                image: "/images/DSC04930-HDR.jpg",
-                description:
-                    "Surrounded by the house’s private wine collection — a refined atmosphere for tastings and conversations that move deeper through the evening.",
-                meta: "Wine Collection",
-            },
-            {
-                title: "The Bottle Wall",
-                image: "/images/DSC04933-HDR.jpg",
-                description:
-                    "A curated display of spirits and rare bottles. A visual anchor that sets the tone for aperitifs and after-dinner rituals.",
-                meta: "Cellar Feature",
-            },
-            {
-                title: "Garden Window Table",
-                image: "/images/DSC04936-HDR.jpg",
-                description:
-                    "Natural light meets warm interior textures. Perfect for daylight brunch or soft twilight dining with greenery as the backdrop.",
-                meta: "Indoor Garden View",
-            },
-            {
-                title: "Floral Lounge Nook",
-                image: "/images/DSC05669-HDR.jpg",
-                description:
-                    "A relaxed seating corner with greenery and soft pillows — a favorite for pre-dinner drinks and effortless conversations.",
-                meta: "Cozy Lounge",
-            },
-            {
-                title: "Outdoor Terrace",
-                image: "/images/DSC05705-HDR.jpg",
-                description:
-                    "Sunlit umbrellas, quiet breeze, and tropical calm. Ideal for daylight dining, light meals, or long coffees.",
-                meta: "Open Air",
-            },
-            {
-                title: "Private Warm Setting",
-                image: "/images/DSC05811-HDR.jpg",
-                description:
-                    "Soft shadows, candlelit tables, and close seating. Made for personal celebrations, proposals, or quiet two-person evenings.",
-                meta: "Private Seating",
-            },
-            {
-                title: "Classic Interior Room",
-                image: "/images/DSC05823-HDR.jpg",
-                description:
-                    "Classic wood textures with refined lighting. A room that balances tradition and modernity in a gentle, understated way.",
-                meta: "Timeless Corner",
-            },
-            {
-                title: "Bar Terrace",
-                image: "/images/DSC05865-HDR.jpg",
-                description:
-                    "A high-seat bar framed by natural light — perfect for martinis, aperitifs, and short casual visits.",
-                meta: "Bar Seating",
-            },
-            {
-                title: "Washroom Interior",
-                image: "/images/DSC05886-HDR.jpg",
-                description:
-                    "Stone, brass, and warm reflections. Even transitional spaces at Jard’or are built with detail and quiet elegance.",
-                meta: "Interior Detail",
-            },
-            {
-                title: "Garden Entrance",
-                image: "/images/DSC05955-HDR.jpg",
-                description:
-                    "A soft transition from nature to architecture. The gateway that sets the tone before guests enter the main room.",
-                meta: "Green Pathway",
-            },
-            {
-                title: "Terrace Bench",
-                image: "/images/DSC05973-HDR.jpg",
-                description:
-                    "A peaceful spot beneath open sky and filtered light. Great for slow moments before or after dinner.",
-                meta: "Outdoor Seating",
-            },
-            {
-                title: "Glass Pavilion",
-                image: "/images/DSC05995-HDR.jpg",
-                description:
-                    "Surrounded by glass and foliage — a spacious yet intimate pavilion for gatherings, private events, or afternoon tea.",
-                meta: "Garden Pavilion",
-            },
-        ],
+const thumbMotion: Variants = {
+    rest: {
+        y: 0,
+        scale: 1,
+        boxShadow: "0 16px 48px rgba(0,0,0,0.78)",
+        borderColor: "rgba(200,169,107,0.16)",
     },
-
-    /**
-     * 3) WINE – tetap seperti versi kamu
-     */
-    {
-        id: "wine",
-        label: "Wine & Cellar",
-        subtitle:
-            "A cellar shaped around character, balance, and the stories behind each bottle — curated to complement Jard’or’s cadence.",
-        items: [
-            {
-                title: "Private Wine Cellar",
-                image: "/images/DSC04930-HDR.jpg",
-                description:
-                    "Rows of carefully stored bottles kept at precise temperature and humidity. A collection built slowly, focusing not on prestige labels but on expressive regions and vintners with depth.",
-                meta: "Cellar Access",
-            },
-            {
-                title: "Bottle Lineup Showcase",
-                image: "/images/DSC04933-HDR.jpg",
-                description:
-                    "A curated wall of selections spanning old-world classics and modern expressions, used for pre-dinner conversations, sommelier recommendations, and custom pairing sessions.",
-                meta: "Signature Display",
-            },
-            {
-                title: "Gastronomic Pairing",
-                image: "/images/DSC05255.jpg",
-                description:
-                    "Plates and bottles selected to speak the same language — balancing acidity, structure, and aromatics around Jard’or’s tasting menus.",
-                meta: "Food Collaboration",
-            },
-            {
-                title: "Wine Service Ritual",
-                image: "/images/DSC05264.jpg",
-                description:
-                    "Precise pouring, considered glassware, and controlled pacing, allowing each bottle to open gradually and follow the rhythm of the evening.",
-                meta: "Service Ritual",
-            },
-            {
-                title: "Cigar & Digestif Drawer",
-                image: "/images/DSC05801.jpg",
-                description:
-                    "A refined after-dinner ritual with hand-rolled cigars, digestifs, and rare bottles curated for the last quiet minutes of the night.",
-                meta: "After-Dinner Experience",
-            },
-            {
-                title: "Dark Cellar Selection",
-                image: "/images/DSC05908.jpg",
-                description:
-                    "A deeper corner of the cellar showcasing limited and late-release vintages, reserved for guests seeking something off-menu and quietly exceptional.",
-                meta: "Limited Release",
-            },
-        ],
+    hover: {
+        boxShadow: "0 26px 88px rgba(0,0,0,0.98)",
+        borderColor: "rgba(200,169,107,0.6)",
+        transition: { type: "spring", stiffness: 240, damping: 22 },
     },
-
-    /**
-     * 4) EXPERIENCE – pakai foto meja dengan beberapa plate & wine
-     */
-    {
-        id: "experience",
-        label: "The Experience",
-        subtitle:
-            "Beyond the plate — music, pacing, service, and visual details composed as a single narrative.",
-        items: [
-            {
-                title: "Tasting Table for Two",
-                image: "/images/DSC00300.jpg",
-                description:
-                    "A quietly staged table for two with multiple courses, where service is timed to conversation instead of the clock.",
-                meta: "Intimate Dining",
-            },
-            {
-                title: "Champagne & Small Plates",
-                image: "/images/DSC00321.jpg",
-                description:
-                    "Carefully chilled glasses and light courses that open the evening with brightness and lift.",
-                meta: "Aperitif Hour",
-            },
-            {
-                title: "Chef’s Flight",
-                image: "/images/DSC00326.jpg",
-                description:
-                    "A sequence of plates served in quick, clean rhythm — ideal for guests who enjoy experiencing the menu as a curated journey.",
-                meta: "Progressive Courses",
-            },
-            {
-                title: "Shared Table Setting",
-                image: "/images/DSC00342.jpg",
-                description:
-                    "An arrangement designed for small groups: shared dishes, central pieces, and synchronized service.",
-                meta: "Small Group",
-            },
-            {
-                title: "Wine-Focused Evening",
-                image: "/images/DSC00368.jpg",
-                description:
-                    "Pairings and pours are given center stage while courses are structured to frame the bottles, not overshadow them.",
-                meta: "Sommelier Guided",
-            },
-            {
-                title: "Celebration Spread",
-                image: "/images/DSC00371.jpg",
-                description:
-                    "Multiple plates and glasses laid out for milestones, proposals, and private celebrations.",
-                meta: "Occasion Ready",
-            },
-            {
-                title: "Late-Night Service",
-                image: "/images/DSC00395.jpg",
-                description:
-                    "Warmer lighting and deeper flavors for guests who prefer to dine later in the evening.",
-                meta: "After Dark",
-            },
-            {
-                title: "Final Dessert Moment",
-                image: "/images/DSC00409.jpg",
-                description:
-                    "A composed dessert course and warm service tone that let the evening close gently and intentionally.",
-                meta: "Closing Note",
-            },
-        ],
-    },
-
-    /**
-     * 5) TEAM & CRAFT – pakai foto tangan plating, menu di tangan, dll
-     */
-    {
-        id: "team-craft",
-        label: "The Team & Craft",
-        subtitle:
-            "Artisans, sommeliers, and service team working in sync to keep standards exact while the room stays warm.",
-        items: [
-            {
-                title: "Plating at the Pass",
-                image: "/images/DSC00237.jpg",
-                description:
-                    "Hands focused on alignment, temperature, and detail — each plate checked before it ever leaves the kitchen.",
-                meta: "Kitchen Brigade",
-            },
-            {
-                title: "Precise Garnishing",
-                image: "/images/DSC00252.jpg",
-                description:
-                    "Final touches added seconds before service so every element arrives at the correct texture.",
-                meta: "Last Detail",
-            },
-            {
-                title: "Sauce Service",
-                image: "/images/DSC00258.jpg",
-                description:
-                    "Sauces poured with intention, either in the kitchen or table-side depending on the course.",
-                meta: "Classic Technique",
-            },
-            {
-                title: "Composed Starters",
-                image: "/images/DSC00269.jpg",
-                description:
-                    "Starters assembled by a dedicated garde-manger team, keeping cold dishes bright and structured.",
-                meta: "Cold Section",
-            },
-            {
-                title: "Course Timing",
-                image: "/images/DSC00287.jpg",
-                description:
-                    "Coordinated passes between kitchen and front-of-house so courses land quietly and on cue.",
-                meta: "Service Rhythm",
-            },
-            {
-                title: "Wine & Glassware",
-                image: "/images/DSC00316.jpg",
-                description:
-                    "Stemware polished by hand and matched to each bottle for clarity of aroma and structure.",
-                meta: "Sommelier Team",
-            },
-            {
-                title: "Menu Presentation",
-                image: "/images/DSC00411.jpg",
-                description:
-                    "Menus presented with a brief, confident explanation — enough context, never pressure.",
-                meta: "Guest Guidance",
-            },
-            {
-                title: "Final Check",
-                image: "/images/DSC00416.jpg",
-                description:
-                    "A quiet moment before service to review reservations, dietary notes, and timing for the night ahead.",
-                meta: "Service Briefing",
-            },
-        ],
-    },
-];
+};
 
 export default function HighlightsSection() {
+    const [activeId, setActiveId] = useState<string>(highlightsData[0].id);
     const [activeItem, setActiveItem] = useState<ActiveItem | null>(null);
-    const sliderRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
+    // index item yang sedang di-hover untuk mengganti hero/parallax
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"],
+    });
+
+    const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
+    const scaleBg = useTransform(scrollYProgress, [0, 1], [1.02, 1.1]);
+
+    const active =
+        highlightsData.find((highlight) => highlight.id === activeId) ??
+        highlightsData[0];
+
+    // kalau ada yang di-hover → pakai itu sebagai hero, kalau tidak → pakai index 0
+    const heroIndex = hoveredIndex ?? 0;
+    const hero =
+        active.items[heroIndex] ??
+        active.items[0]; // fallback kalau datanya ga lengkap
+    const thumbs = active.items;
+
+    // tiap ganti tab/highlight, reset hoveredIndex biar balik ke item pertama
     useEffect(() => {
-        AOS.init({
-            duration: 800,
-            easing: "ease-out-quart",
-            once: true,
-            offset: 80,
-        });
-    }, []);
-
-    // auto scroll
-    useEffect(() => {
-        const interval = setInterval(() => {
-            highlights.forEach((highlight, index) => {
-                const el = sliderRefs.current[highlight.id];
-                if (!el) return;
-
-                const maxScroll = el.scrollWidth - el.clientWidth;
-                if (maxScroll <= 0) return;
-
-                const direction = index % 2 === 0 ? 1 : -1;
-                const step = el.clientWidth * 0.45 * direction;
-                const next = el.scrollLeft + step;
-
-                if (direction === 1) {
-                    el.scrollTo({
-                        left: next >= maxScroll - 8 ? 0 : next,
-                        behavior: "smooth",
-                    });
-                } else {
-                    el.scrollTo({
-                        left: next <= 8 ? maxScroll : next,
-                        behavior: "smooth",
-                    });
-                }
-            });
-        }, 3800);
-
-        return () => clearInterval(interval);
-    }, []);
+        setHoveredIndex(null);
+    }, [activeId]);
 
     return (
-        <section className="bg-linear-to-tl from-10% via-30% to-70% from-black via-[#0c0c0b] to-brand-green/95 py-16 md:py-20 overflow-hidden">
-            <div className="mx-auto max-w-6xl px-4">
-                {/* Header */}
-                <div className="text-center mb-16 space-y-4" data-aos="fade-up">
+        <section
+            ref={containerRef}
+            className="relative overflow-hidden bg-black text-brand-cream"
+        >
+            {/* Parallax Background */}
+            <div className="pointer-events-none absolute inset-0">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={`${active.id}-${heroIndex}`}
+                        style={{ y: yBg, scale: scaleBg }}
+                        initial={{ opacity: 0, scale: 1.02 }}
+                        animate={{ opacity: 1, scale: 1.08 }}
+                        exit={{ opacity: 0, scale: 1.04 }}
+                        transition={{ duration: 0.35, ease: "easeOut" }}
+                        className="absolute inset-0 will-change-transform"
+                    >
+                        <Image
+                            src={hero.image}
+                            alt={hero.title}
+                            fill
+                            priority
+                            className="object-cover"
+                        />
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,0,0,0.16),transparent_65%)]" />
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_rgba(196,178,96,0.16),transparent_70%)] mix-blend-overlay" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/72 to-[#020504]/98" />
+                    </motion.div>
+                </AnimatePresence>
+            </div>
 
-                    {/* Eyebrow pill */}
-                    <div className="section-eyebrow-pill">
-                        <span className="section-eyebrow-dot" />
-                        <span className="text-eyebrow">
-                            Jard’or Selection
-                        </span>
-                    </div>
+            {/* Accent glows */}
+            <div className="pointer-events-none absolute -top-40 right-10 h-64 w-64 rounded-full bg-brand-gold/7 blur-3xl" />
+            <div className="pointer-events-none absolute bottom-[-40px] left-10 h-52 w-52 rounded-full bg-brand-gold/5 blur-3xl" />
 
-                    {/* Section Title */}
-                    <h2 className="section-title">
-                        A Curated Glimpse of Jard’or
-                    </h2>
-
-
-
-                    {/* Section Subtitle */}
-                    <p className="section-subtitle max-w-2xl mx-auto">
-                        A refined showcase of our signature experiences – composed dishes,
-                        spaces, and moments that define Jard’or.
-                    </p>
+            {/* Foreground */}
+            <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 md:py-24 space-y-10">
+                {/* HEADER pakai SectionHeader */}
+                <div className="max-w-3xl mx-auto text-center">
+                    <SectionHeader
+                        eyebrow="Jard’or Cinematic Highlights"
+                        title="A Parallax Portrait of Jard’or"
+                        subtitle="Four quiet chapters — presented visually through food, space, experience, and the people behind the room."
+                        align="center"
+                    />
                 </div>
 
-                {/* Groups */}
-                <div className="space-y-16 md:space-y-20">
-                    {highlights.map((highlight, index) => {
-                        const isRight = index % 2 === 1;
-
+                {/* Tabs */}
+                <div className="flex flex-wrap items-center justify-center gap-4 border-y border-brand-gold/16 py-3 bg-black/40 backdrop-blur-sm rounded">
+                    {highlightsData.map((h) => {
+                        const isActive = h.id === activeId;
                         return (
-                            <motion.div
-                                key={highlight.id}
-                                className="space-y-5"
-                                data-aos="fade-up"
-                                data-aos-delay={index * 140}
-                                initial="rest"
-                                animate="rest"
-                                whileHover="hover"
-                                transition={{ type: "spring", stiffness: 140, damping: 20 }}
+                            <button
+                                key={h.id}
+                                onClick={() => setActiveId(h.id)}
+                                className={[
+                                    "relative px-3 md:px-4 py-1 flex flex-col items-center gap-0.5 transition-colors",
+                                    isActive
+                                        ? "text-brand-gold"
+                                        : "text-brand-cream/60 hover:text-brand-gold/80",
+                                ].join(" ")}
                             >
-                                {/* Title strip */}
-                                <div
-                                    className={[
-                                        "flex flex-col md:flex-row gap-3 items-center text-center md:items-end",
-                                        isRight
-                                            ? "md:justify-end md:text-right"
-                                            : "md:justify-start md:text-left",
-                                    ].join(" ")}
-                                >
-                                    <div
-                                        className={[
-                                            "flex flex-col gap-1 items-center",
-                                            isRight
-                                                ? "md:items-end md:text-right"
-                                                : "md:items-start md:text-left",
-                                        ].join(" ")}
-                                    >
-                                        <div className="flex items-center gap-2 text-brand-gold/60 text-[8px] tracking-[0.22em] uppercase">
-                                            <span className="w-4 h-px bg-brand-gold/30" />
-                                            <span>{String(index + 1).padStart(2, "0")}</span>
-                                            <span className="hidden xs:inline">Highlight</span>
-                                        </div>
-
-                                        <motion.h3
-                                            className="text-lg md:text-2xl text-brand-gold uppercase flex items-center gap-2"
-                                            variants={{
-                                                rest: {
-                                                    letterSpacing: "0.16em",
-                                                    y: 0,
-                                                    textShadow: "0 0 0 rgba(200,169,107,0)",
-                                                },
-                                                hover: {
-                                                    letterSpacing: "0.22em",
-                                                    y: -2,
-                                                    textShadow:
-                                                        "0 0 10px rgba(200,169,107,0.28)",
-                                                },
-                                            }}
-                                            transition={{
-                                                type: "spring",
-                                                stiffness: 180,
-                                                damping: 20,
-                                                mass: 0.7,
-                                            }}
-                                        >
-                                            {isRight && (
-                                                <motion.span
-                                                    className="hidden md:block h-px bg-brand-gold/30"
-                                                    variants={{
-                                                        rest: { width: 24, opacity: 0.7 },
-                                                        hover: { width: 40, opacity: 1 },
-                                                    }}
-                                                    transition={{
-                                                        type: "spring",
-                                                        stiffness: 220,
-                                                        damping: 22,
-                                                    }}
-                                                />
-                                            )}
-
-                                            {highlight.label}
-
-                                            {!isRight && (
-                                                <motion.span
-                                                    className="hidden md:block h-px bg-brand-gold/30"
-                                                    variants={{
-                                                        rest: { width: 24, opacity: 0.7 },
-                                                        hover: { width: 40, opacity: 1 },
-                                                    }}
-                                                    transition={{
-                                                        type: "spring",
-                                                        stiffness: 220,
-                                                        damping: 22,
-                                                    }}
-                                                />
-                                            )}
-                                        </motion.h3>
-
-                                        <p className="text-[10px] md:text-xs text-brand-cream/82 max-w-3xl leading-relaxed font-light">
-                                            {highlight.subtitle}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Slider */}
-                                <div className="relative">
-                                    <div className="pointer-events-none hidden sm:block absolute inset-y-5 left-0 w-10 bg-linear-to-r from-brand-green to-transparent z-10" />
-                                    <div className="pointer-events-none hidden sm:block absolute inset-y-5 right-0 w-10 bg-linear-to-l from-brand-green to-transparent z-10" />
-
-                                    <motion.div
-                                        ref={(el) => {
-                                            sliderRefs.current[highlight.id] = el;
-                                        }}
-                                        className="
-                      flex gap-3 md:gap-4
-                      overflow-x-auto no-scrollbar
-                      snap-x snap-mandatory
-                      rounded-3xl
-                      border border-brand-gold/14
-                      bg-linear-to-br
-                        from-brand-green-soft/94
-                        via-brand-green-soft/88
-                        to-black/82
-                      backdrop-blur-md
-                      p-3.5 md:p-8
-                      shadow-[0_18px_60px_rgba(0,0,0,0.78)]
-                    "
-                                        initial={{ opacity: 0 }}
-                                        whileInView={{ opacity: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.6 }}
-                                    >
-                                        {highlight.items.map((item, i) => (
-                                            <motion.button
-                                                key={`${highlight.id}-${i}`}
-                                                whileHover={{ scale: 1.045, y: -3 }}
-                                                transition={{
-                                                    type: "spring",
-                                                    stiffness: 190,
-                                                    damping: 18,
-                                                }}
-                                                onClick={() =>
-                                                    setActiveItem({
-                                                        ...item,
-                                                        highlight: highlight.label,
-                                                    })
-                                                }
-                                                className="
-                          group relative
-                          snap-start shrink-0
-                          overflow-hidden
-                          rounded-2xl
-                          bg-black/30
-                          border border-black/55
-                          w-[78%] xs:w-[64%] sm:w-[46%] md:w-[30%] lg:w-[23%]
-                          aspect-4/5
-                          hover:border-brand-gold/85
-                          hover:shadow-[0_18px_65px_rgba(0,0,0,0.98)]
-                          transition-colors
-                        "
-                                            >
-                                                <Image
-                                                    src={item.image}
-                                                    alt={item.title}
-                                                    fill
-                                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                                />
-
-                                                <div className="absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-black/96 via-black/28 to-transparent" />
-
-                                                <div className="absolute left-3 right-3 bottom-2.5 space-y-0.5 text-left">
-                                                    <p className="text-[8px] uppercase tracking-[0.2em] text-brand-gold">
-                                                        {item.title}
-                                                    </p>
-                                                    {item.meta && (
-                                                        <p className="text-[7px] text-brand-cream/65 line-clamp-1">
-                                                            {item.meta}
-                                                        </p>
-                                                    )}
-                                                </div>
-
-                                                <div className="pointer-events-none absolute inset-0 rounded-2xl border border-brand-gold/0 group-hover:border-brand-gold/18 transition-all duration-500" />
-                                            </motion.button>
-                                        ))}
-                                    </motion.div>
-                                </div>
-                            </motion.div>
+                                <span className="text-[7px] uppercase tracking-[0.22em]">
+                                    {h.tagline}
+                                </span>
+                                <span className="text-[10px] md:text-xs uppercase tracking-[0.16em]">
+                                    {h.label}
+                                </span>
+                                {isActive && (
+                                    <motion.span
+                                        layoutId="parallax-underline"
+                                        className="mt-1 h-[1px] w-full bg-brand-gold"
+                                        transition={{ duration: 0.25 }}
+                                    />
+                                )}
+                            </button>
                         );
                     })}
                 </div>
+
+                {/* Active Panel */}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={active.id}
+                        variants={panelVariants}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                        className="space-y-6"
+                    >
+                        {/* Title row */}
+                        <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+                            <div className="space-y-1 text-left">
+                                <p className="text-[7px] uppercase tracking-[0.26em] text-brand-gold/90">
+                                    {active.tagline}
+                                </p>
+                                <h3 className="text-lg md:text-xl text-brand-cream tracking-[0.14em] uppercase">
+                                    {active.label}
+                                </h3>
+                                <p className="max-w-md text-[8px] md:text-[9px] text-brand-cream/78 leading-relaxed">
+                                    {active.subtitle}
+                                </p>
+                            </div>
+                            <div className="text-[7px] md:text-[8px] uppercase tracking-[0.18em] text-brand-gold/70">
+                                Scroll &amp; hover the selections
+                            </div>
+                        </div>
+
+                        {/* Hero card */}
+                        <motion.div
+                            className="
+                                group relative overflow-hidden rounded
+                                border border-brand-gold/32
+                                bg-black/40 backdrop-blur-2xl
+                                cursor-pointer
+                            "
+
+                            transition={{ type: "spring", stiffness: 220, damping: 24 }}
+                            onClick={() =>
+                                setActiveItem({
+                                    ...hero,
+                                    highlight: active.label,
+                                })
+                            }
+                        >
+                            <div className="relative h-40 md:h-52">
+                                <Image
+                                    src={hero.image}
+                                    alt={hero.title}
+                                    fill
+                                    className="object-cover opacity-80 transition-opacity duration-500 group-hover:opacity-100"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/45 to-black/10" />
+                            </div>
+                            <div className="absolute inset-0 pointer-events-none rounded border border-transparent group-hover:border-brand-gold/26 transition-colors duration-300" />
+                            <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 px-4 pb-3 md:px-6 md:pb-4">
+                                <div className="space-y-1">
+                                    <p className="text-[7px] uppercase tracking-[0.22em] text-brand-gold/90">
+                                        Signature Highlight
+                                    </p>
+                                    <h4 className="text-base md:text-lg text-brand-cream leading-snug">
+                                        {hero.title}
+                                    </h4>
+                                    {hero.meta && (
+                                        <p className="text-[7px] text-brand-gold/78 uppercase tracking-[0.18em]">
+                                            {hero.meta}
+                                        </p>
+                                    )}
+                                </div>
+                                <div className="flex flex-col items-end gap-1">
+                                    <p className="text-[7px] text-brand-gold/75 uppercase tracking-[0.2em]">
+                                        Tap for details
+                                    </p>
+                                    <span className="h-[1px] w-8 bg-brand-gold/80" />
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Thumbnails */}
+                        <div className="space-y-2">
+                            <p className="text-[7px] md:text-[8px] uppercase tracking-[0.22em] text-brand-gold/76">
+                                {active.label} — Visual Selections
+                            </p>
+                            <div className="flex gap-3 md:gap-4 overflow-x-auto no-scrollbar pb-1">
+                                {thumbs.map((item, index) => (
+                                    <motion.button
+                                        key={`${active.id}-${index}-${item.title}`}
+                                        className="
+                                            group relative shrink-0
+                                            w-[64%] xs:w-[48%] sm:w-[34%] md:w-[24%] lg:w-[20%]
+                                            overflow-hidden rounded
+                                            border border-brand-gold/16
+                                            bg-black/70 backdrop-blur-xl
+                                            text-left
+                                        "
+                                        variants={thumbMotion}
+                                        initial="rest"
+                                        whileHover="hover"
+                                        onMouseEnter={() => setHoveredIndex(index)}
+                                        onMouseLeave={() => setHoveredIndex(null)}
+                                        onClick={() =>
+                                            setActiveItem({
+                                                ...item,
+                                                highlight: active.label,
+                                            })
+                                        }
+                                    >
+                                        <div className="relative h-36 md:h-44">
+                                            <Image
+                                                src={item.image}
+                                                alt={item.title}
+                                                fill
+                                                className="object-cover transition-transform duration-[1400ms] group-hover:scale-110"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/96 via-black/45 to-transparent" />
+                                            <div className="absolute bottom-2 left-2 right-2 space-y-0.5">
+                                                <p className="text-[7px] uppercase tracking-[0.22em] text-brand-gold/95 line-clamp-1">
+                                                    {item.title}
+                                                </p>
+                                                {item.meta && (
+                                                    <p className="text-[7px] text-brand-cream/78 line-clamp-1">
+                                                        {item.meta}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </motion.button>
+                                ))}
+                            </div>
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
             </div>
 
-            {/* Modal */}
+            {/* Modal Detail */}
             <AnimatePresence>
                 {activeItem && (
                     <motion.div
-                        className="
-              fixed inset-0 z-80
-              flex items-center justify-center
-              bg-black/80 backdrop-blur-md
-              px-3
-            "
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/82 backdrop-blur-md px-3"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -669,37 +305,33 @@ export default function HighlightsSection() {
                     >
                         <motion.div
                             className="
-                relative w-full max-w-4xl
-                rounded-4xl
-                bg-brand-green-soft/98
-                border border-brand-gold/40
-                shadow-[0_30px_120px_rgba(0,0,0,1)]
-                overflow-hidden
-                grid grid-cols-1 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1.6fr)]
-              "
+                                relative w-full max-w-4xl
+                                grid grid-cols-1 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1.6fr)]
+                                overflow-hidden rounded-3xl
+                                border border-brand-gold/45
+                                bg-gradient-to-br from-black/98 via-[#0b0f0c] to-brand-green/24
+                                shadow-[0_32px_150px_rgba(0,0,0,1)]
+                            "
                             initial={{ scale: 0.94, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            transition={{ duration: 0.25 }}
+                            transition={{ duration: 0.22, ease: "easeOut" }}
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button
                                 onClick={() => setActiveItem(null)}
                                 className="
-                  absolute right-3 top-3
-                  w-8 h-8 flex items-center justify-center
-                  rounded-full
-                  border border-brand-gold/60
-                  text-brand-gold bg-black/45
-                  hover:bg-brand-gold hover:text-black
-                  transition-all duration-200
-                  text-xs z-20
-                "
+                                    absolute right-3 top-3 z-20
+                                    flex h-8 w-8 items-center justify-center
+                                    rounded-full border border-brand-gold/60
+                                    bg-black/80 text-brand-gold text-xs
+                                    hover:bg-brand-gold hover:text-black
+                                    transition-all
+                                "
                             >
                                 ×
                             </button>
 
-                            {/* Image */}
                             <div className="relative h-56 md:h-auto md:min-h-[260px]">
                                 <Image
                                     src={activeItem.image}
@@ -707,52 +339,57 @@ export default function HighlightsSection() {
                                     fill
                                     className="object-cover"
                                 />
-                                <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/10 to-transparent md:bg-linear-to-r md:from-black/75 md:via-black/15 md:to-transparent" />
-                                <div className="absolute bottom-3 left-3 right-3 md:hidden">
-                                    <p className="text-[8px] uppercase tracking-[0.22em] text-brand-gold/85">
+                                <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/45 to-transparent" />
+                                <div className="absolute bottom-4 left-4 right-4 md:hidden">
+                                    <p className="text-[8px] uppercase tracking-[0.26em] text-brand-gold/90">
                                         {activeItem.highlight}
                                     </p>
                                     <h4 className="text-xl text-brand-cream">
                                         {activeItem.title}
                                     </h4>
+                                    {activeItem.meta && (
+                                        <p className="mt-1 text-[7px] text-brand-gold/80">
+                                            {activeItem.meta}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
 
-                            {/* Content */}
-                            <div className="p-5 md:p-7 flex flex-col gap-3 md:gap-4">
+                            <div className="flex flex-col gap-3 md:gap-4 p-5 md:p-7">
                                 <div className="hidden md:block">
-                                    <p className="text-[8px] uppercase tracking-[0.26em] text-brand-gold/85 mb-1">
+                                    <p className="mb-1 text-[8px] uppercase tracking-[0.26em] text-brand-gold/90">
                                         {activeItem.highlight}
                                     </p>
                                     <h4 className="text-2xl md:text-3xl text-brand-cream leading-snug">
                                         {activeItem.title}
                                     </h4>
+                                    {activeItem.meta && (
+                                        <p className="mt-1 text-[8px] uppercase tracking-[0.2em] text-brand-gold/82">
+                                            {activeItem.meta}
+                                        </p>
+                                    )}
                                 </div>
 
-                                <div className="mt-1 md:mt-2 space-y-2 text-[10px] md:text-sm text-brand-cream/90 leading-relaxed">
-                                    {activeItem.description.split(/\n{2,}/).map((block, idx) => (
-                                        <p key={idx}>{block}</p>
-                                    ))}
+                                <div className="mt-1 space-y-2 text-[9px] md:text-sm text-brand-cream/94 leading-relaxed">
+                                    {activeItem.description
+                                        .split(/\n{2,}/)
+                                        .map((block, idx) => (
+                                            <p key={idx}>{block}</p>
+                                        ))}
                                 </div>
 
-                                {activeItem.meta && (
-                                    <p className="text-[8px] md:text-[9px] text-brand-gold/80 uppercase tracking-[0.18em] pt-1">
-                                        {activeItem.meta}
-                                    </p>
-                                )}
-
-                                <div className="mt-auto flex justify-end gap-2 pt-2">
+                                <div className="mt-auto flex justify-end pt-2">
                                     <button
                                         onClick={() => setActiveItem(null)}
                                         className="
-                      rounded-full px-4 py-1.5
-                      text-[8px] md:text-[9px]
-                      uppercase tracking-[0.2em]
-                      bg-transparent text-brand-gold
-                      border border-brand-gold/40
-                      hover:bg-brand-gold/10
-                      transition-all
-                    "
+                                            rounded-full border border-brand-gold/55
+                                            px-4 py-1.5
+                                            text-[8px] md:text-[9px]
+                                            uppercase tracking-[0.22em]
+                                            text-brand-gold
+                                            hover:bg-brand-gold/12
+                                            transition-all
+                                        "
                                     >
                                         Close
                                     </button>
@@ -762,8 +399,6 @@ export default function HighlightsSection() {
                     </motion.div>
                 )}
             </AnimatePresence>
-
-
         </section>
     );
 }

@@ -64,7 +64,7 @@ export default function PageHero({ image, alt, title, subtitle, eyebrow }: PageH
                         <motion.p
                             variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
                             transition={{ duration: 0.6 }}
-                            className="text-subtitle"
+                            className="hero-subtitle"
                         >
                             {subtitle}
                         </motion.p>

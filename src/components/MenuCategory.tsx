@@ -51,7 +51,7 @@ export default function MenuCategory({
                 <h2 className="text-2xl uppercase">
                     {category.label}
                 </h2>
-                <p className="max-w-2xl md:mx-auto text-xs md:text-sm text-brand-cream/80 leading-relaxed">
+                <p className="max-w-2xl md:mx-auto text-xs md:text-base text-brand-cream/80 leading-relaxed">
                     {category.subtitle}
                 </p>
                 <div className="flex items-center md:justify-center gap-2 pt-1">
