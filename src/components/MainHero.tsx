@@ -14,7 +14,7 @@ const heroImages = [
     "/images/slide3.jpg",
 ];
 
-export default function HeroSlider() {
+export default function MainHero() {
     const [heroIndex, setHeroIndex] = useState(0);
 
     // autoplay slider

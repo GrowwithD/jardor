@@ -4,7 +4,7 @@ import BlogList from "@/components/BlogList";
 
 export default function BlogPage() {
   return (
-    <main className="bg-black text-brand-cream pb-20">
+    <main className="bg-black text-brand-cream">
       <BlogHero />
       <BlogList />
     </main>

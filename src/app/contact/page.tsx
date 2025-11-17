@@ -1,10 +1,10 @@
 import ContactHero from "@/components/ContactHero";
-import ContactSection from "@/components/ContactSection";
+import ContactSection from "@/components/ContactContent";
 import MapSection from "@/components/MapSection";
 
 export default function ContactPage() {
     return (
-        <main className="bg-black text-brand-cream pb-20">
+        <main className="bg-black text-brand-cream">
             {/* HERO */}
             <ContactHero />
 

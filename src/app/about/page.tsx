@@ -6,7 +6,7 @@ import OurStorySection from "@/components/OurStorySection";
 
 export default function AboutPage() {
     return (
-        <main className="bg-black text-brand-cream pb-20">
+        <main className="bg-black text-brand-cream">
 
             {/* HERO */}
             <AboutHero />

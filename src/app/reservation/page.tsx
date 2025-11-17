@@ -1,10 +1,10 @@
 import MapSection from "@/components/MapSection";
 import ReservationHero from "@/components/ReservationHero";
-import ReservationSection from "@/components/ReservationSection";
+import ReservationSection from "@/components/ReservationDetailsSection";
 
 export default function ReservationPage() {
     return (
-        <main className="bg-black text-brand-cream pb-20">
+        <main className="bg-black text-brand-cream">
             {/* HERO */}
             <ReservationHero />
 

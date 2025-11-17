@@ -25,9 +25,6 @@ export default function CtaSection() {
                 </div>
             </div>
 
-            {/* ===== TOP GOLD LINE ===== */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[220px] h-px bg-linear-to-r from-transparent via-brand-gold/50 to-transparent" />
-
 
 
             {/* ===== CONTENT ===== */}

@@ -1,4 +1,4 @@
-import HeroEvents from "@/components/HeroEvents";
+import HeroEvents from "@/components/EventHero";
 import EventsList from "@/components/EventsList";
 
 export default function EventsPage() {

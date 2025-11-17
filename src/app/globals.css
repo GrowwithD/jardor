@@ -133,7 +133,7 @@
 
     /* === SUBTITLE TEXT (LIGHT PARAGRAPH) === */
     .text-subtitle {
-        @apply font-extralight text-brand-gold md:text-md leading-relaxed;
+        @apply font-extralight text-brand-gold text-[13px] md:text-[15px] leading-relaxed;
     }
 
     .eyebrow {

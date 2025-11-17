@@ -1,6 +1,6 @@
 "use client";
 
-import HeroMenu from "@/components//HeroMenu";
+import HeroMenu from "@/components/MenuHero";
 import MenusList from "@/components//MenusList";
 import CtaSection from "@/components/CtaSection";
 

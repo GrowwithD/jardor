@@ -1,4 +1,4 @@
-import HeroSlider from "@/components/HeroSlider";
+import HeroSlider from "@/components/MainHero";
 import HighlightsSection from "@/components/HighlightsSection";
 import HighlightsSection4 from "@/components/HighlightsSection4";
 import HighlightsSection2 from "@/components/HighlightsSection2";
@@ -13,11 +13,11 @@ export default function HomePage() {
   return (
     <>
       <HeroSlider />
-      <HighlightsSection />
+      {/* <HighlightsSection />
       <HighlightsSection2 />
-      <HighlightsSection3 />
+      <HighlightsSection3 /> */}
       <HighlightsSection4 />
-      <HighlightsSection5 />
+      {/* <HighlightsSection5 /> */}
       <SommelierSection />
       <ChefSection />
       <CtaSection />

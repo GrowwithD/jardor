@@ -1,281 +1,343 @@
+// src/components/sections/EventsList.tsx
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
+import { useEffect, useState, useRef } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 
-type EventItem = {
-    id: string;
-    title: string;
-    date: string; // YYYY-MM-DD
-    image: string;
-    excerpt: string;
-};
+import BatikSectionLayout from "@/components/layouts/BatikSectionLayout";
+import SectionHeader from "@/components/molecules/SectionHeader";
+import UpcomingEventCard from "@/components/molecules/UpcomingEventCard";
+import PastEventCard from "@/components/molecules/PastEventCard";
+import { upcomingEventsData, pastEventsData } from "@/data/events";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const events: EventItem[] = [
-    {
-        id: "champagne-soiree",
-        title: "Champagne Soirée: Grower Cuvées & Canapés",
-        date: "2025-01-18",
-        image: "/images/main-food-2.jpg",
-        excerpt:
-            "An evening with grower champagnes, seasonal hors d’oeuvres, and live jazz in our garden lounge.",
-    },
-    {
-        id: "chef-collab",
-        title: "Four Hands Dinner with Chef Invité",
-        date: "2024-12-05",
-        image: "/images/main-food-3.jpg",
-        excerpt:
-            "A collaboration dinner presenting two interpretations of modern French cuisine with Balinese nuance.",
-    },
-    {
-        id: "christmas-eve",
-        title: "Christmas Eve Tasting Journey",
-        date: "2024-12-24",
-        image: "/images/main-food.jpg",
-        excerpt:
-            "A festive multi-course journey, rare cellar pours, and candlelit ambience by the coastline.",
-    },
-    {
-        id: "past-bordeaux",
-        title: "Bordeaux Library Night",
-        date: "2024-07-20",
-        image: "/images/menu-hero.jpg",
-        excerpt:
-            "A retrospective Bordeaux tasting from our private library, paired with Jard’or signature plates.",
-    },
-];
+type TabKey = "upcoming" | "past";
 
-// parse date pakai UTC supaya konsisten di server & client
-const parseDate = (value: string) => new Date(`${value}T00:00:00Z`);
-
-// sort sekali di level module
-const sorted = [...events].sort(
-    (a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime()
-);
-
-// "today" di-normalize ke UTC (tanpa jam)
-const now = new Date();
-const today = new Date(
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
-);
-
-const upcomingEvents = sorted.filter(
-    (e) => parseDate(e.date).getTime() >= today.getTime()
-);
-
-const pastEvents = sorted
-    .filter((e) => parseDate(e.date).getTime() < today.getTime())
-    .sort(
-        (a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime()
-    );
-
-// Framer Motion variants (diketik biar TS nggak komplain)
-const gridVariants: Variants = {
-    hidden: { opacity: 0, y: 18 },
-    show: {
+const sliderVariants: Variants = {
+    enter: (direction: number) => ({
+        x: direction === 1 ? 80 : -80,
+        opacity: 0,
+        scale: 0.99,
+    }),
+    center: {
+        x: 0,
         opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.5,
-            ease: "easeOut", // pakai literal yang valid
-            when: "beforeChildren",
-            staggerChildren: 0.06,
-        },
-    },
-};
-
-const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 18, scale: 0.98 },
-    show: {
-        opacity: 1,
-        y: 0,
         scale: 1,
         transition: {
-            duration: 0.5,
-            ease: "easeOut",
+            duration: 0.8,
+            ease: [0.25, 0.1, 0.25, 1],
         },
     },
+    exit: (direction: number) => ({
+        x: direction === 1 ? -80 : 80,
+        opacity: 0,
+        scale: 0.99,
+        transition: {
+            duration: 0.6,
+            ease: "easeInOut",
+        },
+    }),
 };
-
-type EventSectionProps = {
-    title: string;
-    items: EventItem[];
-    accent: "gold" | "muted";
-    emptyLabel: string;
-};
-
-function EventSection({
-    title,
-    items,
-    accent,
-    emptyLabel,
-}: EventSectionProps) {
-    const isGold = accent === "gold";
-
-    return (
-        <div className="space-y-6">
-            {/* Heading */}
-            <div className="space-y-1">
-                <p
-                    className={`text-[8px] uppercase tracking-[0.22em] ${isGold ? "text-brand-gold/90" : "text-brand-cream/55"
-                        }`}
-                >
-                    {title}
-                </p>
-                <div className="flex items-center gap-2">
-                    <span
-                        className={`h-px w-8 ${isGold ? "bg-brand-gold/80" : "bg-brand-cream/22"
-                            }`}
-                    />
-                    <span
-                        className={`h-[3px] w-[3px] rounded-full ${isGold ? "bg-brand-gold/95" : "bg-brand-cream/40"
-                            }`}
-                    />
-                    <span
-                        className={`h-px flex-1 ${isGold
-                            ? "bg-linear-to-r from-brand-gold/40 to-transparent"
-                            : "bg-linear-to-r from-brand-cream/16 to-transparent"
-                            }`}
-                    />
-                </div>
-            </div>
-
-            {/* Empty state */}
-            {!items.length && (
-                <div className="rounded-2xl bg-black/82 border border-white/6 px-4 py-4 md:px-5 md:py-5 text-[9px] md:text-[10px] text-brand-cream/70 shadow-[0_14px_40px_rgba(0,0,0,0.9)]">
-                    {emptyLabel}
-                </div>
-            )}
-
-            {/* Grid events */}
-            {!!items.length && (
-                <motion.div
-                    variants={gridVariants}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, amount: 0.2 }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
-                >
-                    {items.map((event) => (
-                        <motion.article
-                            key={event.id}
-                            variants={cardVariants}
-                            whileHover={{ y: -4, scale: 1.02 }}
-                            whileTap={{ scale: 0.99 }}
-                            className="
-                group relative overflow-hidden rounded-2xl
-                bg-linear-to-b from-black/90 via-[#07110A]/96 to-black
-                border border-brand-gold/12
-                shadow-[0_18px_60px_rgba(0,0,0,0.95)]
-                transition-all duration-500
-                hover:border-brand-gold/55
-                hover:shadow-[0_0_26px_rgba(200,169,107,0.26)]
-              "
-                        >
-                            {/* Image */}
-                            <div className="relative w-full h-44 md:h-52 overflow-hidden">
-                                <Image
-                                    src={event.image}
-                                    alt={event.title}
-                                    fill
-                                    sizes="(min-width: 768px) 50vw, 100vw"
-                                    className="object-cover transition-transform duration-1100 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-linear-to-t from-black/88 via-black/35 to-transparent" />
-                            </div>
-
-                            {/* Content */}
-                            <div
-                                className="
-                  absolute inset-x-0 bottom-0
-                  px-4 pb-4 pt-6 md:px-5 md:pb-5 md:pt-7
-                  bg-linear-to-t from-black/92 via-black/40 to-transparent
-                "
-                            >
-                                <p className="text-[8px] uppercase tracking-[0.2em] text-brand-gold/80 mb-1">
-                                    {parseDate(event.date).toLocaleDateString("en-GB", {
-                                        day: "2-digit",
-                                        month: "short",
-                                        year: "numeric",
-                                        timeZone: "UTC",
-                                    })}
-                                </p>
-
-                                <h3 className="font-serif text-[13px] md:text-[14px] text-brand-cream tracking-[0.05em] leading-snug group-hover:text-brand-gold transition-colors">
-                                    {event.title}
-                                </h3>
-
-                                <p className="mt-1 text-[9px] md:text-[10px] text-brand-cream/78 leading-relaxed line-clamp-2">
-                                    {event.excerpt}
-                                </p>
-
-                                <Link
-                                    href={`/events/${event.id}`}
-                                    className="
-                    mt-3 inline-flex items-center gap-1
-                    text-[8px] uppercase tracking-[0.18em]
-                    text-brand-gold/88
-                    group-hover:text-brand-gold
-                    transition-colors
-                  "
-                                >
-                                    <span>View Details</span>
-                                    <span className="text-[10px] -translate-y-px">↗</span>
-                                </Link>
-                            </div>
-
-                            {/* Hover frame */}
-                            <div className="pointer-events-none absolute inset-0 rounded-2xl border border-transparent group-hover:border-brand-gold/18 group-hover:shadow-[0_0_35px_rgba(200,169,107,0.18)] transition-all duration-500" />
-                        </motion.article>
-                    ))}
-                </motion.div>
-            )}
-        </div>
-    );
-}
 
 export default function EventsList() {
-    return (
-        <section className="relative bg-gradient-to-b from-[#0D0F11] via-[#0A0C0E] to-black py-16">
+    const [activeTab, setActiveTab] = useState<TabKey>("upcoming");
 
-            <div className="absolute inset-0">
+    // === Slider state for UPCOMING ===
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [direction, setDirection] = useState<1 | -1>(1);
+    const autoplayRef = useRef<NodeJS.Timeout | null>(null);
+
+    const totalUpcoming = upcomingEventsData.length;
+    const hasUpcoming = totalUpcoming > 0;
+    const hasPast = pastEventsData.length > 0;
+
+    // === AOS INIT ===
+    useEffect(() => {
+        AOS.init({
+            duration: 900,
+            easing: "ease-out-cubic",
+            once: true,
+        });
+    }, []);
+
+    // === AUTOPLAY for Upcoming Slider ===
+    useEffect(() => {
+        if (activeTab !== "upcoming" || totalUpcoming <= 1) return;
+
+        if (autoplayRef.current) clearInterval(autoplayRef.current);
+
+        autoplayRef.current = setInterval(() => {
+            setDirection(1);
+            setCurrentIndex((prev) => (prev + 1) % totalUpcoming);
+        }, 6000);
+
+        return () => {
+            if (autoplayRef.current) clearInterval(autoplayRef.current);
+        };
+    }, [activeTab, totalUpcoming]);
+
+    const goNext = () => {
+        if (!hasUpcoming) return;
+        setDirection(1);
+        setCurrentIndex((prev) => (prev + 1) % totalUpcoming);
+    };
+
+    const goPrev = () => {
+        if (!hasUpcoming) return;
+        setDirection(-1);
+        setCurrentIndex((prev) => (prev - 1 + totalUpcoming) % totalUpcoming);
+    };
+
+    const currentEvent = hasUpcoming
+        ? upcomingEventsData[currentIndex]
+        : undefined;
+
+    return (
+        <BatikSectionLayout>
+            {/* HEADER */}
+            <div className="max-w-5xl mx-auto">
+                <SectionHeader
+                    eyebrow="Events & Experiences"
+                    title="Quiet Evenings, Collaborations & Cellar Journeys"
+                    subtitle="Seasonal dinners, cellar-led evenings, and collaborations that extend Jard’or beyond everyday service."
+                    align="center"
+                />
+            </div>
+
+            <div className="max-w-6xl mx-auto px-5 mt-10 space-y-10">
+                {/* =================== TABS =================== */}
                 <div
                     className="
-                            absolute inset-0
-                            [transform:scaleX(-1)]
-                        "
+            mx-auto max-w-md
+            rounded-full
+            border border-brand-gold/30
+            bg-black/70
+            px-1.5 py-1.5
+            shadow-[0_16px_50px_rgba(0,0,0,0.95)]
+            flex items-center gap-1
+          "
                 >
-                    <div
-                        className="
-                                absolute inset-0
-                                bg-[url('/images/batik1.png')]
-                                bg-repeat
-                                bg-[length:420px_auto]  /* ukuran tile biar rapih */
-                                opacity-5
-                            "
-                    />
-                </div>
-            </div>
+                    {(["upcoming", "past"] as TabKey[]).map((tab) => {
+                        const isActive = activeTab === tab;
+                        const label =
+                            tab === "upcoming" ? "Upcoming Experiences" : "Past Moments";
 
-            <div className="relative z-10 max-w-6xl mx-auto px-5 space-y-14">
-                <EventSection
-                    title="Upcoming Experiences"
-                    items={upcomingEvents}
-                    accent="gold"
-                    emptyLabel="No upcoming events at the moment — new collaborations and journeys will be announced soon."
-                />
-
-                <div className="pt-8 border-t border-white/6">
-                    <EventSection
-                        title="Past Moments at Jard’or"
-                        items={pastEvents}
-                        accent="muted"
-                        emptyLabel="Our past event stories will appear here once we’ve hosted them."
-                    />
+                        return (
+                            <button
+                                key={tab}
+                                type="button"
+                                onClick={() => setActiveTab(tab)}
+                                className={`
+                  flex-1 rounded-full px-4 py-1.5
+                  text-[9px] md:text-[10px]
+                  uppercase tracking-[0.22em]
+                  transition-all duration-300
+                  ${isActive
+                                        ? "bg-brand-gold text-black shadow-[0_0_26px_rgba(200,169,107,0.35)]"
+                                        : "bg-transparent text-brand-cream/70 hover:text-brand-gold/90"
+                                    }
+                `}
+                            >
+                                {label}
+                            </button>
+                        );
+                    })}
                 </div>
+
+                {/* =================== UPCOMING (FRAMER SLIDER) =================== */}
+                {activeTab === "upcoming" && (
+                    <section className="space-y-8">
+                        <p className="text-[10px] md:text-[11px] text-brand-cream/70 max-w-xl mx-auto text-center">
+                            Limited dates with focused seating — early reservations are
+                            recommended for champagne evenings, collaborations, and festive
+                            services.
+                        </p>
+
+                        {!hasUpcoming ? (
+                            <div
+                                className="
+                  rounded-2xl border border-brand-gold/16 bg-black/80
+                  px-4 py-5 md:px-6 md:py-6
+                  text-center
+                  text-[10px] md:text-[11px] text-brand-cream/75
+                  shadow-[0_16px_50px_rgba(0,0,0,0.9)]
+                "
+                            >
+                                No upcoming events at the moment — new collaborations and
+                                journeys will be announced soon.
+                            </div>
+                        ) : (
+                            <div className="relative flex w-full justify-center">
+                                {/* LEFT ARROW */}
+                                <button
+                                    type="button"
+                                    onClick={goPrev}
+                                    className="
+        hidden md:flex
+        absolute -left-18 top-1/2 -translate-y-1/2
+        h-14 w-14
+        items-center justify-center
+        rounded-full
+        border border-brand-gold/40
+        bg-black/30
+        text-brand-gold/90
+        shadow-[0_0_28px_rgba(200,169,107,0.15)]
+        backdrop-blur-md
+
+        hover:bg-brand-gold hover:text-black
+        hover:shadow-[0_0_38px_rgba(200,169,107,0.45)]
+        transition-all duration-300 ease-out
+    "
+                                    aria-label="Previous event"
+                                >
+                                    <ChevronLeft size={26} strokeWidth={1.5} />
+                                </button>
+
+
+
+                                {/* SLIDE */}
+                                <div className="w-full max-w-4xl lg:max-w-7xl">
+                                    <AnimatePresence
+                                        mode="wait"
+                                        custom={direction}
+                                    >
+                                        {currentEvent && (
+                                            <motion.div
+                                                key={currentEvent.id}
+                                                variants={sliderVariants}
+                                                initial="enter"
+                                                animate="center"
+                                                exit="exit"
+                                                custom={direction}
+                                            >
+                                                <UpcomingEventCard
+                                                    event={currentEvent}
+                                                    index={currentIndex}
+                                                />
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+
+                                   {/* RIGHT ARROW */}
+                                <button
+                                    type="button"
+                                    onClick={goNext}
+                                    className="
+        hidden md:flex
+        absolute -right-18 top-1/2 -translate-y-1/2
+        h-14 w-14
+        items-center justify-center
+        rounded-full
+        border border-brand-gold/40
+        bg-black/30
+        text-brand-gold/90
+        shadow-[0_0_28px_rgba(200,169,107,0.15)]
+        backdrop-blur-md
+
+        hover:bg-brand-gold hover:text-black
+        hover:shadow-[0_0_38px_rgba(200,169,107,0.45)]
+        transition-all duration-300 ease-out
+    "
+                                    aria-label="Next event"
+                                >
+                                    <ChevronRight size={26} strokeWidth={1.5} />
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Dots + mobile prev/next */}
+                        {hasUpcoming && (
+                            <div className="flex flex-col items-center gap-3 pt-2">
+                                {/* mobile prev/next */}
+                                <div className="flex md:hidden items-center gap-4">
+                                    <button
+                                        type="button"
+                                        onClick={goPrev}
+                                        className="
+                      px-3 py-1.5 rounded-full
+                      text-[9px] uppercase tracking-[0.18em]
+                      border border-brand-gold/40
+                      bg-black/70 text-brand-cream/80
+                      hover:bg-brand-gold hover:text-black
+                      transition-all
+                    "
+                                    >
+                                        Prev
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={goNext}
+                                        className="
+                      px-3 py-1.5 rounded-full
+                      text-[9px] uppercase tracking-[0.18em]
+                      border border-brand-gold/40
+                      bg-black/70 text-brand-cream/80
+                      hover:bg-brand-gold hover:text-black
+                      transition-all
+                    "
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+
+                                {/* dots */}
+                                <div className="flex items-center justify-center gap-2">
+                                    {upcomingEventsData.map((event, i) => (
+                                        <button
+                                            key={`dot-${event.id}-${i}`}
+                                            type="button"
+                                            onClick={() => {
+                                                setDirection(i > currentIndex ? 1 : -1);
+                                                setCurrentIndex(i);
+                                            }}
+                                            className={`
+                        h-1.5 rounded-full transition-all duration-300
+                        ${i === currentIndex
+                                                    ? "w-5 bg-brand-gold"
+                                                    : "w-2 bg-brand-cream/35 hover:bg-brand-gold/60"
+                                                }
+                      `}
+                                            aria-label={`Go to event ${i + 1}`}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </section>
+                )}
+
+                {/* =================== PAST (GRID) =================== */}
+                {activeTab === "past" && (
+                    <section className="space-y-6">
+                        <p className="text-[10px] md:text-[11px] text-brand-cream/60 max-w-xl mx-auto text-center">
+                            A quiet archive of evenings we’ve hosted — reference points for
+                            future collaborations and returning guests.
+                        </p>
+
+                        {!hasPast ? (
+                            <div
+                                className="
+                  rounded-2xl border border-white/8 bg-black/80
+                  px-4 py-4 md:px-5 md:py-5
+                  text-[10px] md:text-[11px] text-brand-cream/75
+                  shadow-[0_16px_45px_rgba(0,0,0,0.85)]
+                "
+                            >
+                                Our past event stories will appear here once we’ve hosted them.
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                                {pastEventsData.map((event, index) => (
+                                    <PastEventCard key={event.id} event={event} index={index} />
+                                ))}
+                            </div>
+                        )}
+                    </section>
+                )}
             </div>
-        </section>
+        </BatikSectionLayout>
     );
 }
