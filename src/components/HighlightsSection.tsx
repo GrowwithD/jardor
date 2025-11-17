@@ -82,7 +82,7 @@ export default function HighlightsSection() {
     return (
         <section
             ref={containerRef}
-            className="relative overflow-hidden bg-black text-brand-cream"
+            className="relative overflow-hidden bg-brand-green text-brand-cream"
         >
             {/* Parallax Background */}
             <div className="pointer-events-none absolute inset-0 -top-10">
@@ -96,16 +96,7 @@ export default function HighlightsSection() {
                         transition={{ duration: 0.35, ease: "easeOut" }}
                         className="absolute inset-0 will-change-transform"
                     >
-                        <Image
-                            src={hero.image}
-                            alt={hero.title}
-                            fill
-                            priority
-                            className="object-cover"
-                        />
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,0,0,0.16),transparent_65%)]" />
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_rgba(196,178,96,0.16),transparent_70%)] mix-blend-overlay" />
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/72 to-[#020504]/98" />
+
                     </motion.div>
                 </AnimatePresence>
             </div>

@@ -1,48 +1,73 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import ButtonGold from "@/components/atoms/ButtonGold";
 import ButtonOutlineGold from "@/components/atoms/ButtonOutlineGold";
 
-const YT_VIDEO_ID = "--MdohXec7M";
-const YT_EMBED_URL = `https://www.youtube.com/embed/${YT_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${YT_VIDEO_ID}&controls=0&showinfo=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`;
+
+const heroImages = [
+    "/images/slide1.jpg",
+    "/images/slide2.jpg",
+    "/images/slide3.jpg",
+];
 
 export default function MainHero() {
+    const [heroIndex, setHeroIndex] = useState(0);
+
+    // autoplay slider
+    useEffect(() => {
+        if (heroImages.length <= 1) return;
+
+        const interval = setInterval(
+            () => setHeroIndex((prev) => (prev + 1) % heroImages.length),
+            6500
+        );
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
-        <section className="relative h-[520px] md:h-screen w-full overflow-hidden ">
-            {/* === BACKGROUND VIDEO === */}
-            <div className="absolute inset-0 -z-10 overflow-hidden">
-                <div className="relative w-full h-full">
-                    <div className="absolute inset-0 overflow-hidden">
-                        {/* Responsive COVER wrapper */}
-                        <div className="absolute top-1/2 left-1/2 w-[120vw] h-[120vh] -translate-x-1/2 -translate-y-1/2 scale-110">
-                            <iframe
-                                src={YT_EMBED_URL}
-                                title="Jard’or Christmas Video"
-                                allow="autoplay; encrypted-media; fullscreen"
-                                className="
-            absolute top-1/2 left-1/2
-            h-[100%] w-[100%]
-            min-w-[100%] min-h-[100%]
-            -translate-x-1/2 -translate-y-1/2
-            pointer-events-none
-          "
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <section className="relative h-[520px] md:h-screen w-full overflow-hidden">
+            {/* Slides */}
+            <AnimatePresence>
+                {heroImages.map(
+                    (src, idx) =>
+                        idx === heroIndex && (
+                            <motion.div
+                                key={src}
+                                className="absolute inset-0"
+                                initial={{ opacity: 0, scale: 1.05 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 1.08 }}
+                                transition={{
+                                    duration: 1.6,
+                                    ease: [0.25, 0.1, 0.25, 1],
+                                }}
+                            >
+                                <Image
+                                    src={src}
+                                    alt={`Jard’or fine dining ${idx + 1}`}
+                                    fill
+                                    priority
+                                    className="object-cover"
+                                />
+                            </motion.div>
+                        )
+                )}
+            </AnimatePresence>
 
             {/* Overlays */}
-            <div className="absolute inset-0 bg-linear-to-b from-black/85 via-black/40 to-black/70" />
+             <div className="absolute inset-0 bg-linear-to-b from-black/85 via-black/40 to-black/70" />
             <div className="pointer-events-none absolute inset-0">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,transparent,rgba(0,0,0,0.55))]" />
             </div>
-
-            {/* === CONTENT === */}
+            {/* Content */}
             <div className="relative z-10 flex h-full items-center pt-28">
                 <motion.div
+                    key={heroIndex}
                     initial="hidden"
                     animate="visible"
                     variants={{
@@ -83,8 +108,7 @@ export default function MainHero() {
                         transition={{ duration: 0.6 }}
                         className="text-subtitle"
                     >
-                        Celebrate Christmas Eve with a curated 5-course French degustation,
-                        crafted to warm the heart and elevate the holiday spirit.
+                        Celebrate Christmas Eve with a curated 5-course French degustation, crafted to warm the heart and elevate the holiday spirit.
                     </motion.p>
 
                     {/* CTAs */}
@@ -98,6 +122,28 @@ export default function MainHero() {
                     >
                         <ButtonGold href="/reservation">Booking Now</ButtonGold>
                         <ButtonOutlineGold href="/menus">View Our Menus</ButtonOutlineGold>
+                    </motion.div>
+
+                    {/* Dots */}
+                    <motion.div
+                        variants={{
+                            hidden: { opacity: 0, y: 15 },
+                            visible: { opacity: 1, y: 0 },
+                        }}
+                        transition={{ duration: 0.7, delay: 0.7 }}
+                        className="mt-5 flex items-center gap-2"
+                    >
+                        {heroImages.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => setHeroIndex(i)}
+                                className={`h-1.5 rounded-full transition-all duration-300 ${i === heroIndex
+                                    ? "w-5 bg-brand-gold"
+                                    : "w-2 bg-brand-cream/35 hover:bg-brand-gold/60"
+                                    }`}
+                                aria-label={`Go to slide ${i + 1}`}
+                            />
+                        ))}
                     </motion.div>
 
                     {/* Scroll indicator */}
