@@ -18,7 +18,7 @@ export default function ReservationContact() {
                 viewport={{ once: true, amount: 0.3 }}
                 className="rounded-3xl border border-brand-gold/16 bg-linear-to-b from-black/88 via-[#07100B]/98 to-black/96 px-6 py-8 shadow-[0_18px_60px_rgba(0,0,0,0.95)] space-y-5"
             >
-                <h2 className="font-serif text-lg tracking-[0.12em] text-brand-gold uppercase">
+                <h2 className="text-lg tracking-[0.12em] text-brand-gold uppercase">
                     Reservation Concierge
                 </h2>
                 <p className="text-[9px] md:text-[10px] text-brand-cream/75 leading-relaxed">

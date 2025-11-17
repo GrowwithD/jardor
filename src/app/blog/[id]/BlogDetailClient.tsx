@@ -89,7 +89,7 @@ export function BlogDetailClient({ post }: { post: BlogPost }) {
             <p className="text-[9px] uppercase tracking-[0.22em] text-brand-gold/80 mb-1">
               Jard’or Journal · {post.tag}
             </p>
-            <h1 className="font-serif text-2xl md:text-4xl text-brand-cream leading-snug mb-2">
+            <h1 className="text-2xl md:text-4xl text-brand-cream leading-snug mb-2">
               {post.title}
             </h1>
             <p className="text-[9px] text-brand-cream/70">

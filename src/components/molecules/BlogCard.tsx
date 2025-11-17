@@ -52,7 +52,7 @@ export default function BlogCard({ post, index }: BlogCardProps) {
                     {post.readingTime ? ` • ${post.readingTime}` : ""}
                 </p>
 
-                <h3 className="font-serif text-[13px] md:text-[14px] text-brand-cream tracking-[0.06em] leading-snug group-hover:text-brand-gold transition-colors">
+                <h3 className="text-[13px] md:text-[14px] text-brand-cream tracking-[0.06em] leading-snug group-hover:text-brand-gold transition-colors">
                     {post.title}
                 </h3>
 

@@ -105,7 +105,7 @@ export function EventDetailClient({ event }: { event: Event }) {
 
           <motion.h1
             variants={fadeInUp}
-            className="font-serif text-2xl md:text-4xl lg:text-[42px] text-brand-cream tracking-[0.03em]"
+            className="text-2xl md:text-4xl lg:text-[42px] text-brand-cream tracking-[0.03em]"
           >
             {event.title}
           </motion.h1>

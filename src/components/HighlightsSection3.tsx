@@ -347,7 +347,7 @@ export default function HighlightsSection() {
                             Jard&apos;or Highlights
                         </span>
                     </div>
-                    <h2 className="font-serif text-3xl md:text-4xl uppercase tracking-[0.16em] text-brand-cream">
+                    <h2 className="text-3xl md:text-4xl uppercase tracking-[0.16em] text-brand-cream">
                         A Curated Visual Story
                     </h2>
                     <p className="mx-auto max-w-2xl text-[10px] md:text-xs leading-relaxed text-brand-cream/78">
@@ -374,7 +374,7 @@ export default function HighlightsSection() {
                                 <span className="text-[8px] uppercase tracking-[0.22em]">
                                     {h.tagline}
                                 </span>
-                                <span className="font-serif text-xs md:text-sm uppercase tracking-[0.16em]">
+                                <span className="text-xs md:text-sm uppercase tracking-[0.16em]">
                                     {h.label}
                                 </span>
                                 {isActive && (
@@ -428,7 +428,7 @@ export default function HighlightsSection() {
                                     <p className="text-[8px] uppercase tracking-[0.26em] text-brand-gold/92">
                                         {active.tagline}
                                     </p>
-                                    <h3 className="font-serif text-2xl md:text-3xl text-brand-cream leading-snug">
+                                    <h3 className="text-2xl md:text-3xl text-brand-cream leading-snug">
                                         {hero.title}
                                     </h3>
                                     <p className="max-w-xl text-[8px] md:text-[9px] text-brand-cream/80 leading-relaxed line-clamp-3 md:line-clamp-4">
@@ -560,7 +560,7 @@ export default function HighlightsSection() {
                                     <p className="text-[8px] uppercase tracking-[0.26em] text-brand-gold/90">
                                         {activeItem.highlight}
                                     </p>
-                                    <h4 className="font-serif text-xl text-brand-cream">
+                                    <h4 className="text-xl text-brand-cream">
                                         {activeItem.title}
                                     </h4>
                                     {activeItem.meta && (
@@ -576,7 +576,7 @@ export default function HighlightsSection() {
                                     <p className="mb-1 text-[8px] uppercase tracking-[0.26em] text-brand-gold/90">
                                         {activeItem.highlight}
                                     </p>
-                                    <h4 className="font-serif text-2xl md:text-3xl text-brand-cream leading-snug">
+                                    <h4 className="text-2xl md:text-3xl text-brand-cream leading-snug">
                                         {activeItem.title}
                                     </h4>
                                     {activeItem.meta && (

@@ -504,7 +504,7 @@ export default function HighlightsSection() {
                                         </div>
 
                                         <motion.h3
-                                            className="font-serif text-lg md:text-2xl text-brand-gold uppercase flex items-center gap-2"
+                                            className="text-lg md:text-2xl text-brand-gold uppercase flex items-center gap-2"
                                             variants={{
                                                 rest: {
                                                     letterSpacing: "0.16em",
@@ -712,7 +712,7 @@ export default function HighlightsSection() {
                                     <p className="text-[8px] uppercase tracking-[0.22em] text-brand-gold/85">
                                         {activeItem.highlight}
                                     </p>
-                                    <h4 className="font-serif text-xl text-brand-cream">
+                                    <h4 className="text-xl text-brand-cream">
                                         {activeItem.title}
                                     </h4>
                                 </div>
@@ -724,7 +724,7 @@ export default function HighlightsSection() {
                                     <p className="text-[8px] uppercase tracking-[0.26em] text-brand-gold/85 mb-1">
                                         {activeItem.highlight}
                                     </p>
-                                    <h4 className="font-serif text-2xl md:text-3xl text-brand-cream leading-snug">
+                                    <h4 className="text-2xl md:text-3xl text-brand-cream leading-snug">
                                         {activeItem.title}
                                     </h4>
                                 </div>

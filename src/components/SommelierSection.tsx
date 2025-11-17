@@ -70,7 +70,7 @@ export default function SommelierSection() {
                             transition={{ duration: 1, ease: "easeOut" }}
                             className="h-px bg-brand-gold/60 hidden md:inline-block"
                         />
-                        <h2 className="font-serif text-3xl md:text-4xl text-brand-gold tracking-[0.08em]">
+                        <h2 className="text-3xl md:text-4xl text-brand-gold tracking-[0.08em]">
                             Our Sommelier
                         </h2>
                     </div>

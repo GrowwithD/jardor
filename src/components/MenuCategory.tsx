@@ -98,7 +98,7 @@ export default function MenuCategory({
                                         <div className="mt-2">
                                             <span
                                                 className="
-                          font-serif text-[13px] md:text-[15px] tracking-wide text-brand-gold
+                          text-[13px] md:text-[15px] tracking-wide text-brand-gold
                           group-hover:text-brand-gold/95 transition-colors
                         "
                                             >

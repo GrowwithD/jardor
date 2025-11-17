@@ -59,7 +59,7 @@ export default function PastEventCard({ event, index }: PastEventCardProps) {
                     </p>
 
                     <h3 className="
-                        font-serif text-[14px] md:text-[15px]
+                        text-[14px] md:text-[15px]
                         text-brand-cream leading-snug tracking-[0.04em]
                         group-hover:text-brand-gold transition-colors
                     ">

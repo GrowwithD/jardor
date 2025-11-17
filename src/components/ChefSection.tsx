@@ -37,7 +37,7 @@ export default function ChefSection() {
                 >
                     {/* Label */}
                     <div className="inline-flex items-center gap-3 mb-1">
-                        <h2 className="font-serif text-3xl md:text-4xl text-brand-gold tracking-[0.08em]">
+                        <h2 className="text-3xl md:text-4xl text-brand-gold tracking-[0.08em]">
                             Our Executive Chef
                         </h2>
                         <motion.span

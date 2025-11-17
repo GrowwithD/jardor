@@ -400,7 +400,7 @@ export default function HighlightsSection() {
                             Jard&apos;or Cinematic Highlights
                         </span>
                     </div>
-                    <h2 className="font-serif text-3xl md:text-4xl uppercase tracking-[0.16em] text-brand-cream">
+                    <h2 className="text-3xl md:text-4xl uppercase tracking-[0.16em] text-brand-cream">
                         A Parallax Portrait of Jard&apos;or
                     </h2>
                     <p className="mx-auto max-w-xl text-[9px] md:text-[10px] text-brand-cream/75 leading-relaxed">
@@ -427,7 +427,7 @@ export default function HighlightsSection() {
                                 <span className="text-[7px] uppercase tracking-[0.22em]">
                                     {h.tagline}
                                 </span>
-                                <span className="font-serif text-[10px] md:text-xs uppercase tracking-[0.16em]">
+                                <span className="text-[10px] md:text-xs uppercase tracking-[0.16em]">
                                     {h.label}
                                 </span>
                                 {isActive && (
@@ -458,7 +458,7 @@ export default function HighlightsSection() {
                                 <p className="text-[7px] uppercase tracking-[0.26em] text-brand-gold/90">
                                     {active.tagline}
                                 </p>
-                                <h3 className="font-serif text-lg md:text-xl text-brand-cream tracking-[0.14em] uppercase">
+                                <h3 className="text-lg md:text-xl text-brand-cream tracking-[0.14em] uppercase">
                                     {active.label}
                                 </h3>
                                 <p className="max-w-md text-[8px] md:text-[9px] text-brand-cream/78 leading-relaxed">
@@ -505,7 +505,7 @@ export default function HighlightsSection() {
                                     <p className="text-[7px] uppercase tracking-[0.22em] text-brand-gold/90">
                                         Signature Highlight
                                     </p>
-                                    <h4 className="font-serif text-base md:text-lg text-brand-cream leading-snug">
+                                    <h4 className="text-base md:text-lg text-brand-cream leading-snug">
                                         {hero.title}
                                     </h4>
                                     {hero.meta && (
@@ -628,7 +628,7 @@ export default function HighlightsSection() {
                                     <p className="text-[8px] uppercase tracking-[0.26em] text-brand-gold/90">
                                         {activeItem.highlight}
                                     </p>
-                                    <h4 className="font-serif text-xl text-brand-cream">
+                                    <h4 className="text-xl text-brand-cream">
                                         {activeItem.title}
                                     </h4>
                                     {activeItem.meta && (
@@ -644,7 +644,7 @@ export default function HighlightsSection() {
                                     <p className="mb-1 text-[8px] uppercase tracking-[0.26em] text-brand-gold/90">
                                         {activeItem.highlight}
                                     </p>
-                                    <h4 className="font-serif text-2xl md:text-3xl text-brand-cream leading-snug">
+                                    <h4 className="text-2xl md:text-3xl text-brand-cream leading-snug">
                                         {activeItem.title}
                                     </h4>
                                     {activeItem.meta && (
