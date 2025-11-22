@@ -1,4 +1,3 @@
-// components/MenusList.tsx
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -69,12 +68,8 @@ export default function MenusList() {
         });
     }, []);
 
-    const total = menuCategories.length;
-    const hasMenus = total > 0;
-
     const scrollToIndex = (index: number) => {
         if (!sliderRef.current) return;
-
         const container = sliderRef.current;
         const firstChild = container.firstElementChild as HTMLElement | null;
         const cardWidth = firstChild?.clientWidth ?? container.clientWidth;
@@ -86,24 +81,51 @@ export default function MenusList() {
     };
 
     const goNext = () => {
-        if (!hasMenus) return;
+        const total = menuCategories.length;
         const next = (currentIndex + 1) % total;
         setCurrentIndex(next);
         scrollToIndex(next);
     };
 
     const goPrev = () => {
-        if (!hasMenus) return;
+        const total = menuCategories.length;
         const prev = (currentIndex - 1 + total) % total;
         setCurrentIndex(prev);
         scrollToIndex(prev);
     };
 
     return (
-        <section className="relative bg-brand-green pt-14 pb-16">
-            <div className="mx-auto px-4 md:px-32">
-                {/* ===== HEADER PAKAI COMPONENT ===== */}
-                <div data-aos="fade-up">
+        <section
+            id="menus"
+            className="
+                relative py-20 md:py-28
+                text-brand-green
+                overflow-hidden
+            "
+        >
+            {/* ===== PARALLAX BACKGROUND ===== */}
+            <div
+                className="
+                    absolute inset-0 -z-10
+                    bg-[url('/images/DSC04930-HDR.jpg')]
+                    bg-cover bg-center bg-fixed
+                    opacity-[0.40]
+                "
+            />
+
+            {/* ===== WHITE GLASS OVERLAY ===== */}
+            <div
+                className="
+                    absolute inset-0 -z-[5]
+                    bg-black/50 backdrop-blur-[1px]
+                "
+            />
+
+            {/* ===== CONTENT WRAPPER ===== */}
+            <div className="relative mx-auto px-4 md:px-32">
+
+                {/* HEADER */}
+                <div data-aos="fade-up" className="mb-14">
                     <SectionHeader
                         eyebrow="House Menus"
                         title="Journeys from Kitchen & Cellar"
@@ -112,48 +134,33 @@ export default function MenusList() {
                     />
                 </div>
 
-                {/* ===== SLIDER WRAPPER ===== */}
-                <div
-                    data-aos="fade-up"
-                    data-aos-delay="120"
-                    className="mt-10"
-                >
+                {/* SLIDER SECTION */}
+                <div data-aos="fade-up" data-aos-delay="120">
                     <div className="relative">
-                        {/* Arrows (desktop) */}
+
+                        {/* Arrows (desktop only) */}
                         <button
-                            type="button"
                             onClick={goPrev}
                             className="
-                hidden md:flex
-                absolute -left-8 top-1/2 -translate-y-1/2
-                h-10 w-10
-                items-center justify-center
-                border border-brand-gold/40
-                text-brand-gold/90
-                hover:bg-brand-gold hover:text-black
-                transition-all duration-200 ease-out
-                z-10
-              "
-                            aria-label="Previous menu"
+                                hidden md:flex absolute -left-8 top-1/2 -translate-y-1/2
+                                h-10 w-10 items-center justify-center
+                                border border-brand-gold/40 text-brand-gold/90
+                                hover:bg-brand-gold hover:text-black
+                                transition-all duration-200 ease-out z-10
+                            "
                         >
                             <ChevronLeft size={20} strokeWidth={1.5} />
                         </button>
 
                         <button
-                            type="button"
                             onClick={goNext}
                             className="
-                hidden md:flex
-                absolute -right-8 top-1/2 -translate-y-1/2
-                h-10 w-10
-                items-center justify-center
-                border border-brand-gold/40
-                text-brand-gold/90
-                hover:bg-brand-gold hover:text-black
-                transition-all duration-200 ease-out
-                z-10
-              "
-                            aria-label="Next menu"
+                                hidden md:flex absolute -right-8 top-1/2 -translate-y-1/2
+                                h-10 w-10 items-center justify-center
+                                border border-brand-gold/40 text-brand-gold/90
+                                hover:bg-brand-gold hover:text-black
+                                transition-all duration-200 ease-out z-10
+                            "
                         >
                             <ChevronRight size={20} strokeWidth={1.5} />
                         </button>
@@ -162,87 +169,73 @@ export default function MenusList() {
                         <div
                             ref={sliderRef}
                             className="
-                flex
-                gap-8
-                overflow-x-auto
-                scroll-smooth
-                no-scrollbar
-                pb-2
-              "
+                                flex gap-8 overflow-x-auto no-scrollbar pb-2 scroll-smooth
+                            "
                         >
-                            {menuCategories.map((category, index) => (
+                            {menuCategories.map((cat, idx) => (
                                 <div
-                                    key={category.id}
+                                    key={cat.id}
                                     className="
-                    min-w-[82%]
-                    md:min-w-[60%]
-                    lg:min-w-[46%]
-                  "
+                                        min-w-[88%]
+                                        sm:min-w-[48%]
+                                        lg:min-w-[32%]
+                                    "
                                 >
-                                    <MenuCategory category={category} index={index} />
+                                    <MenuCategory category={cat} index={idx} />
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    {/* ===== DOT PAGINATION + MOBILE PREV/NEXT ===== */}
-                    {hasMenus && (
-                        <div className="mt-5 flex flex-col items-center gap-3">
-                            {/* Mobile prev/next */}
-                            <div className="flex md:hidden items-center justify-center gap-4">
-                                <button
-                                    type="button"
-                                    onClick={goPrev}
-                                    className="
-                    px-3 py-1.5
-                    text-[9px] uppercase tracking-[0.18em]
-                    border border-brand-gold/40
-                    text-brand-cream/80
-                    hover:bg-brand-gold hover:text-black
-                    transition-all
-                  "
-                                >
-                                    Prev
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={goNext}
-                                    className="
-                    px-3 py-1.5
-                    text-[9px] uppercase tracking-[0.18em]
-                    border border-brand-gold/40
-                    text-brand-cream/80
-                    hover:bg-brand-gold hover:text-black
-                    transition-all
-                  "
-                                >
-                                    Next
-                                </button>
-                            </div>
+                    {/* ===== DOTS ===== */}
+                    <div className="mt-5 flex flex-col items-center gap-3">
 
-                            {/* Dots */}
-                            <div className="flex items-center justify-center gap-2">
-                                {menuCategories.map((cat, i) => (
-                                    <button
-                                        key={cat.id}
-                                        type="button"
-                                        onClick={() => {
-                                            setCurrentIndex(i);
-                                            scrollToIndex(i);
-                                        }}
-                                        className={`
-                      h-0.5 transition-all duration-300
-                      ${i === currentIndex
-                                                ? "w-48 bg-brand-gold"
-                                                : "w-6 bg-brand-cream/35 hover:bg-brand-gold/60"
-                                            }
-                    `}
-                                        aria-label={`Go to ${cat.label} menu`}
-                                    />
-                                ))}
-                            </div>
+                        {/* Mobile Prev/Next */}
+                        <div className="flex md:hidden gap-4">
+                            <button
+                                onClick={goPrev}
+                                className="
+                                    px-3 py-1.5 text-[9px] uppercase tracking-[0.18em]
+                                    border border-brand-gold/40 text-brand-green/80
+                                    hover:bg-brand-gold hover:text-black transition-all
+                                "
+                            >
+                                Prev
+                            </button>
+
+                            <button
+                                onClick={goNext}
+                                className="
+                                    px-3 py-1.5 text-[9px] uppercase tracking-[0.18em]
+                                    border border-brand-gold/40 text-brand-green/80
+                                    hover:bg-brand-gold hover:text-black transition-all
+                                "
+                            >
+                                Next
+                            </button>
                         </div>
-                    )}
+
+                        {/* Dot pagination */}
+                        <div className="flex items-center gap-2">
+                            {menuCategories.map((_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => {
+                                        setCurrentIndex(i);
+                                        scrollToIndex(i);
+                                    }}
+                                    className={`
+                                        h-0.5 transition-all duration-300
+                                        ${i === currentIndex
+                                            ? "w-48 bg-brand-gold"
+                                            : "w-6 bg-brand-green/40 hover:bg-brand-gold/60"
+                                        }
+                                    `}
+                                />
+                            ))}
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </section>

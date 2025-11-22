@@ -26,7 +26,7 @@ export default function Navbar() {
     }, []);
 
     const headerClass = `
-    fixed top-6 inset-x-0 z-50 flex justify-center pointer-events-none
+    fixed inset-x-0 z-50 flex justify-center pointer-events-none
     transition-transform duration-500 ease-out
     ${visible ? "translate-y-0" : "-translate-y-[140%]"}
   `;

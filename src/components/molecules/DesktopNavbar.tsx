@@ -2,93 +2,117 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, LayoutGroup } from "framer-motion";
-import { usePathname } from "next/navigation";
-
-import { navItems } from "@/data/nav";
 import NavLogo from "@/components/atoms/NavLogo";
 import NavLinkItem from "@/components/atoms/NavLinkItem";
 
+const navItems = [
+    { label: "RESTAURANT", target: "restaurant" },
+    { label: "LE GARDEN", target: "garden" },
+    { label: "MENU", target: "menus" },
+    { label: "WINE", target: "wine" },
+    { label: "EXPERIENCE", target: "experience" },
+    { label: "GALLERY", target: "gallery" },
+    { label: "RESERVATION", target: "reservation" },
+];
+
 export default function DesktopNavbar() {
-  const pathname = usePathname();
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number>(0);
+    const prevIndexRef = useRef(0);
 
-  // index active route
-  const activeIndex = navItems.findIndex((i) =>
-    i.href === "/" ? pathname === "/" : pathname?.startsWith(i.href)
-  );
+    const [scrolled, setScrolled] = useState(false);
 
-  // index hover
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 80);
+        window.addEventListener("scroll", onScroll);
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
 
-  // index dipakai pill (hover > active)
-  const effectiveIndex = hoveredIndex ?? activeIndex;
+    const effectiveIndex = hoveredIndex ?? activeIndex;
 
-  const prevEffectiveIndexRef = useRef(effectiveIndex);
-  const direction =
-    effectiveIndex > prevEffectiveIndexRef.current
-      ? 1
-      : effectiveIndex < prevEffectiveIndexRef.current
-      ? -1
-      : 0;
+    const direction =
+        effectiveIndex > prevIndexRef.current
+            ? 1
+            : effectiveIndex < prevIndexRef.current
+                ? -1
+                : 0;
 
-  useEffect(() => {
-    if (effectiveIndex !== -1 && effectiveIndex !== null) {
-      prevEffectiveIndexRef.current = effectiveIndex;
-    }
-  }, [effectiveIndex]);
+    useEffect(() => {
+        prevIndexRef.current = effectiveIndex;
+    }, [effectiveIndex]);
 
-  return (
-    <LayoutGroup>
-      <motion.nav
-        className="
-          hidden md:flex relative bg-brand-green/98
-          text-sm tracking-[0.12em]
-          px-8 lg:px-10 py-4
-          items-center gap-0
-          pointer-events-auto
-          border border-brand-gold/14 backdrop-blur-md
-        "
-        initial={{ opacity: 0, y: -6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35 }}
-      >
-        {navItems.map((item, index) => {
-          const isLogo = item.label === "LOGO";
+    const scrollToSection = (id: string) => {
+        const el = document.getElementById(id);
+        if (!el) return;
 
-          const isCurrent =
-            item.href === "/" ? pathname === "/" : pathname?.startsWith(item.href);
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
 
-          const isHighlighted = index === effectiveIndex;
+        const i = navItems.findIndex((x) => x.target === id);
+        if (i !== -1) setActiveIndex(i);
+    };
 
-          // 🟡 LOGO item
-          if (isLogo) {
-            return (
-              <div
-                key="center-logo"
-                className="px-3 mx-4 flex items-center justify-center"
-              >
-                <NavLogo
-                  heightClass="h-36 -my-40"
-                  className="select-none pointer-events-auto"
-                />
-              </div>
-            );
-          }
+    return (
+        <LayoutGroup>
+            <motion.nav
+                className={`
+                    fixed left-0 right-0 top-0 z-50 hidden md:flex
+                    justify-center pointer-events-auto
+                    transition-all duration-300
+                    ${scrolled
+                        ? "py-4 bg-black/40 backdrop-blur-xl border-b border-brand-gold/20"
+                        : "py-6 bg-transparent"
+                    }
+                `}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35 }}
+            >
+                {/* NAV INNER */}
+                <div
+                    className={`
+                        flex items-center gap-0 px-8 lg:px-10 transition-all duration-300
+                        ${scrolled
+                            ? "border-none rounded-none"  // ← CLEAN saat scroll
+                            : "py-4 border border-brand-gold/50 backdrop-blur-md"
+                        }
+                    `}
+                >
 
-          // 🟢 Normal navigation item
-          return (
-            <NavLinkItem
-              key={item.href}
-              href={item.href}
-              label={item.label}
-              isHighlighted={isHighlighted}
-              isCurrent={!!isCurrent}
-              direction={direction}
-              onHoverStart={() => setHoveredIndex(index)}
-              onHoverEnd={() => setHoveredIndex(null)}
-            />
-          );
-        })}
-      </motion.nav>
-    </LayoutGroup>
-  );
+                    {/* LOGO */}
+                    <div
+                        className="px-3 flex items-center scroll-smooth justify-center cursor-pointer"
+                        onClick={() => scrollToSection("top")}
+                    >
+                        <NavLogo
+                            heightClass="h-36 -my-40"
+                            className="select-none pointer-events-auto"
+                        />
+                    </div>
+
+                    {/* NAV ITEMS */}
+                    {navItems.map((item, index) => {
+                        const isHighlighted = index === effectiveIndex;
+
+                        return (
+                            <button
+                                key={item.label}
+                                onClick={() => scrollToSection(item.target)}
+                                onMouseEnter={() => setHoveredIndex(index)}
+                                onMouseLeave={() => setHoveredIndex(null)}
+                                className="px-3"
+                            >
+                                <NavLinkItem
+                                    href="#"
+                                    label={item.label}
+                                    isHighlighted={isHighlighted}
+                                    isCurrent={index === activeIndex}
+                                    direction={direction}
+                                />
+                            </button>
+                        );
+                    })}
+                </div>
+            </motion.nav>
+        </LayoutGroup>
+    );
 }

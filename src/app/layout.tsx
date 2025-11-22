@@ -111,7 +111,7 @@ export default function RootLayout({
         <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
             <body
                 suppressHydrationWarning
-                className="min-h-screen bg-brand-green text-brand-cream flex flex-col font-optima text-md"
+                className="min-h-screen bg-brand-green text-brand-cream flex flex-col font-optima text-md scroll-smooth"
             >
                 {/* JSON-LD global */}
                 <script

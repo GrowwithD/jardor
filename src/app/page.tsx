@@ -7,6 +7,13 @@ import HighlightsSection from "@/components/HighlightsSection";
 import CtaSection from "@/components/CtaSection";
 import MapSection from "@/components/MapSection";
 import ChefSection from "@/components/ChefSection";
+import AboutJardorSection from "@/components/AboutJardorSection";
+import LeGardenSection from "@/components/LeGardenSection";
+import MenusList from "@/components/MenusList";
+import WineTastingSection from "@/components/WineTastingSection";
+import EventsExperiencesSection from "@/components/EventsExperiencesSection";
+import GallerySection from "@/components/GallerySection";
+import ReservationSection from "@/components/ReservationSection";
 
 import { getSeoBySlug } from "@/data/seo";
 
@@ -17,10 +24,17 @@ export default function HomePage() {
     return (
         <>
             <HeroSlider />
-            <HighlightsSection />
-            <SommelierSection />
+            <AboutJardorSection />
+            <LeGardenSection />
+            <MenusList />
+            <WineTastingSection />
+            <EventsExperiencesSection />
+            <GallerySection />
+            <ReservationSection />
+            {/* <HighlightsSection /> */}
+            {/* <SommelierSection />
             <ChefSection />
-            <CtaSection />
+            <CtaSection /> */}
             <MapSection />
         </>
     );

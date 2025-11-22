@@ -36,9 +36,13 @@ export default function MenuCategory({ category, index }: Props) {
                     alt={category.label}
                     fill
                     sizes="(min-width: 1024px) 40vw, 80vw"
-                    className="object-cover transition-transform duration-4000 group-hover:scale-[1.04]"
+                    className="
+            object-cover
+            transition-transform duration-[4000ms] ease-out
+            group-hover:scale-110
+        "
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent" />
             </div>
 
             {/* TEXT */}

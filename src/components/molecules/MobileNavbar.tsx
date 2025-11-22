@@ -1,142 +1,139 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { navItems } from "@/data/nav";
 import NavLogo from "@/components/atoms/NavLogo";
-import MobileNavItem from "@/components/atoms/MobileNavItem";
+
+const navItems = [
+    { label: "RESTAURANT", target: "restaurant" },
+    { label: "LE GARDEN", target: "garden" },
+    { label: "MENU", target: "menus" },
+    { label: "WINE", target: "wine" },
+    { label: "EXPERIENCE", target: "experience" },
+    { label: "GALLERY", target: "gallery" },
+    { label: "RESERVATION", target: "reservation" },
+];
 
 export default function MobileNavbar() {
-    const pathname = usePathname();
     const [open, setOpen] = useState(false);
 
-    // Lock body scroll when sheet open
+    // Lock scroll
     useEffect(() => {
-        if (!open) return;
-        const prev = document.body.style.overflow;
-        document.body.style.overflow = "hidden";
-        return () => {
-            document.body.style.overflow = prev;
-        };
+        document.body.style.overflow = open ? "hidden" : "";
     }, [open]);
 
-    // Close sheet when route changes
-    useEffect(() => {
+    const scrollToSection = (id: string) => {
+        const el = document.getElementById(id);
+        if (!el) return;
         setOpen(false);
-    }, [pathname]);
+
+        setTimeout(() => {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 280);
+    };
 
     return (
-        <div className="md:hidden flex justify-end w-full px-4 pointer-events-auto">
+        <div className="md:hidden fixed top-0 left-0 right-0 z-50 px-4 pointer-events-auto">
+            {/* Top bar */}
             <motion.div
-                className="flex items-center justify-between w-full bg-brand-green px-4 py-3 shadow-pill border border-brand-gold/18 backdrop-blur-md relative"
+                className="flex items-center justify-between w-full px-4 py-3
+                border border-brand-gold/25 backdrop-blur-md bg-black/30"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.35 }}
             >
                 {/* Logo */}
-                <NavLogo
-                    heightClass="h-36 -my-40"
-                    className="select-none pointer-events-auto"
-                />
+                <NavLogo heightClass="h-12" className="select-none" />
 
-                {/* Toggle */}
+                {/* Hamburger */}
                 <motion.button
-                    type="button"
-                    aria-label="Toggle navigation"
-                    onClick={() => setOpen((v) => !v)}
-                    whileTap={{ scale: 0.94 }}
-                    className={[
-                        "flex items-center justify-center w-9 h-9 rounded-full border transition-all relative z-[80] bg-black/20 backdrop-blur-sm",
-                        open
-                            ? "opacity-0 pointer-events-none"
-                            : "border-brand-cream/30 text-brand-cream hover:border-brand-gold hover:text-brand-gold",
-                    ].join(" ")}
+                    onClick={() => setOpen(true)}
+                    whileTap={{ scale: 0.92 }}
+                    className="
+                        w-9 h-9 flex items-center justify-center
+                        rounded-full border border-brand-cream/30
+                        bg-black/20 backdrop-blur-sm text-brand-cream
+                    "
                 >
-                    <motion.svg
+                    <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="w-5 h-5"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke="currentColor"
                         strokeWidth={1.5}
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 4 }}
+                        stroke="currentColor"
                     >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M4 6h16M4 12h16M4 18h16"
-                        />
-                    </motion.svg>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
                 </motion.button>
-
-                <AnimatePresence>
-                    {open && (
-                        <>
-                            {/* Overlay */}
-                            <motion.div
-                                className="fixed inset-0 z-[60] bg-brand-green"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.25 }}
-                                onClick={() => setOpen(false)}
-                            />
-
-                            {/* Sheet */}
-                            <motion.div
-                                className="fixed inset-x-0 top-0 z-[70] origin-top"
-                                initial={{ opacity: 0, y: -20, scale: 0.98 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                exit={{ opacity: 0, y: -20, scale: 0.985 }}
-                                transition={{ duration: 0.28, ease: "easeOut" }}
-                            >
-                                <div className="mx-3 mt-[max(12px,env(safe-area-inset-top))]  overflow-hidden border border-brand-gold/25 bg-brand-green backdrop-blur-2xl pointer-events-auto flex flex-col">
-                                    {/* Header */}
-                                    <div className="px-5 pt-5 pb-4 border-b border-brand-gold/15 flex items-center justify-between">
-                                        <NavLogo heightClass="h-16" />
-                                        <button
-                                            onClick={() => setOpen(false)}
-                                            className="w-9 h-9 rounded-full border border-brand-gold/50 text-brand-gold bg-black/40 flex items-center justify-center"
-                                            aria-label="Close menu"
-                                        >
-                                            X
-                                        </button>
-                                    </div>
-
-                                    {/* Nav list */}
-                                    <div className="max-h-[78vh] overflow-y-auto">
-                                        <nav className="px-4 py-6">
-                                            {navItems.map((item, i) => {
-                                                const active =
-                                                    item.href === "/"
-                                                        ? pathname === "/"
-                                                        : pathname?.startsWith(item.href);
-
-                                                return (
-                                                    <MobileNavItem
-                                                        key={item.href}
-                                                        href={item.href}
-                                                        label={item.label}
-                                                        active={!!active}
-                                                        index={i}
-                                                        onClick={() => setOpen(false)}
-                                                    />
-                                                );
-                                            })}
-                                        </nav>
-                                    </div>
-
-                                    <div className="h-[calc(env(safe-area-inset-bottom)+8px)]" />
-                                </div>
-                            </motion.div>
-                        </>
-                    )}
-                </AnimatePresence>
             </motion.div>
+
+            {/* ==================== MOBILE MENU PANEL ==================== */}
+            <AnimatePresence>
+                {open && (
+                    <>
+                        {/* Background Overlay */}
+                        <motion.div
+                            className="fixed inset-0 bg-black/60 backdrop-blur-md z-[70]"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                        />
+
+                        {/* Menu Sheet */}
+                        <motion.div
+                            className="fixed top-0 left-0 right-0 z-[80]
+                            bg-brand-green border-b border-brand-gold/20
+                            backdrop-blur-xl"
+                            initial={{ y: -40, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: -40, opacity: 0 }}
+                            transition={{ duration: 0.28, ease: "easeOut" }}
+                        >
+                            {/* Header */}
+                            <div className="flex items-center justify-between px-4 py-4 border-b border-brand-gold/20">
+                                <NavLogo heightClass="h-12" />
+
+                                <button
+                                    onClick={() => setOpen(false)}
+                                    className="
+                                        w-9 h-9 flex items-center justify-center
+                                        rounded-full border border-brand-gold/50
+                                        text-brand-gold bg-black/40
+                                    "
+                                >
+                                    ✕
+                                </button>
+                            </div>
+
+                            {/* Menu Items */}
+                            <div className="py-6 px-6 space-y-2">
+                                {navItems.map((item, i) => (
+                                    <motion.button
+                                        key={item.target}
+                                        onClick={() => scrollToSection(item.target)}
+                                        initial={{ opacity: 0, x: -12 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{
+                                            delay: i * 0.05,
+                                            duration: 0.3,
+                                        }}
+                                        className="
+                                            block w-full text-left
+                                            text-brand-cream tracking-[0.18em]
+                                            text-sm py-3 border-b border-brand-gold/10
+                                            hover:text-brand-gold transition-colors
+                                        "
+                                    >
+                                        {item.label}
+                                    </motion.button>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
