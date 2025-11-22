@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
 import NavLogo from "@/components/atoms/NavLogo";
 
 const navItems = [
@@ -26,16 +25,19 @@ export default function MobileNavbar() {
     const scrollToSection = (id: string) => {
         const el = document.getElementById(id);
         if (!el) return;
+
         setOpen(false);
 
+        // Delay agar animasi panel close dulu
         setTimeout(() => {
             el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 280);
+        }, 260);
     };
 
     return (
         <div className="md:hidden fixed top-0 left-0 right-0 z-50 px-4 pointer-events-auto">
-            {/* Top bar */}
+
+            {/* ================= TOP NAV BAR ================= */}
             <motion.div
                 className="flex items-center justify-between w-full px-4 py-3
                 border border-brand-gold/25 backdrop-blur-md bg-black/30"
@@ -43,7 +45,6 @@ export default function MobileNavbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35 }}
             >
-                {/* Logo */}
                 <NavLogo heightClass="h-12" className="select-none" />
 
                 {/* Hamburger */}
@@ -56,15 +57,17 @@ export default function MobileNavbar() {
                         bg-black/20 backdrop-blur-sm text-brand-cream
                     "
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
+                    <svg xmlns="http://www.w3.org/2000/svg"
                         className="w-5 h-5"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
                     >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        <path strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M4 6h16M4 12h16M4 18h16"
+                        />
                     </svg>
                 </motion.button>
             </motion.div>
@@ -73,7 +76,7 @@ export default function MobileNavbar() {
             <AnimatePresence>
                 {open && (
                     <>
-                        {/* Background Overlay */}
+                        {/* Dark backdrop */}
                         <motion.div
                             className="fixed inset-0 bg-black/60 backdrop-blur-md z-[70]"
                             initial={{ opacity: 0 }}
@@ -81,11 +84,13 @@ export default function MobileNavbar() {
                             exit={{ opacity: 0 }}
                         />
 
-                        {/* Menu Sheet */}
+                        {/* Panel */}
                         <motion.div
-                            className="fixed top-0 left-0 right-0 z-[80]
-                            bg-brand-green border-b border-brand-gold/20
-                            backdrop-blur-xl"
+                            className="
+                                fixed top-0 left-0 right-0 z-[80]
+                                bg-brand-green/95 border-b border-brand-gold/20
+                                backdrop-blur-xl
+                            "
                             initial={{ y: -40, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             exit={{ y: -40, opacity: 0 }}
@@ -107,22 +112,22 @@ export default function MobileNavbar() {
                                 </button>
                             </div>
 
-                            {/* Menu Items */}
-                            <div className="py-6 px-6 space-y-2">
+                            {/* MENU ITEMS */}
+                            <div className="py-6 px-6 space-y-1.5">
                                 {navItems.map((item, i) => (
                                     <motion.button
                                         key={item.target}
                                         onClick={() => scrollToSection(item.target)}
-                                        initial={{ opacity: 0, x: -12 }}
+                                        initial={{ opacity: 0, x: -14 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{
-                                            delay: i * 0.05,
+                                            delay: i * 0.06,
                                             duration: 0.3,
                                         }}
                                         className="
-                                            block w-full text-left
-                                            text-brand-cream tracking-[0.18em]
-                                            text-sm py-3 border-b border-brand-gold/10
+                                            block w-full text-left py-3
+                                            text-brand-cream text-sm tracking-[0.22em]
+                                            border-b border-brand-gold/10
                                             hover:text-brand-gold transition-colors
                                         "
                                     >

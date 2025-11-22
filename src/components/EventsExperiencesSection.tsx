@@ -28,18 +28,21 @@ export default function EventsExperiencesSection() {
             id="experience"
             className="
                 relative py-20 md:py-28
-                text-brand-cream
+                bg-black text-brand-cream
                 overflow-hidden
             "
         >
             {/* ===== PARALLAX BACKGROUND (SAMA PERSIS SEPERTI MENUSLIST) ===== */}
-           <div
+            <div
                 className="
-                    absolute inset-0 -z-10
-                    bg-[url('/images/DSC04930-HDR.jpg')]
-                    bg-cover bg-center bg-fixed
-                    opacity-[0.40]
+                    absolute inset-y-0 left-0 w-[100%]
+                    bg-cover bg-center bg-no-repeat bg-fixed
+                    opacity-[0.18]
+                    mix-blend-lighten
                 "
+                style={{
+                    backgroundImage: "url('/images/DSC04930-HDR.jpg')",
+                }}
             />
 
             {/* ===== DARK GLASS OVERLAY ===== */}

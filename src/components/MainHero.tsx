@@ -28,7 +28,7 @@ export default function MainHero() {
     }, []);
 
     return (
-        <section className="relative h-[520px] md:h-screen w-full overflow-hidden bg-black">
+        <section id="homepage" className="relative h-[520px] md:h-screen w-full overflow-hidden bg-black">
             {/* SLIDES */}
             <AnimatePresence mode="wait">
                 {heroImages.map(

@@ -5,24 +5,6 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-const primaryLinks = [
-    { label: "Home", href: "/" },
-    { label: "The Menus", href: "/menus" },
-    { label: "Events", href: "/events" },
-    { label: "Gallery", href: "/gallery" },
-    { label: "About Us", href: "/about" },
-    { label: "Blog", href: "/blog" },
-    { label: "Careers", href: "/careers" },
-    { label: "Reservation", href: "/reservation" },
-    { label: "Contact", href: "/contact" },
-];
-
-const socials = [
-    { label: "Instagram", short: "IG", href: "https://instagram.com" },
-    { label: "Facebook", short: "FB", href: "https://facebook.com" },
-    { label: "WhatsApp", short: "WA", href: "https://wa.me/6281200000000" },
-];
-
 const fadeUp = {
     initial: { opacity: 0, y: 18 },
     animate: { opacity: 1, y: 0 },
@@ -116,54 +98,12 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    {/* SOCIALS — MOVED HERE */}
-                    <div className="flex items-center gap-2 pt-1">
-                        {socials.map((s) => (
-                            <a
-                                key={s.label}
-                                href={s.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="
-                                    flex h-6 w-6 items-center justify-center
-                                    rounded-full border border-brand-gold/40
-                                    text-sm text-brand-gold/88
-                                    hover:bg-brand-gold hover:text-black
-                                    transition-colors
-                                "
-                                aria-label={s.label}
-                            >
-                                {s.short}
-                            </a>
-                        ))}
-                    </div>
+
                 </div>
 
-                {/* RIGHT */}
+                {/* RIGHT (EMPTY — Removed Primary Links) */}
                 <div className="flex flex-col gap-4 md:items-end text-right">
-                    {/* Navigation */}
-                    <div>
-                        <p className="text-sm uppercase tracking-[0.22em] text-brand-cream/45">
-                            Navigate
-                        </p>
-
-                        <div className="mt-2 flex flex-col gap-2 md:items-end">
-                            {primaryLinks.map((item) => (
-                                <div
-                                    key={item.href}
-                                    className="inline-flex items-center gap-1.5 group"
-                                >
-                                    <span className="h-px w-2 bg-brand-gold/35 group-hover:w-3 group-hover:bg-brand-gold/70 transition-all" />
-                                    <Link
-                                        href={item.href}
-                                        className="text-brand-cream/75 group-hover:text-brand-gold transition-colors"
-                                    >
-                                        {item.label}
-                                    </Link>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    {/* Dibiarkan kosong atau isi text kecil opsional */}
                 </div>
             </motion.div>
 

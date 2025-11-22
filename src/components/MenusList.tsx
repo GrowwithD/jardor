@@ -97,29 +97,26 @@ export default function MenusList() {
     return (
         <section
             id="menus"
-            className="
+           className="
                 relative py-20 md:py-28
-                text-brand-green
+                bg-black text-brand-cream
                 overflow-hidden
             "
         >
             {/* ===== PARALLAX BACKGROUND ===== */}
-            <div
+           <div
                 className="
-                    absolute inset-0 -z-10
-                    bg-[url('/images/DSC04930-HDR.jpg')]
-                    bg-cover bg-center bg-fixed
-                    opacity-[0.40]
+                    absolute inset-y-0 left-0 w-[100%]
+                    bg-cover bg-center bg-no-repeat bg-fixed
+                    opacity-[0.18]
+                    mix-blend-lighten
                 "
+                style={{
+                    backgroundImage: "url('/images/DSC04930-HDR.jpg')",
+                }}
             />
 
-            {/* ===== WHITE GLASS OVERLAY ===== */}
-            <div
-                className="
-                    absolute inset-0 -z-[5]
-                    bg-black/50 backdrop-blur-[1px]
-                "
-            />
+
 
             {/* ===== CONTENT WRAPPER ===== */}
             <div className="relative mx-auto px-4 md:px-32">

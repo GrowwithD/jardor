@@ -14,6 +14,7 @@ import WineTastingSection from "@/components/WineTastingSection";
 import EventsExperiencesSection from "@/components/EventsExperiencesSection";
 import GallerySection from "@/components/GallerySection";
 import ReservationSection from "@/components/ReservationSection";
+import SocialMediaSection from "@/components/SocialMediaSection";
 
 import { getSeoBySlug } from "@/data/seo";
 
@@ -36,6 +37,7 @@ export default function HomePage() {
             <ChefSection />
             <CtaSection /> */}
             <MapSection />
+            <SocialMediaSection />
         </>
     );
 }
