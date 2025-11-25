@@ -1,63 +1,57 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import NavLogo from "@/components/atoms/NavLogo";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import ButtonGold from "@/components/atoms/ButtonGold";
 import ButtonOutlineGold from "@/components/atoms/ButtonOutlineGold";
 
 const heroImages = [
-    "/images/slide1.jpg",
-    "/images/slide2.jpg",
-    "/images/slide3.jpg",
+    "/images/mainhero/main1.jpg",
+    "/images/mainhero/main2.jpg",
+    "/images/mainhero/main3.jpg",
 ];
 
 export default function MainHero() {
     const [heroIndex, setHeroIndex] = useState(0);
 
+    // Auto slide
     useEffect(() => {
-        if (heroImages.length <= 1) return;
-
-        const interval = setInterval(
-            () => setHeroIndex((prev) => (prev + 1) % heroImages.length),
-            6500
-        );
+        const interval = setInterval(() => {
+            setHeroIndex((prev) => (prev + 1) % heroImages.length);
+        }, 6500);
 
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <section id="homepage" className="relative h-[520px] md:h-screen w-full overflow-hidden bg-black">
-            {/* SLIDES */}
-            <AnimatePresence mode="wait">
-                {heroImages.map(
-                    (src, idx) =>
-                        idx === heroIndex && (
-                            <motion.div
-                                key={src}
-                                className="absolute inset-0"
-                                initial={{ opacity: 0, scale: 1.06 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 1.12 }}
-                                transition={{ duration: 1.0, ease: [0.16, 0.8, 0.24, 1] }}
-                            >
-                                <Image
-                                    src={src}
-                                    alt={`Jard’or fine dining ${idx + 1}`}
-                                    fill
-                                    priority
-                                    className="object-cover"
-                                />
-                            </motion.div>
-                        )
-                )}
-            </AnimatePresence>
+        <section
+            id="homepage"
+            className="relative h-[520px] md:h-screen w-full overflow-hidden bg-black"
+        >
+            {/* SLIDER WRAPPER */}
+            <div
+                className="absolute inset-0 flex transition-transform duration-[1200ms] ease-out"
+                style={{ transform: `translateX(-${heroIndex * 100}%)` }}
+            >
+                {heroImages.map((src, idx) => (
+                    <div key={idx} className="relative w-full h-full flex-shrink-0">
+                        <Image
+                            src={src}
+                            alt={`Slide ${idx + 1}`}
+                            fill
+                            priority={idx === 0}
+                            className="object-cover"
+                        />
+                    </div>
+                ))}
+            </div>
 
             {/* DARK OVERLAY */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/50 to-black/80" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/55 to-black/85 pointer-events-none" />
 
-            {/* GOLD ACCENT GLOW */}
+            {/* GOLD ACCENT */}
             <div className="pointer-events-none absolute inset-0">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,rgba(200,169,107,0.08),transparent_70%)] blur-3xl opacity-40" />
             </div>
@@ -65,7 +59,6 @@ export default function MainHero() {
             {/* CONTENT */}
             <div className="relative z-10 flex h-full items-center pt-24">
                 <motion.div
-                    key={heroIndex}
                     initial="hidden"
                     animate="visible"
                     variants={{
@@ -74,6 +67,17 @@ export default function MainHero() {
                     }}
                     className="mx-auto flex max-w-xl flex-col items-center text-center gap-3 px-4"
                 >
+                    {/* LOGO */}
+                    <motion.div
+                        variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: { opacity: 1, y: 0 },
+                        }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <NavLogo heightClass="h-24" className="select-none pointer-events-auto" />
+                    </motion.div>
+
                     {/* EYEBROW */}
                     <motion.p
                         variants={{
@@ -89,13 +93,13 @@ export default function MainHero() {
                     {/* TITLE */}
                     <motion.h1
                         variants={{
-                            hidden: { opacity: 0, y: 30, scale: 0.98 },
-                            visible: { opacity: 1, y: 0, scale: 1 },
+                            hidden: { opacity: 0, y: 28 },
+                            visible: { opacity: 1, y: 0 },
                         }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        transition={{ duration: 0.8 }}
                         className="font-serif text-3xl md:text-5xl text-brand-cream leading-tight"
                     >
-                        Christmas Eve Dinner
+                        Welcome to JARD'OR
                     </motion.h1>
 
                     {/* SUBTITLE */}
@@ -107,11 +111,13 @@ export default function MainHero() {
                         transition={{ duration: 0.6 }}
                         className="text-base md:text-lg text-brand-cream/85 max-w-xl leading-relaxed"
                     >
-                        Celebrate Christmas Eve with a curated 5-course French degustation,
-                        crafted to warm the heart and elevate the holiday spirit.
+                        Discover an authentic taste of French food in Bali, inspired by the charm
+                        of Southern France and brought to life in Nusa Dua. Jardor blends modern
+                        French cuisine, warm Balinese hospitality, and a romantic ambience —
+                        making us one of the best romantic places in Nusa Dua.
                     </motion.p>
 
-                    {/* CTAs */}
+                    {/* CTA BUTTONS */}
                     <motion.div
                         variants={{
                             hidden: { opacity: 0, y: 28 },
@@ -120,8 +126,20 @@ export default function MainHero() {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="mt-6 flex flex-wrap items-center justify-center gap-3"
                     >
-                        <ButtonGold href="/reservation">Reserve Your Table</ButtonGold>
-                        <ButtonOutlineGold href="/menus">View Our Menus</ButtonOutlineGold>
+                        <ButtonGold href="https://cho.pe/s70otkn6g" target="_blank">
+                            Reserve On Chope
+                        </ButtonGold>
+
+                        <ButtonOutlineGold
+                            href="#menus"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                const el = document.getElementById("menus");
+                                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                            }}
+                        >
+                            View Our Menus
+                        </ButtonOutlineGold>
                     </motion.div>
 
                     {/* DOTS */}
@@ -143,27 +161,6 @@ export default function MainHero() {
                                     }`}
                             />
                         ))}
-                    </motion.div>
-
-                    {/* SCROLL INDICATOR */}
-                    <motion.div
-                        variants={{
-                            hidden: { opacity: 0, y: 10 },
-                            visible: { opacity: 1, y: 0 },
-                        }}
-                        transition={{ duration: 0.9, delay: 0.8 }}
-                        className="mt-4 flex flex-col items-center gap-1 text-[9px] text-brand-cream/50"
-                    >
-                        <span className="tracking-[0.22em] uppercase">Scroll</span>
-                        <motion.span
-                            animate={{ y: [0, 8, 0] }}
-                            transition={{
-                                duration: 1.6,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                            }}
-                            className="block h-6 w-px bg-brand-cream/40"
-                        />
                     </motion.div>
                 </motion.div>
             </div>

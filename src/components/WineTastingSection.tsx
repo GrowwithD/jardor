@@ -2,10 +2,28 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import ButtonGold from "@/components/atoms/ButtonGold";
 import ButtonOutlineGold from "@/components/atoms/ButtonOutlineGold";
 
+const wineImages = [
+    "/images/wines/wine1.jpg",
+    "/images/wines/wine2.jpg",
+    "/images/wines/wine3.jpg",
+    "/images/wines/wine4.jpg",
+];
+
 export default function WineTastingSection() {
+    const [index, setIndex] = useState(0);
+
+    // Auto slide
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIndex((prev) => (prev + 1) % wineImages.length);
+        }, 6500);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <section
             id="wine"
@@ -25,56 +43,53 @@ export default function WineTastingSection() {
                     blur-3xl opacity-25" />
             </div>
 
-            {/* ================= MOBILE IMAGE (ONLY) ================= */}
-            <div className="md:hidden mb-10">
-                <div className="relative w-full h-[250px] overflow-hidden border border-brand-gold/20 bg-black/40">
-                    <Image
-                        src="/images/DSC04930-HDR.jpg"
-                        alt="Wine Pairing Jard’or"
-                        fill
-                        className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                </div>
+            {/* ========= MOBILE SINGLE IMAGE ========= */}
+            <div className="md:hidden mb-10 relative w-full h-[260px] overflow-hidden bg-black/40 border border-brand-gold/20">
+                <Image
+                    src={wineImages[index]}
+                    alt="Wine Tasting Jard’or"
+                    fill
+                    className="object-cover transition-all duration-[1200ms]"
+                />
             </div>
 
-            {/* ================= DESKTOP FULL RIGHT IMAGE — UNCHANGED ================= */}
-            <motion.div
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
+            {/* ========= DESKTOP SLIDER ========= */}
+            <div
                 className="
                     hidden md:block
                     absolute inset-y-0 right-0
                     w-[50vw]
-                    min-h-full
                     overflow-hidden
-                    border-l border-brand-gold/20
-                    bg-black/40
+                    border-l border-brand-gold/20 bg-black/40
                 "
             >
-                <Image
-                    src="/images/DSC04930-HDR.jpg"
-                    alt="Wine Pairing Jard’or"
-                    fill
-                    className="
-                        object-cover
-                        transition-transform duration-[4000ms] ease-out
-                        hover:scale-110
-                    "
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-            </motion.div>
+                <div
+                    className="absolute inset-0 flex transition-transform duration-[1200ms] ease-out"
+                    style={{
+                        transform: `translateX(-${index * 100}%)`,
+                        scrollBehavior: "smooth",   // <— ADDED
+                    }}
+                >
+                    {wineImages.map((src, i) => (
+                        <div key={i} className="relative w-full h-full flex-shrink-0">
+                            <Image
+                                src={src}
+                                alt={`Wine Slide ${i + 1}`}
+                                fill
+                                className="object-cover"
+                            />
+                        </div>
+                    ))}
+                </div>
 
-            {/* ================= TEXT CONTENT ================= */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            </div>
+
+            {/* ========= LEFT TEXT CONTENT ========= */}
             <div
                 className="
-                    relative z-10
-                    max-w-5xl mr-auto
-                    px-6
-                    md:pl-20 md:pr-10
-                    lg:pl-28
+                    relative z-10 max-w-5xl mr-auto
+                    px-6 md:pl-20 lg:pl-28 md:pr-10
                     text-center md:text-left
                 "
             >
@@ -100,11 +115,10 @@ export default function WineTastingSection() {
                     </p>
 
                     <p className="text-sm md:text-base leading-relaxed text-brand-cream/80">
-                        Whether enjoying seafood or richer classics like <em>Bœuf Bourguignon</em>,
-                        each pairing is crafted to elevate your dining experience.
+                        Whether enjoying seafood or richer classics like
+                        <em> Bœuf Bourguignon</em>, each pairing is crafted to elevate your dining experience.
                     </p>
 
-                    {/* LIST */}
                     <div className="pt-2 space-y-2">
                         <p className="text-brand-gold/80 text-[11px] tracking-[0.2em] uppercase">
                             Wine Tasting Sessions
@@ -118,37 +132,43 @@ export default function WineTastingSection() {
                         </ul>
                     </div>
 
-                    {/* CTA BUTTONS */}
                     <div className="pt-6 flex flex-wrap gap-3 justify-center md:justify-start">
                         <ButtonGold href="/pdf/jardor-wine-champagne-list.pdf">
                             Explore Our Wine List
                         </ButtonGold>
 
-                        <ButtonOutlineGold href="#reservation">
+                        <ButtonOutlineGold
+                            href="#reservation"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                const el = document.getElementById("reservation");
+                                if (el) {
+                                    el.scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "start",
+                                        inline: "nearest",
+                                    });
+                                }
+                            }}
+                        >
                             Reserve Wine Tasting
                         </ButtonOutlineGold>
                     </div>
 
-                    {/* ================= FULL-WIDTH BOTTOM IMAGE ================= */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 25 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.7 }}
-                        className="
-                            relative w-full h-[180px] md:h-[240px] mt-6
-                            overflow-hidden border border-brand-gold/20 bg-black/40
-                        "
-                    >
-                        <Image
-                            src="/images/DSC04933-HDR.jpg"
-                            alt="Wine Tasting Atmosphere"
-                            fill
-                            className="object-cover transition-transform duration-[4000ms] ease-out hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                    </motion.div>
-
+                    {/* DOTS */}
+                    <div className="pt-4 flex items-center gap-2 justify-center md:justify-start">
+                        {wineImages.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => setIndex(i)}
+                                className={`h-1.5 rounded-full transition-all duration-300
+                                    ${i === index
+                                        ? "w-5 bg-brand-gold"
+                                        : "w-2 bg-brand-cream/35 hover:bg-brand-gold/60"}
+                                `}
+                            />
+                        ))}
+                    </div>
                 </motion.div>
             </div>
         </section>

@@ -25,7 +25,7 @@ export default function ReservationSection() {
                     mix-blend-lighten
                 "
                 style={{
-                    backgroundImage: "url('/images/DSC04930-HDR.jpg')",
+                     backgroundImage: "url('/images/parallax/parallax1.jpg')"
                 }}
             />
 

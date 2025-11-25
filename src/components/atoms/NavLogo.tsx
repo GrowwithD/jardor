@@ -16,7 +16,7 @@ export default function NavLogo({
 }: NavLogoProps) {
   const LogoImage = (
     <Image
-      src="/images/logo.png"
+      src="/images/logo.svg"
       alt="Jard’or — Logo"
       width={110}
       height={32}

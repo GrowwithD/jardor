@@ -15,6 +15,7 @@ import EventsExperiencesSection from "@/components/EventsExperiencesSection";
 import GallerySection from "@/components/GallerySection";
 import ReservationSection from "@/components/ReservationSection";
 import SocialMediaSection from "@/components/SocialMediaSection";
+import CulinaryPhilosophySection from "@/components/CulinaryPhilosophySection";
 
 import { getSeoBySlug } from "@/data/seo";
 
@@ -26,16 +27,37 @@ export default function HomePage() {
         <>
             <HeroSlider />
             <AboutJardorSection />
+            <div
+                className="
+                w-full
+                h-24
+                bg-brand-green
+                bg-[url('/images/batik3.png')]
+                bg-repeat
+                bg-center
+                opacity-60
+                  bg-[length:420px_auto]
+            "
+            />
+            <CulinaryPhilosophySection />
+            <div
+                className="
+                w-full
+                h-24
+                bg-brand-green
+                bg-[url('/images/batik3.png')]
+                bg-repeat
+                bg-center
+                opacity-60
+                  bg-[length:420px_auto]
+            "
+            />
             <LeGardenSection />
             <MenusList />
             <WineTastingSection />
             <EventsExperiencesSection />
             <GallerySection />
             <ReservationSection />
-            {/* <HighlightsSection /> */}
-            {/* <SommelierSection />
-            <ChefSection />
-            <CtaSection /> */}
             <MapSection />
             <SocialMediaSection />
         </>

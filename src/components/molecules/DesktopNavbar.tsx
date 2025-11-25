@@ -104,7 +104,7 @@ export default function DesktopNavbar() {
                     justify-center pointer-events-auto
                     transition-all duration-300
                     ${scrolled
-                        ? "py-4 bg-black/40 backdrop-blur-xl border-b border-brand-gold/20"
+                        ? "bg-black/40 backdrop-blur-xl border-b border-brand-gold/20"
                         : "py-6 bg-transparent"
                     }
                 `}
@@ -118,7 +118,7 @@ export default function DesktopNavbar() {
                         flex items-center gap-0 px-8 lg:px-10 transition-all duration-300
                         ${scrolled
                             ? "border-none rounded-none"
-                            : "py-4 border border-brand-gold/50 backdrop-blur-md"
+                            : "border border-brand-gold/50 backdrop-blur-md"
                         }
                     `}
                 >
@@ -129,7 +129,7 @@ export default function DesktopNavbar() {
                         onClick={scrollToHomepage}
                     >
                         <NavLogo
-                            heightClass="h-36 -my-40"
+                            heightClass="h-16"
                             className="select-none pointer-events-auto"
                         />
                     </div>

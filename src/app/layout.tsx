@@ -4,6 +4,7 @@ import "./globals.css";
 import { Playfair_Display, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WhatsAppFloating from "@/components/WhatsAppFloating";
 
 const playfair = Playfair_Display({
     subsets: ["latin"],
@@ -123,8 +124,8 @@ export default function RootLayout({
                 <main className="flex-1">{children}</main>
 
 
- <div
-            className="
+                <div
+                    className="
                 w-full
                 h-24
                 bg-brand-green
@@ -134,7 +135,8 @@ export default function RootLayout({
                 opacity-60
                   bg-[length:420px_auto]
             "
-        />
+                />
+                <WhatsAppFloating />
 
                 <Footer />
             </body>

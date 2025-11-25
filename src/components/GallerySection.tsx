@@ -5,41 +5,62 @@ import Image from "next/image";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import SectionHeader from "@/components/molecules/SectionHeader";
 
-/* =======================
-   GALLERY IMAGES
-======================= */
-const galleryImages = [
-  { src: "/images/DSC04919-HDR.jpg", aspect: "aspect-[4/3]" },
-  { src: "/images/DSC04930-HDR.jpg", aspect: "aspect-[3/4]" },
-  { src: "/images/DSC04933-HDR.jpg", aspect: "aspect-[4/5]" },
-  { src: "/images/DSC00301.jpg", aspect: "aspect-[16/10]" },
-  { src: "/images/DSC00342.jpg", aspect: "aspect-[4/3]" },
-  { src: "/images/DSC00222.jpg", aspect: "aspect-[3/4]" },
+/* =====================================================
+   RANDOM ASPECT OPTIONS
+===================================================== */
+const aspectOptions = [
+  "aspect-[4/3]",
+  "aspect-[3/4]",
+  "aspect-square",
 ];
 
+const baseNames = [
+  "Copy of DSC00147.jpg",
+  "Copy of DSC00261.jpg",
+  "Copy of DSC00427.jpg",
+  "Copy of DSC00437.jpg",
+  "Copy of DSC00492.jpg",
+  "Copy of DSC00554.jpg",
+  "Copy of DSC00580.jpg",
+  "Copy of DSC00602.jpg",
+  "Copy of DSC00626.jpg",
+  "Copy of DSC00648.jpg",
+  "Copy of DSC00709.jpg",
+  "Copy of DSC00783.jpg",
+  "Copy of DSC04734.JPG",
+  "Copy of DSC04762.JPG",
+  "Copy of DSC04870.JPG",
+  "Copy of DSC05255.jpg",
+  "Copy of DSC05308.jpg",
+  "Copy of DSC06279.jpg",
+  "Copy of DSC06285.jpg",
+  "Copy of DSC06333.jpg",
+  "Copy of DSC06560.jpg",
+  "Copy of DSC06618.jpg",
+];
+
+/* =====================================================
+   LIGHTBOX ANIMATIONS
+===================================================== */
 const overlayVariants: Variants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.28, ease: "easeOut" } },
-  exit: { opacity: 0, transition: { duration: 0.22, ease: "easeIn" } },
+  visible: { opacity: 1, transition: { duration: 0.28 } },
+  exit: { opacity: 0, transition: { duration: 0.2 } },
 };
 
 const frameVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.92, y: 12 },
+  hidden: { opacity: 0, scale: 0.92, y: 16 },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { duration: 0.32, ease: "easeOut" },
+    transition: { duration: 0.32 },
   },
-  exit: {
-    opacity: 0,
-    scale: 0.96,
-    y: 8,
-    transition: { duration: 0.22, ease: "easeIn" },
-  },
+  exit: { opacity: 0, scale: 0.96, y: 10, transition: { duration: 0.2 } },
 };
 
 type Direction = 1 | -1;
@@ -48,11 +69,24 @@ type Direction = 1 | -1;
    MAIN COMPONENT
 ===================================================== */
 export default function GallerySection() {
+  const [galleryImages, setGalleryImages] = useState<
+    { src: string; aspect: string }[]
+  >([]);
+
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const [direction, setDirection] = useState<Direction>(1);
 
-  /* Init AOS */
+  /* ---- FIX HYDRATION: generate random aspect AFTER mount ---- */
+  useEffect(() => {
+    const mapped = baseNames.map((name) => ({
+      src: `/images/gallery/${name}`,
+      aspect: aspectOptions[Math.floor(Math.random() * aspectOptions.length)],
+    }));
+    setGalleryImages(mapped);
+  }, []);
+
+  /* ---- AOS ---- */
   useEffect(() => {
     AOS.init({
       duration: 700,
@@ -62,7 +96,7 @@ export default function GallerySection() {
     });
   }, []);
 
-  /* Lightbox handlers */
+  /* ---- LIGHTBOX ACTIONS ---- */
   const openLightbox = (index: number) => {
     setCurrentIndex(index);
     setDirection(1);
@@ -79,127 +113,118 @@ export default function GallerySection() {
   const showNext = useCallback(() => {
     if (currentIndex === null) return;
     setDirection(1);
-    setCurrentIndex((prev) => (prev! + 1) % galleryImages.length);
-  }, [currentIndex]);
+    setCurrentIndex((p) => (p! + 1) % galleryImages.length);
+  }, [currentIndex, galleryImages.length]);
 
   const showPrev = useCallback(() => {
     if (currentIndex === null) return;
     setDirection(-1);
-    setCurrentIndex((prev) =>
-      (prev! - 1 + galleryImages.length) % galleryImages.length
-    );
-  }, [currentIndex]);
+    setCurrentIndex((p) => (p! - 1 + galleryImages.length) % galleryImages.length);
+  }, [currentIndex, galleryImages.length]);
 
-  /* Lightbox animation */
   const imageVariants: Variants = {
     enter: (dir: Direction) => ({
       opacity: 0,
-      x: dir === 1 ? 40 : -40,
-      scale: 0.98,
+      x: dir === 1 ? 50 : -50,
+      scale: 0.97,
     }),
     center: {
       opacity: 1,
       x: 0,
       scale: 1,
-      transition: { duration: 0.32, ease: "easeOut" },
+      transition: { duration: 0.32 },
     },
     exit: (dir: Direction) => ({
       opacity: 0,
-      x: dir === 1 ? -40 : 40,
-      scale: 0.98,
-      transition: { duration: 0.22, ease: "easeIn" },
+      x: dir === 1 ? -50 : 50,
+      scale: 0.97,
+      transition: { duration: 0.25 },
     }),
   };
 
   return (
     <>
-      {/* SECTION */}
-      <section
-        id="gallery"
-        className="
-          relative py-20 md:py-28
-          bg-brand-green text-brand-cream
-        "
-      >
+      {/* ======================= SECTION ======================= */}
+      <section id="gallery" className="relative py-20 md:py-28 bg-brand-green text-brand-cream">
         <div className="max-w-6xl mx-auto px-4 space-y-10">
 
-          {/* HEADER */}
           <SectionHeader
             eyebrow="JARD’OR GALLERY"
             title="A Look Inside Jard’or"
-            subtitle="The architecture, the dishes, the wine, the garden, and the atmosphere — stories preserved in quiet frames."
+            subtitle="The architecture, dishes, wine, and ambience — timeless frames of our space."
             align="center"
           />
 
-          {/* Masonry Grid */}
-          <div className="columns-1 sm:columns-2 md:columns-3 gap-5 space-y-5">
-            {galleryImages.map((item, idx) => (
-              <button
-                key={`${item.src}-${idx}`}
-                onClick={() => openLightbox(idx)}
-                data-aos="fade-up"
-                data-aos-delay={(idx % 6) * 60}
-                className={`
-                  group mb-5 break-inside-avoid
-                  block w-full
-                  overflow-hidden bg-black/40 border border-brand-gold/20
+          {galleryImages.length > 0 && (
+            <div className="columns-1 sm:columns-2 md:columns-3 gap-5 space-y-5">
+              {galleryImages.map((item, idx) => (
+                <button
+                  key={`${item.src}-${idx}`}
+                  onClick={() => openLightbox(idx)}
+                  data-aos="fade-up"
+                  data-aos-delay={(idx % 6) * 60}
+                  className={`
+                    group mb-5 break-inside-avoid block w-full
+                    overflow-hidden border border-brand-gold/20 bg-black/40
+                    ${item.aspect}
+                  `}
+                >
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={item.src}
+                      alt={`Gallery ${idx + 1}`}
+                      fill
+                      className="object-cover transition-transform duration-[3500ms] group-hover:scale-110"
+                    />
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
 
-                  ${item.aspect}
-                `}
-              >
-                <div className="relative w-full h-full">
-                  <Image
-                    src={item.src}
-                    alt={`Gallery image ${idx + 1}`}
-                    fill
-                    className="object-cover transition-transform duration-[3500ms] group-hover:scale-110"
-                  />
-                </div>
-              </button>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* LIGHTBOX */}
+      {/* ======================= LIGHTBOX ======================= */}
       <AnimatePresence>
         {isOpen && currentIndex !== null && (
           <motion.div
-            className="fixed inset-0 z-[80] flex items-center justify-center bg-black/90 backdrop-blur-sm"
+            className="
+              fixed inset-0 z-[90]
+              flex items-center justify-center
+              bg-black/95 backdrop-blur-md
+              p-6 md:p-10
+            "
             variants={overlayVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
             onClick={closeLightbox}
           >
-            {/* Frame */}
             <motion.div
-              className="pointer-events-none absolute inset-10 rounded-[32px] border border-brand-gold/10 shadow-[0_0_80px_rgba(0,0,0,1)]"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { delay: 0.12 } }}
-              exit={{ opacity: 0 }}
-            />
-
-            {/* Image */}
-            <motion.div
-              className="relative max-w-5xl w-full mx-4"
+              className="
+                relative w-full
+                max-w-[90vw] max-h-[90vh]
+                flex flex-col
+              "
               variants={frameVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close */}
+              {/* CLOSE BUTTON */}
               <button
                 onClick={closeLightbox}
-                className="absolute -top-10 right-0 h-9 w-9 flex items-center justify-center rounded-full
-                     bg-black/70 border border-brand-gold/40 text-brand-gold
-                     hover:bg-brand-gold/20 transition-all duration-300"
+                className="
+                  absolute -top-12 right-0 h-12 w-12 rounded-full
+                  flex items-center justify-center
+                  bg-black/70 border border-brand-gold/40 text-brand-gold
+                  hover:bg-brand-gold hover:text-black transition
+                "
               >
                 ✕
               </button>
 
-              <div className="relative w-full aspect-[16/10] md:aspect-[21/9] overflow-hidden rounded-2xl">
+              {/* IMAGE AREA */}
+              <div className="relative w-full h-[65vh] md:h-[75vh] rounded-3xl overflow-hidden bg-black">
                 <AnimatePresence custom={direction} mode="wait">
                   <motion.div
                     key={currentIndex}
@@ -208,7 +233,7 @@ export default function GallerySection() {
                     initial="enter"
                     animate="center"
                     exit="exit"
-                    className="absolute inset-0"
+                    className="absolute inset-0 flex items-center justify-center"
                   >
                     <Image
                       src={galleryImages[currentIndex].src}
@@ -220,27 +245,33 @@ export default function GallerySection() {
                 </AnimatePresence>
               </div>
 
-              {/* Arrows */}
-              <div className="absolute inset-y-0 -left-3 -right-3 flex items-center justify-between pointer-events-none">
+              {/* ARROWS */}
+              <div className="absolute inset-y-0 left-0 right-0 px-6 flex items-center justify-between pointer-events-none">
                 <button
                   onClick={showPrev}
-                  className="pointer-events-auto flex h-11 w-11 items-center justify-center
-                       rounded-full bg-black/60 border border-brand-gold/30 text-brand-gold"
+                  className="
+                    pointer-events-auto h-14 w-14 rounded-full
+                    bg-black/60 border border-brand-gold/40 text-brand-gold
+                    hover:bg-brand-gold hover:text-black flex items-center justify-center
+                  "
                 >
-                  ‹
+                  <ChevronLeft size={42} strokeWidth={1.3} />
                 </button>
 
                 <button
                   onClick={showNext}
-                  className="pointer-events-auto flex h-11 w-11 items-center justify-center
-                       rounded-full bg-black/60 border border-brand-gold/30 text-brand-gold"
+                  className="
+                    pointer-events-auto h-14 w-14 rounded-full
+                    bg-black/60 border border-brand-gold/40 text-brand-gold
+                    hover:bg-brand-gold hover:text-black flex items-center justify-center
+                  "
                 >
-                  ›
+                  <ChevronRight size={42} strokeWidth={1.3} />
                 </button>
               </div>
 
-              {/* Counter */}
-              <div className="mt-4 text-center text-brand-gold/80 text-xs tracking-wide">
+              {/* COUNTER */}
+              <div className="mt-4 text-center text-brand-gold/80 tracking-wide text-sm">
                 {currentIndex + 1} / {galleryImages.length}
               </div>
             </motion.div>

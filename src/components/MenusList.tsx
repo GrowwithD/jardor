@@ -11,48 +11,52 @@ import SectionHeader from "@/components/molecules/SectionHeader";
 const menuCategories: MenuCategoryData[] = [
     {
         id: "tasting",
-        label: "Chef’s Tasting Journey",
+        label: "French Tasting Journey",
         subtitle:
             "A curated progression that moves from delicate introductions to quietly indulgent finales.",
-        hero: "/images/DSC00222.jpg",
+        hero: "/images/menu/menu1.jpg",
         pdfUrl: "/pdf/jardor-chef-tasting-menu.pdf",
         location: "TASTING MENU",
     },
-    {
-        id: "alacarte",
-        label: "À La Carte Selections",
-        subtitle:
-            "Modern French plates with Balinese nuance, designed for custom journeys.",
-        hero: "/images/DSC00301.jpg",
-        pdfUrl: "/pdf/jardor-alacarte-menu.pdf",
-        location: "DINNER SERVICE",
-    },
+
     {
         id: "desserts",
         label: "Pâtisserie & Dessert",
         subtitle:
             "Finishes that favor balance, lightness, and sculpted detail over excess.",
-        hero: "/images/DSC00301.jpg",
+        hero: "/images/menu/menu2.jpg",
         pdfUrl: "/pdf/jardor-dessert-menu.pdf",
         location: "PATISSERIE",
     },
+
+    {
+        id: "cocktails",
+        label: "Cocktail & Spirit",
+        subtitle:
+            "Understated signatures built on premium spirits, clear ice, and precise aromatics.",
+        hero: "/images/menu/menu3.jpg",
+        pdfUrl: "/pdf/jardor-cocktails-spirits-menu.pdf",
+        location: "BAR",
+    },
+
     {
         id: "wine",
         label: "Wine & Champagne",
         subtitle:
             "A cellar curated to complement the kitchen: expressive, age-worthy, and precise.",
-        hero: "/images/DSC04930-HDR.jpg",
+        hero: "/images/menu/menu4.jpg",
         pdfUrl: "/pdf/jardor-wine-champagne-list.pdf",
         location: "CELLAR",
     },
+
     {
-        id: "cocktails",
-        label: "Cocktails & Spirits",
+        id: "cigarettes",
+        label: "Premium Cigarettes",
         subtitle:
-            "Understated signatures built on premium spirits, clear ice, and precise aromatics.",
-        hero: "/images/DSC00342.jpg",
-        pdfUrl: "/pdf/jardor-cocktails-spirits-menu.pdf",
-        location: "BAR",
+            "Exclusive curated selection of premium cigarettes for refined taste.",
+        hero: "/images/menu/menu5.jpg", // ganti kalau ada foto khusus
+        pdfUrl: "/pdf/jardor-premium-cigarettes.pdf", // ganti kalau belum ada
+        location: "LOUNGE",
     },
 ];
 
@@ -97,14 +101,14 @@ export default function MenusList() {
     return (
         <section
             id="menus"
-           className="
-                relative py-20 md:py-28
-                bg-black text-brand-cream
-                overflow-hidden
-            "
+            className="
+                    relative py-20 md:py-28
+                    bg-black text-brand-cream
+                    overflow-hidden
+                "
         >
             {/* ===== PARALLAX BACKGROUND ===== */}
-           <div
+            <div
                 className="
                     absolute inset-y-0 left-0 w-[100%]
                     bg-cover bg-center bg-no-repeat bg-fixed
@@ -112,11 +116,9 @@ export default function MenusList() {
                     mix-blend-lighten
                 "
                 style={{
-                    backgroundImage: "url('/images/DSC04930-HDR.jpg')",
+                    backgroundImage: "url('/images/parallax/parallax1.jpg')",
                 }}
             />
-
-
 
             {/* ===== CONTENT WRAPPER ===== */}
             <div className="relative mx-auto px-4 md:px-32">

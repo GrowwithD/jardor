@@ -39,7 +39,7 @@ export default function LeGardenSection() {
                     {/* Image 1 */}
                     <div className="relative w-1/2 aspect-[4/5] overflow-hidden border border-brand-gold/20 bg-black/40 group">
                         <Image
-                            src="/images/DSC04936-HDR.jpg"
+                            src="/images/activity/activity1.jpg"
                             alt="Le Garden Atmosphere"
                             fill
                             className="object-cover transition-transform duration-[4000ms] ease-out group-hover:scale-110"
@@ -50,7 +50,7 @@ export default function LeGardenSection() {
                     {/* Image 2 */}
                     <div className="relative w-1/2 aspect-[4/5] overflow-hidden border border-brand-gold/20 bg-black/40 group">
                         <Image
-                            src="/images/DSC04930-HDR.jpg"
+                            src="/images/activity/activity2.jpg"
                             alt="Le Garden Experience"
                             fill
                             className="object-cover transition-transform duration-[4000ms] ease-out group-hover:scale-110"
@@ -89,9 +89,9 @@ export default function LeGardenSection() {
                     {/* Thumbnails */}
                     <div className="grid grid-cols-3 gap-3 pt-4">
                         {[
-                            "/images/DSC04919-HDR.jpg",
-                            "/images/DSC04930-HDR.jpg",
-                            "/images/DSC04933-HDR.jpg",
+                            "/images/activity/activity3.jpg",
+                            "/images/activity/activity4.jpg",
+                            "/images/activity/activity5.jpg",
                         ].map((src, idx) => (
                             <div
                                 key={idx}
@@ -115,8 +115,7 @@ export default function LeGardenSection() {
                         transition={{ duration: 0.8 }}
                         className="mt-6 flex flex-wrap items-center gap-3"
                     >
-                        <ButtonGold href="/reservation">Book a Night at Le Garden</ButtonGold>
-                        <ButtonOutlineGold href="#">WhatsApp Us</ButtonOutlineGold>
+                         <ButtonGold href="https://cho.pe/s70otkn6g" target="_blank">Book a Night at Le Garden</ButtonGold>
                     </motion.div>
                 </motion.div>
 
