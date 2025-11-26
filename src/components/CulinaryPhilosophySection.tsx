@@ -157,7 +157,7 @@ export default function CulinaryPhilosophySection() {
 
                         <div className="aspect-square overflow-hidden">
                             <Image
-                                src="/images/timeless/timeless2.jpg"
+                                src="/images/timeless/timeless4.jpg"
                                 alt="Cuisine 2"
                                 width={800}
                                 height={800}
@@ -169,11 +169,11 @@ export default function CulinaryPhilosophySection() {
                     {/* BOTTOM FULL IMAGE */}
                     <div className="aspect-[2/1] overflow-hidden w-full">
                         <Image
-                            src="/images/timeless/timeless4.jpg"
+                            src="/images/timeless/timeless2.jpg"
                             alt="Cuisine 3"
                             width={1600}
                             height={800}
-                            className="w-full h-full object-cover hover:scale-110 transition-all duration-4000"
+                            className="w-full h-full hover:scale-110 object-cover transition-all duration-4000"
                         />
                     </div>
 

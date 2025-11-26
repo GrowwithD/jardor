@@ -15,7 +15,7 @@ const menuCategories: MenuCategoryData[] = [
         subtitle:
             "A curated progression that moves from delicate introductions to quietly indulgent finales.",
         hero: "/images/menu/menu1.JPG",
-        pdfUrl: "/pdf/jardor-chef-tasting-menu.pdf",
+        pdfUrl: "/menu/French Tasting Journey.pdf",
         location: "TASTING MENU",
     },
 
@@ -25,7 +25,7 @@ const menuCategories: MenuCategoryData[] = [
         subtitle:
             "Finishes that favor balance, lightness, and sculpted detail over excess.",
         hero: "/images/menu/menu2.jpg",
-        pdfUrl: "/pdf/jardor-dessert-menu.pdf",
+        pdfUrl: "/menu/Pâtisserie & Dessert.pdf",
         location: "PATISSERIE",
     },
 
@@ -35,7 +35,7 @@ const menuCategories: MenuCategoryData[] = [
         subtitle:
             "Understated signatures built on premium spirits, clear ice, and precise aromatics.",
         hero: "/images/menu/menu3.jpg",
-        pdfUrl: "/pdf/jardor-cocktails-spirits-menu.pdf",
+        pdfUrl: "/menu/Cocktail & Spirit.pdf",
         location: "BAR",
     },
 
@@ -45,7 +45,7 @@ const menuCategories: MenuCategoryData[] = [
         subtitle:
             "A cellar curated to complement the kitchen: expressive, age-worthy, and precise.",
         hero: "/images/menu/menu4.jpg",
-        pdfUrl: "/pdf/jardor-wine-champagne-list.pdf",
+        pdfUrl: "/menu/Wine & Champagne.pdf",
         location: "CELLAR",
     },
 
@@ -55,7 +55,7 @@ const menuCategories: MenuCategoryData[] = [
         subtitle:
             "Exclusive curated selection of premium cigarettes for refined taste.",
         hero: "/images/menu/menu5.jpg", // ganti kalau ada foto khusus
-        pdfUrl: "/pdf/jardor-premium-cigarettes.pdf", // ganti kalau belum ada
+        pdfUrl: "/menu/Premium Cigarettes.pdf", // ganti kalau belum ada
         location: "LOUNGE",
     },
 ];

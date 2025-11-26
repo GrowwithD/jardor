@@ -91,7 +91,7 @@ export default function LeGardenSection() {
                         {[
                             "/images/activity/activity3.jpg",
                             "/images/activity/activity4.jpg",
-                            "/images/activity/activity5.jpg",
+                            "/images/activity/activity6.jpg",
                         ].map((src, idx) => (
                             <div
                                 key={idx}
