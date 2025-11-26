@@ -55,9 +55,9 @@ export default function AboutJardorSection() {
                 "
             >
                 {[
-                    "/images/DSC04919-HDR.jpg",
-                    "/images/DSC04930-HDR.jpg",
-                    "/images/DSC04933-HDR.jpg",
+                    "/images/about/about1.jpg",
+                    "/images/about/about2.jpg",
+                    "/images/about/about3.jpg",
                 ].map((src, idx) => (
                     <div
                         key={idx}

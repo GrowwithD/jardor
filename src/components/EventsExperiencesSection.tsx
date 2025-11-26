@@ -218,13 +218,24 @@ export default function EventsExperiencesSection() {
                                 {current.desc}
                             </p>
 
-                            {/* IMAGE SLIDER */}
-                            <div className="relative w-full aspect-[21/10] overflow-hidden rounded-xl">
+                            <div
+                                className="
+        relative w-full
+        h-[60vh] md:h-[75vh]           /* FIX: wajib ada height agar fill bekerja */
+        flex items-center justify-center
+        bg-black/60
+        rounded-xl
+    "
+                            >
                                 <Image
                                     src={current.images[slide]}
                                     alt={current.title}
                                     fill
-                                    className="object-cover transition-all duration-500"
+                                    priority
+                                    className="
+            object-contain              /* tidak crop */
+            transition-all duration-500
+        "
                                 />
                             </div>
 
