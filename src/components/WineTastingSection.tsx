@@ -7,8 +7,8 @@ import ButtonGold from "@/components/atoms/ButtonGold";
 import ButtonOutlineGold from "@/components/atoms/ButtonOutlineGold";
 
 const wineImages = [
-    "/images/wines/wine1.jpg",
-    "/images/wines/wine2.jpg",
+    "/images/wines/wine1.JPG",
+    "/images/wines/wine2.JPG",
     "/images/wines/wine3.jpg",
     "/images/wines/wine4.jpg",
 ];
