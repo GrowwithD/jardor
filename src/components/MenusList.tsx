@@ -14,7 +14,7 @@ const menuCategories: MenuCategoryData[] = [
         label: "French Tasting Journey",
         subtitle:
             "A curated progression that moves from delicate introductions to quietly indulgent finales.",
-        hero: "/images/menu/menu1.jpg",
+        hero: "/images/menu/menu1.JPG",
         pdfUrl: "/pdf/jardor-chef-tasting-menu.pdf",
         location: "TASTING MENU",
     },
