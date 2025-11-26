@@ -169,7 +169,7 @@ export default function CulinaryPhilosophySection() {
                     {/* BOTTOM FULL IMAGE */}
                     <div className="aspect-[2/1] overflow-hidden w-full">
                         <Image
-                            src="/images/timeless/timeless2.jpg"
+                            src="/images/timeless/timeless6.jpg"
                             alt="Cuisine 3"
                             width={1600}
                             height={800}
