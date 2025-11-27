@@ -2,6 +2,15 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import ParallaxBackground from "@/components/atoms/ParallaxBackground";
+import SectionHeader from "@/components/molecules/SectionHeader";
+import ButtonOutlineGold from "@/components/atoms/ButtonOutlineGold";
+
+// Reusable fade-up animation
+const fadeUp = {
+    initial: { opacity: 0, y: 26 },
+    animate: { opacity: 1, y: 0 },
+};
 
 export default function CulinaryPhilosophySection() {
     return (
@@ -9,16 +18,8 @@ export default function CulinaryPhilosophySection() {
             id="culinary"
             className="relative bg-black text-brand-cream overflow-hidden"
         >
-            {/* PARALLAX BG */}
-            <div
-                className="
-                    absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat
-                    opacity-[0.16] mix-blend-lighten
-                "
-                style={{
-                    backgroundImage: "url('/images/parallax/parallax1.jpg')",
-                }}
-            />
+            {/* PARALLAX */}
+            <ParallaxBackground />
 
             {/* GOLD GLOW */}
             <div className="pointer-events-none absolute inset-0">
@@ -32,45 +33,35 @@ export default function CulinaryPhilosophySection() {
                 />
             </div>
 
-            {/* ======= FULL WIDTH GRID ======= */}
+            {/* GRID */}
             <div className="relative w-full grid md:grid-cols-2 gap-16 items-start">
 
-                {/* LEFT TEXT — FULL WIDTH + LEFT PADDING */}
-                <div className="space-y-8 text-left pl-6 md:pl-16 lg:pl-24 pr-6 pt-16">
+                {/* LEFT TEXT */}
+                <div className="pt-16 pl-6 md:pl-16 lg:pl-24 pr-6 space-y-10">
 
-                    <motion.p
-                        initial={{ opacity: 0, y: 16 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-[10px] tracking-[0.26em] uppercase text-brand-gold/70"
-                    >
-                        Culinary Philosophy
-                    </motion.p>
-
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                    {/* SECTION HEADER */}
+                    <motion.div
+                        variants={fadeUp}
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: false, amount: 0.3 }}
                         transition={{ duration: 0.7 }}
-                        className="font-serif text-3xl md:text-4xl leading-snug text-brand-cream"
                     >
-                        A Timeless French Culinary Philosophy
-                    </motion.h2>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 16 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-brand-cream/80 text-sm md:text-base leading-relaxed"
-                    >
-                        The Jard’Or kitchen pays homage to the diverse landscape of French cuisine —
-                        from Provence and Nice to Burgundy and Bordeaux. Each dish reflects both
-                        tradition and modern expression, crafted with precision and intention.
-                    </motion.p>
+                        <SectionHeader
+                            eyebrow="Culinary Philosophy"
+                            title="A Timeless French Culinary Philosophy"
+                            subtitle="The Jard’Or kitchen pays homage to the diverse landscape of French cuisine — from Provence and Nice to Burgundy and Bordeaux. Each dish reflects both tradition and modern expression, crafted with precision and intention."
+                            align="left"
+                            className="!px-0"
+                        />
+                    </motion.div>
 
                     {/* LISTS */}
                     <motion.div
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        variants={fadeUp}
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: false, amount: 0.3 }}
                         transition={{ duration: 0.7 }}
                         className="space-y-6"
                     >
@@ -82,7 +73,7 @@ export default function CulinaryPhilosophySection() {
                                 <li>• Œufs Cocotte à la Truffe</li>
                                 <li>• Escargots à l’Ail Noir</li>
                                 <li>• Terrine de Foie Gras</li>
-                                <li>• Saint-Jacques aux Échalotes</li>
+                                <li>• Saint-Jacques aux Échalottes</li>
                             </ul>
                         </div>
 
@@ -112,40 +103,38 @@ export default function CulinaryPhilosophySection() {
 
                     {/* CTA */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        variants={fadeUp}
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: false, amount: 0.3 }}
                         transition={{ duration: 0.6 }}
                         className="pt-6 flex flex-col items-start gap-4"
                     >
-                        <button
-                            onClick={() => {
+                        <ButtonOutlineGold
+                            onClick={(e) => {
+                                e.preventDefault();
                                 const el = document.getElementById("gallery");
                                 if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                             }}
-                            className="
-            px-6 py-3 border border-brand-gold/60
-            text-brand-gold uppercase text-xs tracking-[0.22em]
-            hover:bg-brand-gold hover:text-black transition-all
-        "
                         >
                             Explore Our Indoor Space
-                        </button>
-
+                        </ButtonOutlineGold>
                     </motion.div>
 
                 </div>
 
-                {/* ======= RIGHT COLUMN — FULL WIDTH IMAGE COLLAGE ======= */}
+                {/* RIGHT IMAGES */}
                 <motion.div
-                    initial={{ opacity: 0, x: 40 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.7 }}
-                    className="w-full flex flex-col gap-0 pr-6"
+                    variants={fadeUp}
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: false, amount: 0.3 }}
+                    transition={{ duration: 0.8 }}
+                    className="w-full flex flex-col gap-0"
                 >
-
-                    {/* TOP 2 IMAGES */}
-                    <div className="grid grid-cols-2 gap-0 w-full">
-                        <div className="aspect-square overflow-hidden">
+                    {/* TOP ROW */}
+                    <div className="grid grid-cols-2 w-full">
+                        <div className="aspect-3/4 overflow-hidden">
                             <Image
                                 src="/images/timeless/timeless3.jpg"
                                 alt="Cuisine 1"
@@ -155,7 +144,7 @@ export default function CulinaryPhilosophySection() {
                             />
                         </div>
 
-                        <div className="aspect-square overflow-hidden">
+                        <div className="aspect-3/4 overflow-hidden">
                             <Image
                                 src="/images/timeless/timeless4.jpg"
                                 alt="Cuisine 2"
@@ -166,17 +155,16 @@ export default function CulinaryPhilosophySection() {
                         </div>
                     </div>
 
-                    {/* BOTTOM FULL IMAGE */}
-                    <div className="aspect-[2/1] overflow-hidden w-full">
+                    {/* BOTTOM */}
+                    <div className="aspect-5/3 overflow-hidden w-full">
                         <Image
                             src="/images/timeless/timeless6.jpg"
                             alt="Cuisine 3"
                             width={1600}
                             height={800}
-                            className="w-full h-full hover:scale-110 object-cover transition-all duration-4000"
+                            className="w-full h-full object-cover hover:scale-110 transition-all duration-4000"
                         />
                     </div>
-
                 </motion.div>
 
             </div>

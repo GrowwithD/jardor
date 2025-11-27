@@ -89,7 +89,7 @@ export default function ReservationContent() {
                             For urgent inquiries, you may also reach our concierge via WhatsApp.
                         </p>
 
-                        <ButtonOutlineGold href="https://wa.me/628000000000" target="_blank">
+                        <ButtonOutlineGold href="https://wa.me/628133630509" target="_blank">
                             WhatsApp Concierge
                         </ButtonOutlineGold>
                     </div>

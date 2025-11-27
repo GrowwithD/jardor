@@ -1,19 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import ParallaxBackground from "@/components/atoms/ParallaxBackground";
 import { motion } from "framer-motion";
 
 const socials = [
     { icon: "IG", label: "Instagram", href: "https://instagram.com/jardorbali" },
     { icon: "FB", label: "Facebook", href: "https://facebook.com/jardor" },
-    { icon: "WA", label: "WhatsApp", href: "https://wa.me/6281200000000" },
+    { icon: "WA", label: "WhatsApp", href: "https://wa.me/628133630509" },
 ];
 
 const instagramFeed = [
     "/images/DSC04919-HDR.jpg",
     "/images/DSC04930-HDR.jpg",
-    "/images/DSC04933-HDR.jpg",
+    "/images/about/about1.jpg",
     "/images/DSC00301.jpg",
     "/images/DSC00342.jpg",
     "/images/DSC00222.jpg",
@@ -29,6 +29,9 @@ export default function SocialMediaSection() {
                 overflow-hidden
             "
         >
+
+            <ParallaxBackground />
+
             <div className="mx-auto flex flex-col items-center gap-10">
 
                 {/* ========= SECTION HEADER ========= */}
@@ -37,7 +40,7 @@ export default function SocialMediaSection() {
                         Social Moments
                     </p>
 
-                    <h2 className="font-serif text-3xl md:text-4xl text-brand-cream tracking-wide">
+                    <h2 className="text-3xl md:text-4xl text-brand-cream tracking-wide">
                         Follow Us on Instagram
                     </h2>
 
@@ -62,7 +65,7 @@ export default function SocialMediaSection() {
                 </div>
 
                 {/* ========= INSTAGRAM GRID ========= */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 w-full">
+                <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 w-full">
                     {instagramFeed.map((src, i) => (
                         <motion.a
                             key={i}
@@ -73,7 +76,7 @@ export default function SocialMediaSection() {
                             transition={{ duration: 0.4 }}
                             className="
                                 relative aspect-square overflow-hidden group
-                                border border-brand-gold/20 bg-black/40
+                                border-none bg-black/40
                                 flex items-stretch
                             "
                         >

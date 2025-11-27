@@ -86,7 +86,7 @@ export default function ContactContent() {
                                 className="inline-flex items-center gap-2 text-brand-cream/88 hover:text-brand-gold transition-colors"
                             >
                                 info@jardor.com
-                                <span className="text-[13px]">↗</span>
+                                <span className="text-xs-line">↗</span>
                             </a>
                         </div>
 
@@ -96,13 +96,13 @@ export default function ContactContent() {
                                 Phone / WhatsApp
                             </p>
                             <a
-                                href="https://wa.me/6281234567890"
+                                href="https://wa.me/628133630509"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 text-brand-cream/88 hover:text-brand-gold transition-colors"
                             >
                                 +62 812-3456-7890
-                                <span className="text-[13px]">↗</span>
+                                <span className="text-xs-line">↗</span>
                             </a>
                         </div>
 

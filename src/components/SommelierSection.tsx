@@ -58,7 +58,7 @@ export default function SommelierSection() {
             </p>
 
             <div className="flex flex-col items-center gap-2 md:flex-row md:items-end md:gap-3">
-              <h2 className="font-serif text-[1.7rem] md:text-[2.1rem] tracking-[0.08em] text-brand-gold">
+              <h2 className="text-[1.7rem] md:text-[2.1rem] tracking-[0.08em] text-brand-gold">
                 Our Sommelier
               </h2>
             </div>

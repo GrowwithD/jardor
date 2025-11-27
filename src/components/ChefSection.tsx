@@ -38,7 +38,7 @@ export default function ChefSection() {
             </p>
 
             <div className="flex flex-col items-center md:items-start gap-2">
-              <h2 className="font-serif text-[1.7rem] md:text-[2.1rem] tracking-[0.08em] text-brand-cream">
+              <h2 className="text-[1.7rem] md:text-[2.1rem] tracking-[0.08em] text-brand-cream">
                 {chefName}
               </h2>
 

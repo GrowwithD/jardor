@@ -38,7 +38,7 @@ export default function MenuCategory({ category, index }: Props) {
                     sizes="(min-width: 1024px) 40vw, 80vw"
                     className="
             object-cover
-            transition-transform duration-[4000ms] ease-out
+            transition-transform duration-4000 ease-out
             group-hover:scale-110
         "
                 />

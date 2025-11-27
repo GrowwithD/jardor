@@ -3,8 +3,15 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+
 import ButtonGold from "@/components/atoms/ButtonGold";
 import ButtonOutlineGold from "@/components/atoms/ButtonOutlineGold";
+import SectionHeader from "@/components/molecules/SectionHeader";
+
+const fadeUp = {
+    initial: { opacity: 0, y: 26 },
+    animate: { opacity: 1, y: 0 },
+};
 
 const wineImages = [
     "/images/wines/wine1.JPG",
@@ -16,7 +23,7 @@ const wineImages = [
 export default function WineTastingSection() {
     const [index, setIndex] = useState(0);
 
-    // Auto slide
+    // Auto-slide
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prev) => (prev + 1) % wineImages.length);
@@ -43,17 +50,24 @@ export default function WineTastingSection() {
                     blur-3xl opacity-25" />
             </div>
 
-            {/* ========= MOBILE SINGLE IMAGE ========= */}
-            <div className="md:hidden mb-10 relative w-full h-[260px] overflow-hidden bg-black/40 border border-brand-gold/20">
+            {/* ========= MOBILE IMAGE ========= */}
+            <motion.div
+                variants={fadeUp}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: false, amount: 0.3 }}
+                transition={{ duration: 0.7 }}
+                className="md:hidden mb-10 relative w-full h-[260px] overflow-hidden bg-black/40 border border-brand-gold/20"
+            >
                 <Image
                     src={wineImages[index]}
                     alt="Wine Tasting Jard’or"
                     fill
                     className="object-cover transition-all duration-[1200ms]"
                 />
-            </div>
+            </motion.div>
 
-            {/* ========= DESKTOP SLIDER ========= */}
+            {/* ========= DESKTOP SLIDER RIGHT SIDE ========= */}
             <div
                 className="
                     hidden md:block
@@ -67,7 +81,6 @@ export default function WineTastingSection() {
                     className="absolute inset-0 flex transition-transform duration-[1200ms] ease-out"
                     style={{
                         transform: `translateX(-${index * 100}%)`,
-                        scrollBehavior: "smooth",   // <— ADDED
                     }}
                 >
                     {wineImages.map((src, i) => (
@@ -90,85 +103,103 @@ export default function WineTastingSection() {
                 className="
                     relative z-10 max-w-5xl mr-auto
                     px-6 md:pl-20 lg:pl-28 md:pr-10
-                    text-center md:text-left
                 "
             >
+                {/* SECTION HEADER */}
+                <SectionHeader
+                    eyebrow="Wine Tasting & Pairings"
+                    title="A Journey Through Cellar & Glass"
+                    subtitle="At Jard’Or, wine is more than a beverage — it’s a journey guided by our in-house sommelier. Each pairing is curated to elevate your dining experience, from easy-drinking glasses to rare vintages."
+                    align="left"
+                    className="!px-0"
+                />
+
+                {/* EXTRA PARAGRAPH */}
                 <motion.div
-                    initial={{ opacity: 0, y: 26 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7 }}
-                    className="space-y-6 md:max-w-xl"
+                    variants={fadeUp}
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: false, amount: 0.3 }}
+                    transition={{ duration: 0.7, delay: 0.1 }}
+                    className="mt-4 space-y-3 max-w-xl"
                 >
-                    <p className="text-[10px] md:text-[11px] uppercase tracking-[0.26em] text-brand-gold/70">
-                        Wine Tasting & Pairings
-                    </p>
-
-                    <h2 className="font-serif text-2xl md:text-3xl tracking-[0.03em] text-brand-cream">
-                        A Journey Through Cellar & Glass
-                    </h2>
-
-                    <p className="text-sm md:text-base leading-relaxed text-brand-cream/80">
-                        At Jard’Or, wine is more than a beverage — it’s a journey. Our in-house
-                        sommelier guides each guest through intentional pairings, ensuring every
-                        dish finds its perfect match — from easy-drinking glasses to rare vintages.
-                    </p>
-
                     <p className="text-sm md:text-base leading-relaxed text-brand-cream/80">
                         Whether enjoying seafood or richer classics like
-                        <em> Bœuf Bourguignon</em>, each pairing is crafted to elevate your dining experience.
+                        <em> Bœuf Bourguignon</em>, each pairing is crafted to enhance the moment.
+                    </p>
+                </motion.div>
+
+                {/* LIST */}
+                <motion.div
+                    variants={fadeUp}
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: false, amount: 0.3 }}
+                    transition={{ duration: 0.7, delay: 0.2 }}
+                    className="pt-4 space-y-2"
+                >
+                    <p className="text-brand-gold/80 text-[11px] tracking-[0.2em] uppercase">
+                        Wine Tasting Sessions
                     </p>
 
-                    <div className="pt-2 space-y-2">
-                        <p className="text-brand-gold/80 text-[11px] tracking-[0.2em] uppercase">
-                            Wine Tasting Sessions
-                        </p>
+                    <ul className="space-y-1.5 text-sm md:text-base text-brand-cream/85">
+                        <li>• Wines of Southern France</li>
+                        <li>• Bordeaux Discovery Nights</li>
+                        <li>• Burgundy & Rhône Explorations</li>
+                        <li>• European Highlights & Limited Editions</li>
+                    </ul>
+                </motion.div>
 
-                        <ul className="space-y-1.5 text-sm md:text-base text-brand-cream/85">
-                            <li>• Wines of Southern France</li>
-                            <li>• Bordeaux Discovery Nights</li>
-                            <li>• Burgundy & Rhône Explorations</li>
-                            <li>• European Highlights & Limited Editions</li>
-                        </ul>
-                    </div>
+                {/* CTA BUTTONS */}
+                <motion.div
+                    variants={fadeUp}
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: false, amount: 0.3 }}
+                    transition={{ duration: 0.7, delay: 0.25 }}
+                    className="pt-6 flex flex-wrap gap-3 justify-center md:justify-start"
+                >
+                    <ButtonGold href="/pdf/jardor-wine-champagne-list.pdf">
+                        Explore Our Wine List
+                    </ButtonGold>
 
-                    <div className="pt-6 flex flex-wrap gap-3 justify-center md:justify-start">
-                        <ButtonGold href="/pdf/jardor-wine-champagne-list.pdf">
-                            Explore Our Wine List
-                        </ButtonGold>
+                    <ButtonOutlineGold
+                        href="#reservation"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            const el = document.getElementById("reservation");
+                            if (el) {
+                                el.scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "start",
+                                });
+                            }
+                        }}
+                    >
+                        Reserve Wine Tasting
+                    </ButtonOutlineGold>
+                </motion.div>
 
-                        <ButtonOutlineGold
-                            href="#reservation"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                const el = document.getElementById("reservation");
-                                if (el) {
-                                    el.scrollIntoView({
-                                        behavior: "smooth",
-                                        block: "start",
-                                        inline: "nearest",
-                                    });
-                                }
-                            }}
-                        >
-                            Reserve Wine Tasting
-                        </ButtonOutlineGold>
-                    </div>
-
-                    {/* DOTS */}
-                    <div className="pt-4 flex items-center gap-2 justify-center md:justify-start">
-                        {wineImages.map((_, i) => (
-                            <button
-                                key={i}
-                                onClick={() => setIndex(i)}
-                                className={`h-1.5 rounded-full transition-all duration-300
-                                    ${i === index
-                                        ? "w-5 bg-brand-gold"
-                                        : "w-2 bg-brand-cream/35 hover:bg-brand-gold/60"}
-                                `}
-                            />
-                        ))}
-                    </div>
+                {/* DOTS */}
+                <motion.div
+                    variants={fadeUp}
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: false, amount: 0.3 }}
+                    transition={{ duration: 0.7, delay: 0.35 }}
+                    className="pt-4 flex items-center gap-2 justify-center md:justify-start"
+                >
+                    {wineImages.map((_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => setIndex(i)}
+                            className={`h-0.5 transition-all duration-300
+                                ${i === index
+                                    ? "w-48 bg-brand-gold"
+                                    : "w-2 bg-brand-cream/35 hover:bg-brand-gold/60"}
+                            `}
+                        />
+                    ))}
                 </motion.div>
             </div>
         </section>

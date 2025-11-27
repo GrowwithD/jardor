@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 
 type SectionHeaderProps = {
   eyebrow?: string;
@@ -9,9 +10,9 @@ type SectionHeaderProps = {
   align?: "left" | "center";
   className?: string;
 
-  // optional override
-  aos?: string;
-  aosDuration?: number;
+  // Optional: override animation
+  animation?: "fade-up" | "fade-down" | "fade-left" | "fade-right";
+  duration?: number;
 };
 
 export default function SectionHeader({
@@ -19,23 +20,34 @@ export default function SectionHeader({
   title,
   subtitle,
   align = "center",
-  className,
-  aos = "fade-down",        // 👈 default: turun dari atas
-  aosDuration = 900,        // smooth & elegan
+  className = "",
+  animation = "fade-up",
+  duration = 0.8,
 }: SectionHeaderProps) {
   const alignment =
     align === "center"
       ? "text-center items-center"
       : "text-left items-start";
 
-  const subtitleWidth = align === "center" ? "max-w-xl mx-auto" : "max-w-md";
+  const subtitleWidth =
+    align === "center" ? "max-w-xl mx-auto" : "max-w-md";
+
+  // ==== ANIMATION PRESETS ====
+  const variants: Record<string, any> = {
+    "fade-up": { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 } },
+    "fade-down": { initial: { opacity: 0, y: -24 }, animate: { opacity: 1, y: 0 } },
+    "fade-left": { initial: { opacity: 0, x: -24 }, animate: { opacity: 1, x: 0 } },
+    "fade-right": { initial: { opacity: 0, x: 24 }, animate: { opacity: 1, x: 0 } },
+  };
 
   return (
-    <div
-      className={`flex flex-col gap-3 px-6 ${alignment} ${className ?? ""}`}
-      data-aos={aos}
-      data-aos-duration={aosDuration}
-      data-aos-easing="ease-out-cubic"
+    <motion.div
+      variants={variants[animation]}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: false, amount: 0.35 }}
+      transition={{ duration, ease: "easeOut" }}
+      className={`flex flex-col gap-3 px-6 ${alignment} ${className}`}
     >
       {eyebrow && <p className="text-eyebrow">{eyebrow}</p>}
 
@@ -46,6 +58,6 @@ export default function SectionHeader({
           {subtitle}
         </p>
       )}
-    </div>
+    </motion.div>
   );
 }

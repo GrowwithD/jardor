@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import { InstagramIcon, FacebookIcon } from "lucide-react";
+import NavLogo from "./atoms/NavLogo";
 
 const fadeUp = {
     initial: { opacity: 0, y: 18 },
@@ -15,9 +15,7 @@ const currentYear = new Date().getFullYear();
 export default function Footer() {
     const [mounted, setMounted] = useState(false);
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+    useEffect(() => setMounted(true), []);
 
     return (
         <footer className="relative text-base text-brand-cream/75">
@@ -36,19 +34,35 @@ export default function Footer() {
             >
                 {/* LEFT */}
                 <div className="flex flex-col gap-3 max-w-md">
-                    <Image
-                        src="/images/logo.png"
-                        alt="Jard’or — Logo"
-                        width={88}
-                        height={24}
-                        priority
-                        className="h-32 -my-10 -ml-4 w-auto object-contain"
-                    />
+                    <NavLogo heightClass="h-24" className="select-none pointer-events-auto" />
 
                     <p className="text-brand-cream/78 leading-relaxed">
                         A restrained French-inspired dining room where candlelight, service,
                         and cellar move in quiet harmony with the sea breeze of Nusa Dua.
                     </p>
+
+                    {/* SOCIAL MEDIA ICONS */}
+                    <div className="flex items-center gap-3">
+                        <a
+                            href="https://instagram.com/jardor"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-brand-gold/80 hover:text-brand-gold transition-colors"
+                            aria-label="Instagram"
+                        >
+                            <InstagramIcon size={18} strokeWidth={1.5} />
+                        </a>
+
+                        <a
+                            href="https://www.facebook.com/people/Jardor-French-Restaurant/61581664444546"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-brand-gold/80 hover:text-brand-gold transition-colors"
+                            aria-label="Facebook"
+                        >
+                            <FacebookIcon size={18} strokeWidth={1.5} />
+                        </a>
+                    </div>
                 </div>
 
                 {/* MIDDLE */}
@@ -59,8 +73,9 @@ export default function Footer() {
                             Address
                         </p>
                         <p className="text-brand-cream/80">
-                            Jl. Example No. 1<br />
-                            Nusa Dua, Bali — Indonesia
+                            Jl. Kw. Nusa Dua Resort, Benoa, Kec. Kuta Sel.,
+                            <br />
+                            Kabupaten Badung, Bali 80361
                         </p>
                     </div>
 
@@ -85,7 +100,7 @@ export default function Footer() {
                                 href="tel:+6281200000000"
                                 className="text-brand-gold/90 hover:text-brand-gold transition-colors"
                             >
-                                +62 812-0000-0000
+                                +62 813-3630-509
                             </a>
                             <br />
                             WA:&nbsp;
@@ -93,18 +108,14 @@ export default function Footer() {
                                 href="https://wa.me/6281200000000"
                                 className="text-brand-gold/90 hover:text-brand-gold transition-colors"
                             >
-                                +62 812-0000-0000
+                                +62 813-3630-509
                             </a>
                         </p>
                     </div>
-
-
                 </div>
 
-                {/* RIGHT (EMPTY — Removed Primary Links) */}
-                <div className="flex flex-col gap-4 md:items-end text-right">
-                    {/* Dibiarkan kosong atau isi text kecil opsional */}
-                </div>
+                {/* RIGHT */}
+                <div className="flex flex-col gap-4 md:items-end text-right"></div>
             </motion.div>
 
             {/* BOTTOM BAR */}
@@ -112,17 +123,23 @@ export default function Footer() {
                 <div className="
                     mx-auto max-w-6xl px-4 py-4
                     flex flex-col md:flex-row items-center justify-between
-                    gap-1.5 text-sm md:text-sm text-brand-cream/50
+                    gap-2 text-sm text-brand-cream/50
                 ">
+
+                    {/* COPYRIGHT */}
                     <p className="tracking-[0.18em] uppercase text-center md:text-left">
                         © {currentYear} Jard&apos;or Restaurant • All Rights Reserved
                     </p>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-4">
+
+
+
+                        {/* CREDIT */}
                         <span className="tracking-[0.16em] uppercase">
                             Website by{" "}
                             <a
-                                href="https://widhyarsana.com"
+                                href="https://www.linkedin.com/in/wayan-widiarsana-8a08431a4/?locale=en_US"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-brand-gold/85 hover:text-brand-gold transition-colors"
@@ -131,11 +148,9 @@ export default function Footer() {
                             </a>
                         </span>
 
-                        {/* back to top */}
+                        {/* BACK TO TOP */}
                         <button
-                            onClick={() =>
-                                window.scrollTo({ top: 0, behavior: "smooth" })
-                            }
+                            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                             className="
                                 hidden sm:flex h-6 w-6 items-center justify-center
                                 rounded-full border border-brand-gold/30

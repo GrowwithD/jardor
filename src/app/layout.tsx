@@ -123,19 +123,6 @@ export default function RootLayout({
                 <Navbar />
                 <main className="flex-1">{children}</main>
 
-
-                <div
-                    className="
-                w-full
-                h-24
-                bg-brand-green
-                bg-[url('/images/batik3.png')]
-                bg-repeat
-                bg-center
-                opacity-60
-                  bg-[length:420px_auto]
-            "
-                />
                 <WhatsAppFloating />
 
                 <Footer />

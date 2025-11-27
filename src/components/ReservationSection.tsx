@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ButtonGold from "@/components/atoms/ButtonGold";
 import ButtonOutlineGold from "@/components/atoms/ButtonOutlineGold";
+import ParallaxBackground from "@/components/atoms/ParallaxBackground";
 
 export default function ReservationSection() {
     const [privacyAccepted, setPrivacyAccepted] = useState(false);
@@ -16,18 +17,7 @@ export default function ReservationSection() {
                 overflow-hidden
             "
         >
-            {/* ===== DECORATIVE IMAGE (LEFT SIDE) ===== */}
-            <div
-                className="
-                    absolute inset-y-0 left-0 w-[100%]
-                    bg-cover bg-center bg-no-repeat bg-fixed
-                    opacity-[0.18]
-                    mix-blend-lighten
-                "
-                style={{
-                     backgroundImage: "url('/images/parallax/parallax1.jpg')"
-                }}
-            />
+            <ParallaxBackground />
 
             {/* ===== MAIN GRID ===== */}
             <div className="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-start">
@@ -50,7 +40,7 @@ export default function ReservationSection() {
                     </p>
 
                     {/* TITLE */}
-                    <h2 className="font-serif text-2xl md:text-3xl text-brand-cream mb-2">
+                    <h2 className="text-2xl md:text-3xl text-brand-cream mb-2">
                         Reserve a Table at Jard’Or
                     </h2>
 
@@ -146,10 +136,9 @@ export default function ReservationSection() {
                         className={`
                             w-full text-center py-2 text-xs uppercase tracking-[0.18em]
                             transition-all border
-                            ${
-                                privacyAccepted
-                                    ? "bg-brand-gold text-black border-brand-gold"
-                                    : "border-brand-gold/40 text-brand-cream/80"
+                            ${privacyAccepted
+                                ? "bg-brand-gold text-black border-brand-gold"
+                                : "border-brand-gold/40 text-brand-cream/80"
                             }
                         `}
                     >
@@ -168,7 +157,7 @@ export default function ReservationSection() {
                 {/* ============ RIGHT: TEXT + CTA ============ */}
                 <div className="flex flex-col justify-center md:pl-10 space-y-8">
 
-                    <h2 className="font-serif text-4xl md:text-5xl text-brand-cream tracking-wide">
+                    <h2 className="text-4xl md:text-5xl text-brand-cream tracking-wide">
                         Your Evening Awaits
                     </h2>
 
@@ -181,7 +170,7 @@ export default function ReservationSection() {
                             Reserve
                         </ButtonGold>
 
-                        <ButtonOutlineGold href="https://wa.me/628000000000" target="_blank">
+                        <ButtonOutlineGold href="https://wa.me/628133630509" target="_blank">
                             WhatsApp Us
                         </ButtonOutlineGold>
                     </div>

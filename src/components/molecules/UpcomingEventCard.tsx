@@ -66,7 +66,6 @@ export default function UpcomingEventCard({ event, index }: UpcomingEventCardPro
 
                     <h3
                         className="
-              font-serif
               text-[15px] md:text-[18px]
               text-brand-cream
               leading-snug

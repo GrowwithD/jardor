@@ -1,12 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import MenuCategory, { MenuCategoryData } from "./MenuCategory";
 import SectionHeader from "@/components/molecules/SectionHeader";
+import ParallaxBackground from "@/components/atoms/ParallaxBackground";
+
+const fadeUp = {
+    initial: { opacity: 0, y: 26 },
+    animate: { opacity: 1, y: 0 },
+};
 
 const menuCategories: MenuCategoryData[] = [
     {
@@ -18,17 +23,15 @@ const menuCategories: MenuCategoryData[] = [
         pdfUrl: "/menu/French Tasting Journey.pdf",
         location: "TASTING MENU",
     },
-
     {
         id: "desserts",
-        label: "Pâtisserie & Dessert",
+        label: "Patisserie & Dessert",
         subtitle:
             "Finishes that favor balance, lightness, and sculpted detail over excess.",
         hero: "/images/menu/menu2.jpg",
-        pdfUrl: "/menu/Pâtisserie & Dessert.pdf",
+        pdfUrl: "/menu/Patisserie & Dessert.pdf",
         location: "PATISSERIE",
     },
-
     {
         id: "cocktails",
         label: "Cocktail & Spirit",
@@ -38,7 +41,6 @@ const menuCategories: MenuCategoryData[] = [
         pdfUrl: "/menu/Cocktail & Spirit.pdf",
         location: "BAR",
     },
-
     {
         id: "wine",
         label: "Wine & Champagne",
@@ -48,14 +50,13 @@ const menuCategories: MenuCategoryData[] = [
         pdfUrl: "/menu/Wine & Champagne.pdf",
         location: "CELLAR",
     },
-
     {
         id: "cigarettes",
         label: "Premium Cigarettes",
         subtitle:
             "Exclusive curated selection of premium cigarettes for refined taste.",
-        hero: "/images/menu/menu5.jpg", // ganti kalau ada foto khusus
-        pdfUrl: "/menu/Premium Cigarettes.pdf", // ganti kalau belum ada
+        hero: "/images/menu/menu5.jpg",
+        pdfUrl: "/menu/Premium Cigarettes.pdf",
         location: "LOUNGE",
     },
 ];
@@ -63,14 +64,6 @@ const menuCategories: MenuCategoryData[] = [
 export default function MenusList() {
     const sliderRef = useRef<HTMLDivElement | null>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
-
-    useEffect(() => {
-        AOS.init({
-            duration: 900,
-            easing: "ease-out-cubic",
-            once: true,
-        });
-    }, []);
 
     const scrollToIndex = (index: number) => {
         if (!sliderRef.current) return;
@@ -102,42 +95,35 @@ export default function MenusList() {
         <section
             id="menus"
             className="
-                    relative py-20 md:py-28
-                    bg-black text-brand-cream
-                    overflow-hidden
-                "
+                relative py-20 md:py-28
+                bg-black text-brand-cream
+                overflow-hidden
+            "
         >
-            {/* ===== PARALLAX BACKGROUND ===== */}
-            <div
-                className="
-                    absolute inset-y-0 left-0 w-[100%]
-                    bg-cover bg-center bg-no-repeat bg-fixed
-                    opacity-[0.18]
-                    mix-blend-lighten
-                "
-                style={{
-                    backgroundImage: "url('/images/parallax/parallax1.jpg')",
-                }}
-            />
+            <ParallaxBackground />
 
-            {/* ===== CONTENT WRAPPER ===== */}
             <div className="relative mx-auto px-4 md:px-32">
 
                 {/* HEADER */}
-                <div data-aos="fade-up" className="mb-14">
-                    <SectionHeader
-                        eyebrow="House Menus"
-                        title="Journeys from Kitchen & Cellar"
-                        subtitle="Explore tasting progression, à la carte selections, patisserie, cellar lists, and bar signatures — each menu is available as a PDF for easy sharing and planning."
-                        align="center"
-                    />
-                </div>
+                <SectionHeader
+                    eyebrow="House Menus"
+                    title="Journeys from Kitchen & Cellar"
+                    subtitle="Explore tasting progression, à la carte selections, patisserie, cellar lists, and bar signatures — each menu is available as a PDF for easy sharing and planning."
+                    align="center"
+                    className="mb-14"
+                />
 
                 {/* SLIDER SECTION */}
-                <div data-aos="fade-up" data-aos-delay="120">
+                <motion.div
+                    variants={fadeUp}
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: false, amount: 0.3 }}
+                    transition={{ duration: 0.8 }}
+                >
                     <div className="relative">
 
-                        {/* Arrows (desktop only) */}
+                        {/* ARROWS */}
                         <button
                             onClick={goPrev}
                             className="
@@ -172,8 +158,13 @@ export default function MenusList() {
                             "
                         >
                             {menuCategories.map((cat, idx) => (
-                                <div
+                                <motion.div
                                     key={cat.id}
+                                    variants={fadeUp}
+                                    initial="initial"
+                                    whileInView="animate"
+                                    viewport={{ once: false, amount: 0.2 }}
+                                    transition={{ duration: 0.6, delay: idx * 0.1 }}
                                     className="
                                         min-w-[88%]
                                         sm:min-w-[48%]
@@ -181,12 +172,12 @@ export default function MenusList() {
                                     "
                                 >
                                     <MenuCategory category={cat} index={idx} />
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
                     </div>
 
-                    {/* ===== DOTS ===== */}
+                    {/* DOTS */}
                     <div className="mt-5 flex flex-col items-center gap-3">
 
                         {/* Mobile Prev/Next */}
@@ -195,7 +186,7 @@ export default function MenusList() {
                                 onClick={goPrev}
                                 className="
                                     px-3 py-1.5 text-[9px] uppercase tracking-[0.18em]
-                                    border border-brand-gold/40 text-brand-green/80
+                                    border border-brand-gold/40 text-brand-gold
                                     hover:bg-brand-gold hover:text-black transition-all
                                 "
                             >
@@ -206,7 +197,7 @@ export default function MenusList() {
                                 onClick={goNext}
                                 className="
                                     px-3 py-1.5 text-[9px] uppercase tracking-[0.18em]
-                                    border border-brand-gold/40 text-brand-green/80
+                                    border border-brand-gold/40 text-brand-gold
                                     hover:bg-brand-gold hover:text-black transition-all
                                 "
                             >
@@ -235,7 +226,7 @@ export default function MenusList() {
                         </div>
 
                     </div>
-                </div>
+                </motion.div>
             </div>
         </section>
     );

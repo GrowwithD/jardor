@@ -97,7 +97,7 @@ export default function MainHero() {
                             visible: { opacity: 1, y: 0 },
                         }}
                         transition={{ duration: 0.8 }}
-                        className="font-serif text-3xl md:text-5xl text-brand-cream leading-tight"
+                        className="text-3xl md:text-5xl text-brand-cream leading-tight"
                     >
                         Welcome to JARD'OR
                     </motion.h1>

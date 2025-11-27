@@ -2,6 +2,12 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import SectionHeader from "@/components/molecules/SectionHeader";
+
+const fadeUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+};
 
 export default function AboutJardorSection() {
     return (
@@ -9,46 +15,49 @@ export default function AboutJardorSection() {
             id="restaurant"
             className="relative pt-20 md:pt-28 bg-brand-green text-brand-cream"
         >
-            {/* ===== TOP TEXT ===== */}
+            {/* ===== TOP TEXT VIA SectionHeader ===== */}
+            <SectionHeader
+                eyebrow="About Jard’or — Indoor Dining"
+                title="Our Home — Luxury Fine Dining in Nusa Dua"
+                subtitle="Step into a world where French elegance meets Balinese warmth. Our indoor dining room is fully air-conditioned, styled with refined French aesthetics, soft lighting, and intimate table settings — perfect for couples, families, or celebrations."
+                align="center"
+                className="max-w-3xl mx-auto"
+            />
+
+            {/* EXTRA PARAGRAPHS */}
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
+                variants={fadeUp}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: false, amount: 0.3 }}
                 transition={{ duration: 0.6 }}
-                className="text-center space-y-3 px-6 max-w-3xl mx-auto"
+                className="mt-4 text-center px-6 max-w-3xl mx-auto space-y-3"
             >
-                <p className="text-[10px] md:text-[11px] uppercase tracking-[0.26em] text-brand-gold/70">
-                    About Jard’or — Indoor Dining
-                </p>
-
-                <h2 className="text-2xl md:text-3xl font-serif tracking-[0.04em] text-brand-cream">
-                    Our Home — Luxury Fine Dining in Nusa Dua
-                </h2>
-
-                <p className="text-sm leading-relaxed text-brand-cream/80 md:text-base">
-                    Step into a world where French elegance meets Balinese warmth.
-                    Our indoor dining room is fully air-conditioned, styled with refined
-                    French aesthetics, soft lighting, and intimate table settings —
-                    perfect for couples, families, or celebrations.
-                </p>
-
-                <p className="text-sm leading-relaxed text-brand-cream/80 md:text-base">
+                <motion.p
+                    variants={fadeUp}
+                    transition={{ duration: 0.6 }}
+                >
                     Designed for comfort and luxury, our space can host everything from
                     romantic dinners to private dining events of up to 70 guests. Jard’or
                     sets the stage for unforgettable moments.
-                </p>
+                </motion.p>
 
-                <p className="text-sm md:text-base leading-relaxed text-brand-cream/85 italic">
+                <motion.p
+                    variants={fadeUp}
+                    transition={{ duration: 0.7 }}
+                    className="italic"
+                >
                     Luxury fine dining redefined in the heart of Nusa Dua.
-                </p>
+                </motion.p>
             </motion.div>
 
-            {/* ===== IMAGE GRID (Mobile 3 grid) ===== */}
+            {/* ===== IMAGE GRID ===== */}
             <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
+                variants={fadeUp}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: false, amount: 0.3 }}
+                transition={{ duration: 0.8 }}
                 className="
                     mt-14 w-full bg-black
                     grid grid-cols-3 gap-0 md:px-0
@@ -57,14 +66,16 @@ export default function AboutJardorSection() {
                 {[
                     "/images/about/about1.jpg",
                     "/images/about/about2.jpg",
-                    "/images/about/about3.jpg",
+                    "/peximages/about/about3.jpg",
                 ].map((src, idx) => (
-                    <div
+                    <motion.div
                         key={idx}
+                        variants={fadeUp}
+                        transition={{ duration: 0.6 + idx * 0.2 }}
                         className="
-                            group relative aspect-square w-full
-                            overflow-hidden border border-brand-gold/20 bg-black/40
-                        "
+        group relative aspect-square w-full
+        overflow-hidden bg-black/40
+    "
                     >
                         <Image
                             src={src}
@@ -72,13 +83,13 @@ export default function AboutJardorSection() {
                             fill
                             className="
                                 object-cover
-                                transition-transform duration-[4000ms] ease-out
+                                transition-transform duration-4000 ease-out
                                 group-hover:scale-110
                             "
                         />
 
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                    </div>
+                        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
+                    </motion.div>
                 ))}
             </motion.div>
         </section>
