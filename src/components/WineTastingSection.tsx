@@ -37,7 +37,7 @@ export default function WineTastingSection() {
             className="
                 relative py-20 md:py-28
                 bg-brand-green text-brand-cream
-                overflow-hidden
+                overflow-hidden min-h-screen
             "
         >
             {/* Ambient Glow */}
@@ -57,7 +57,7 @@ export default function WineTastingSection() {
                 whileInView="animate"
                 viewport={{ once: false, amount: 0.3 }}
                 transition={{ duration: 0.7 }}
-                className="md:hidden mb-10 relative w-full h-[260px] overflow-hidden bg-black/40 border border-brand-gold/20"
+                className="md:hidden mb-10 relative w-full h-[480px] overflow-hidden bg-black/40 border border-brand-gold/20"
             >
                 <Image
                     src={wineImages[index]}
@@ -179,6 +179,7 @@ export default function WineTastingSection() {
                         Reserve Wine Tasting
                     </ButtonOutlineGold>
                 </motion.div>
+
 
                 {/* DOTS */}
                 <motion.div

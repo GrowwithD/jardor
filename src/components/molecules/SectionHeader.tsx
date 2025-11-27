@@ -51,7 +51,7 @@ export default function SectionHeader({
     >
       {eyebrow && <p className="text-eyebrow">{eyebrow}</p>}
 
-      <h2 className="section-title mt-2">{title}</h2>
+      <h1 className="section-title mt-2">{title}</h1>
 
       {subtitle && (
         <p className={`section-subtitle ${subtitleWidth}`}>

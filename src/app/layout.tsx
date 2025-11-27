@@ -19,7 +19,7 @@ const inter = Inter({
 });
 
 // bisa nanti ambil dari env: process.env.NEXT_PUBLIC_SITE_URL
-const siteUrl = "https://jardor-bali.com";
+const siteUrl = "https://jardor.com";
 
 export const metadata: Metadata = {
     metadataBase: new URL(siteUrl),

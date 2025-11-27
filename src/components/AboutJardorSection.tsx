@@ -66,7 +66,7 @@ export default function AboutJardorSection() {
                 {[
                     "/images/about/about1.jpg",
                     "/images/about/about2.jpg",
-                    "/peximages/about/about3.jpg",
+                    "/images/about/about3.jpg",
                 ].map((src, idx) => (
                     <motion.div
                         key={idx}
