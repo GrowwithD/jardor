@@ -1,4 +1,3 @@
-// components/sections/mainhero/Client.tsx
 "use client";
 
 import Image from "next/image";
@@ -8,23 +7,40 @@ import { motion } from "framer-motion";
 import ButtonGold from "@/components/atoms/ButtonGold";
 import ButtonOutlineGold from "@/components/atoms/ButtonOutlineGold";
 
+// =======================
+// TYPES
+// =======================
+interface MainHeroProps {
+    images: string[];
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    chope_link: string;
+}
+
+// =======================
+// COMPONENT
+// =======================
 export default function MainHeroClient({
     images,
     eyebrow,
     title,
     subtitle,
     chope_link,
-}) {
+}: MainHeroProps) {
+
     const [index, setIndex] = useState(0);
 
     // Auto slide
     useEffect(() => {
+        if (!images?.length) return;
+
         const timer = setInterval(() => {
             setIndex((prev) => (prev + 1) % images.length);
         }, 6500);
 
         return () => clearInterval(timer);
-    }, [images.length]);
+    }, [images]);
 
     return (
         <section
@@ -45,13 +61,11 @@ export default function MainHeroClient({
                             priority={idx === 0}
                             className="object-cover"
                         />
-
-                        {src}
                     </div>
                 ))}
             </div>
 
-            {/* OVERLAY */}
+            {/* BLACK OVERLAY */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/55 to-black/85" />
 
             {/* CONTENT */}
@@ -107,7 +121,7 @@ export default function MainHeroClient({
                         {subtitle}
                     </motion.p>
 
-                    {/* BUTTONS */}
+                    {/* CTA BUTTONS */}
                     <motion.div
                         variants={{
                             hidden: { opacity: 0, y: 20 },

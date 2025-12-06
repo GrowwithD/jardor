@@ -12,7 +12,9 @@ const fadeUp = {
 };
 
 export default function CulinaryPhilosophyClient({ cp }: { cp: any }) {
-    const images = cp.images.slice(0, 3); // ambil 3 gambar maksimum
+
+    // Pastikan tipe aman untuk TS
+    const images: string[] = Array.isArray(cp.images) ? cp.images.slice(0, 3) : [];
 
     return (
         <section
@@ -56,6 +58,7 @@ export default function CulinaryPhilosophyClient({ cp }: { cp: any }) {
                         />
                     </motion.div>
 
+                    {/* CONTENT */}
                     <motion.div
                         variants={fadeUp}
                         initial="initial"
@@ -63,14 +66,14 @@ export default function CulinaryPhilosophyClient({ cp }: { cp: any }) {
                         viewport={{ once: false, amount: 0.3 }}
                         transition={{ duration: 0.6 }}
                         className="
-        mt-4 text-left mx-auto space-y-3
-        prose prose-invert max-w-none
+                            mt-4 text-left mx-auto space-y-3
+                            prose prose-invert max-w-none
 
-        [&_*]:mt-3
-        [&_*]:text-sm
-        md:[&_*]:text-lg
-        [&_*]:text-brand-gold/80
-    "
+                            [&_*]:mt-3
+                            [&_*]:text-sm
+                            md:[&_*]:text-lg
+                            [&_*]:text-brand-gold/80
+                        "
                     >
                         <motion.div
                             variants={fadeUp}
@@ -115,7 +118,7 @@ export default function CulinaryPhilosophyClient({ cp }: { cp: any }) {
                     {/* TOP ROW (2 IMAGES) */}
                     {images.length >= 2 && (
                         <div className="grid grid-cols-2 w-full">
-                            {images.slice(0, 2).map((src, i) => (
+                            {images.slice(0, 2).map((src: string, i: number) => (
                                 <div key={i} className="aspect-3/4 overflow-hidden">
                                     <Image
                                         src={src}

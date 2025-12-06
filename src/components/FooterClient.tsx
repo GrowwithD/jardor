@@ -5,12 +5,24 @@ import { InstagramIcon, FacebookIcon } from "lucide-react";
 import NavLogo from "./atoms/NavLogo";
 import { useEffect, useState } from "react";
 
+// ================= TYPE ==================================
+type SiteInfoType = {
+    phone?: string;
+    whatsapp?: string;
+    instagram?: string;
+    facebook?: string;
+    address?: string;
+    hours?: string;
+    footer_text?: string;
+};
+
+// ================= ANIMATION =============================
 const fadeUp = {
     initial: { opacity: 0, y: 18 },
     animate: { opacity: 1, y: 0 },
 };
 
-export default function FooterClient({ siteInfo }) {
+export default function FooterClient({ siteInfo }: { siteInfo: SiteInfoType }) {
     const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
 
@@ -37,11 +49,17 @@ export default function FooterClient({ siteInfo }) {
 
                         {/* SOCIAL */}
                         <div className="flex items-center gap-3">
-                            <a href={siteInfo.instagram} className="text-brand-gold/80 hover:text-brand-gold">
+                            <a
+                                href={siteInfo.instagram}
+                                className="text-brand-gold/80 hover:text-brand-gold"
+                            >
                                 <InstagramIcon size={18} strokeWidth={1.5} />
                             </a>
 
-                            <a href={siteInfo.facebook} className="text-brand-gold/80 hover:text-brand-gold">
+                            <a
+                                href={siteInfo.facebook}
+                                className="text-brand-gold/80 hover:text-brand-gold"
+                            >
                                 <FacebookIcon size={18} strokeWidth={1.5} />
                             </a>
                         </div>
