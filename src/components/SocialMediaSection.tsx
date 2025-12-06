@@ -25,12 +25,11 @@ export default function SocialMediaSection() {
             id="social"
             className="
                 relative pt-20 md:pt-28
-                bg-black text-brand-cream
+                bg-brand-green text-brand-cream
                 overflow-hidden
             "
         >
 
-            <ParallaxBackground />
 
             <div className="mx-auto flex flex-col items-center gap-10">
 
