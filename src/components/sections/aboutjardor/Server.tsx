@@ -6,8 +6,6 @@ import AboutJardorClient from "@/components/sections/aboutjardor/Client";
 export default async function AboutJardorSection() {
     const data = await getAboutJardor();
 
-
-
     const about = {
         eyebrow: data?.eyebrow ,
         title: data?.title ,
@@ -22,11 +20,6 @@ export default async function AboutJardorSection() {
             : [
             ],
     };
-
-    console.log(about);
-
-
-
 
     return <AboutJardorClient about={about} />;
 }

@@ -5,7 +5,27 @@ import ButtonGold from "@/components/atoms/ButtonGold";
 import ButtonOutlineGold from "@/components/atoms/ButtonOutlineGold";
 import ParallaxBackground from "@/components/atoms/ParallaxBackground";
 
-export default function ReservationSection() {
+type EventType = {
+    id: string;
+    title: string;
+};
+
+type ReservationSectionType = {
+    eyebrow_form: string;
+    title_form: string;
+    privacy_notice: string;
+    right_title: string;
+    right_description: string;
+    button_text: string;
+};
+
+export default function ReservationClient({
+    reservation,
+    events,
+}: {
+    reservation: ReservationSectionType;
+    events: EventType[];
+}) {
     const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
     return (
@@ -25,17 +45,18 @@ export default function ReservationSection() {
                 {/* HEADER */}
                 <div className="text-center space-y-3">
                     <p className="text-[11px] uppercase tracking-[0.26em] text-brand-gold/70">
-                        Jard’Or Restaurant
+                        {reservation.eyebrow_form}
                     </p>
 
                     <h2 className="text-4xl md:text-5xl font-light tracking-wide">
-                        Reservation Request
+                        {reservation.title_form}
                     </h2>
 
-                    <p className="text-brand-cream/70 text-sm leading-relaxed max-w-md mx-auto">
-                        Submit your details below and our concierge team will contact you
-                        to confirm your reservation.
-                    </p>
+                    {reservation.right_description && (
+                        <p className="text-brand-cream/70 text-sm leading-relaxed max-w-md mx-auto">
+                            {reservation.right_description}
+                        </p>
+                    )}
                 </div>
 
                 {/* FORM */}
@@ -49,7 +70,7 @@ export default function ReservationSection() {
                         text-brand-cream
                     "
                 >
-                    {/* EVENT (STATIC) */}
+                    {/* EVENT DROPDOWN */}
                     <div>
                         <label className="block mb-1 text-sm tracking-wide text-brand-gold/80">
                             Reservation Type
@@ -62,9 +83,13 @@ export default function ReservationSection() {
                             "
                         >
                             <option value="">Select Event</option>
-                            <option>Wine Tasting Experience</option>
-                            <option>Christmas Eve Dinner</option>
-                            <option>Christmas Dinner</option>
+
+                            {/* ⬇ dynamic events from API */}
+                            {events.map((ev) => (
+                                <option key={ev.id} value={ev.id}>
+                                    {ev.title}
+                                </option>
+                            ))}
                         </select>
                     </div>
 
@@ -195,14 +220,13 @@ export default function ReservationSection() {
                             "
                         />
                         <label className="text-sm text-brand-cream/70 leading-relaxed cursor-pointer">
-                            I accept the data privacy terms and allow Jard’Or to contact
-                            me regarding this reservation request.
+                            {reservation.privacy_notice}
                         </label>
                     </div>
 
                     {/* SUBMIT + WHATSAPP */}
                     <div className="pt-4 flex flex-col gap-3">
-                        <ButtonGold href="#">Submit Reservation</ButtonGold>
+                        <ButtonGold href="#">{reservation.button_text}</ButtonGold>
                         <ButtonOutlineGold
                             href="https://wa.me/628133630509"
                             target="_blank"
