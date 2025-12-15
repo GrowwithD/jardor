@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ButtonGold from "@/components/atoms/ButtonGold";
 import ButtonOutlineGold from "@/components/atoms/ButtonOutlineGold";
 import SectionHeader from "@/components/molecules/SectionHeader";
@@ -18,27 +18,33 @@ type WineTastingType = {
     subtitle: string;
     content: string;
     images: string[];
+    pdf: string | null;
 };
 
 export default function WineClient({ wt }: { wt: WineTastingType }) {
-    const images: string[] = wt.images?.length
-        ? wt.images
-        : [
-            "/images/wines/wine1.JPG",
-            "/images/wines/wine2.JPG",
-            "/images/wines/wine3.jpg",
-            "/images/wines/wine4.jpg",
-        ];
+    const images = useMemo<string[]>(() => {
+        return wt.images?.length
+            ? wt.images
+            : [
+                "/images/wines/wine1.JPG",
+                "/images/wines/wine2.JPG",
+                "/images/wines/wine3.jpg",
+                "/images/wines/wine4.jpg",
+            ];
+    }, [wt.images]);
 
     const [index, setIndex] = useState(0);
 
     // AUTO SLIDER
     useEffect(() => {
+        if (!images.length) return;
+
         const timer = setInterval(() => {
             setIndex((prev) => (prev + 1) % images.length);
         }, 6500);
+
         return () => clearInterval(timer);
-    }, [images.length]);
+    }, [images]);
 
     return (
         <section
@@ -49,17 +55,17 @@ export default function WineClient({ wt }: { wt: WineTastingType }) {
             <div className="pointer-events-none absolute inset-0">
                 <div
                     className="
-                        absolute right-[10%] top-0 w-[700px] h-[700px]
-                        bg-[radial-gradient(circle,rgba(200,169,107,0.13),transparent_70%)]
-                        blur-3xl opacity-30
-                    "
+            absolute right-[10%] top-0 w-[700px] h-[700px]
+            bg-[radial-gradient(circle,rgba(200,169,107,0.13),transparent_70%)]
+            blur-3xl opacity-30
+          "
                 />
                 <div
                     className="
-                        absolute left-0 bottom-0 w-[600px] h-[600px]
-                        bg-[radial-gradient(circle,rgba(200,169,107,0.1),transparent_70%)]
-                        blur-3xl opacity-25
-                    "
+            absolute left-0 bottom-0 w-[600px] h-[600px]
+            bg-[radial-gradient(circle,rgba(200,169,107,0.1),transparent_70%)]
+            blur-3xl opacity-25
+          "
                 />
             </div>
 
@@ -83,10 +89,10 @@ export default function WineClient({ wt }: { wt: WineTastingType }) {
             {/* DESKTOP SLIDER */}
             <div
                 className="
-                    hidden md:block absolute inset-y-0 right-0
-                    w-[50vw] overflow-hidden
-                    border-l border-brand-gold/20 bg-black/40
-                "
+          hidden md:block absolute inset-y-0 right-0
+          w-[50vw] overflow-hidden
+          border-l border-brand-gold/20 bg-black/40
+        "
             >
                 <div
                     className="absolute inset-0 flex transition-transform duration-[1200ms] ease-out"
@@ -94,12 +100,7 @@ export default function WineClient({ wt }: { wt: WineTastingType }) {
                 >
                     {images.map((src: string, i: number) => (
                         <div key={i} className="relative w-full h-full flex-shrink-0">
-                            <Image
-                                src={src}
-                                alt={`Wine Slide ${i + 1}`}
-                                fill
-                                className="object-cover"
-                            />
+                            <Image src={src} alt={`Wine Slide ${i + 1}`} fill className="object-cover" />
                         </div>
                     ))}
                 </div>
@@ -108,12 +109,7 @@ export default function WineClient({ wt }: { wt: WineTastingType }) {
             </div>
 
             {/* LEFT CONTENT */}
-            <div
-                className="
-                    relative z-10 max-w-5xl mr-auto
-                    px-6 md:pl-20 lg:pl-28 md:pr-10
-                "
-            >
+            <div className="relative z-10 max-w-5xl mr-auto px-6 md:pl-20 lg:pl-28 md:pr-10">
                 <SectionHeader
                     eyebrow={wt.eyebrow}
                     title={wt.title}
@@ -163,17 +159,18 @@ export default function WineClient({ wt }: { wt: WineTastingType }) {
                     transition={{ duration: 0.7, delay: 0.25 }}
                     className="pt-6 flex flex-wrap gap-3 justify-center md:justify-start"
                 >
-                    <ButtonGold href="/pdf/jardor-wine-champagne-list.pdf">
-                        Explore Our Wine List
-                    </ButtonGold>
+                    {/* tampilkan tombol ini hanya kalau PDF ada */}
+                    {wt.pdf && (
+                        <ButtonGold href={wt.pdf} target="_blank">
+                            Explore Our Wine List
+                        </ButtonGold>
+                    )}
 
                     <ButtonOutlineGold
                         href="#reservation"
                         onClick={(e) => {
                             e.preventDefault();
-                            document.getElementById("reservation")?.scrollIntoView({
-                                behavior: "smooth",
-                            });
+                            document.getElementById("reservation")?.scrollIntoView({ behavior: "smooth" });
                         }}
                     >
                         Reserve Wine Tasting
@@ -194,10 +191,8 @@ export default function WineClient({ wt }: { wt: WineTastingType }) {
                             key={i}
                             onClick={() => setIndex(i)}
                             className={`h-0.5 transition-all duration-300
-                                ${i === index
-                                    ? "w-48 bg-brand-gold"
-                                    : "w-2 bg-brand-cream/35 hover:bg-brand-gold/60"}
-                            `}
+                ${i === index ? "w-48 bg-brand-gold" : "w-2 bg-brand-cream/35 hover:bg-brand-gold/60"}
+              `}
                         />
                     ))}
                 </motion.div>

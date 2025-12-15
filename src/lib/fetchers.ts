@@ -16,6 +16,7 @@ import {
 	GALLERY_CATEGORIES_QUERY,
 	GALLERY_IMAGES_QUERY,
 	RESERVATION_SECTION_QUERY,
+    SUBMIT_RESERVATION_MUTATION,
 } from './queries';
 
 async function fetchGQL(query: any, variables: any = {}) {
@@ -132,4 +133,21 @@ export async function getGalleryImages(category_id?: string) {
 export async function getReservationSection() {
 	const data = await fetchGQL(RESERVATION_SECTION_QUERY);
 	return data.reservationSection;
+}
+
+
+export type ReservationInput = {
+  event_id?: string | null;
+  name: string;
+  phone: string;
+  email: string;
+  reservation_date: string; // YYYY-MM-DD
+  reservation_time: string; // HH:mm
+  guests: number;
+  notes?: string | null;
+};
+
+export async function submitReservation(input: ReservationInput) {
+  const data = await fetchGQL(SUBMIT_RESERVATION_MUTATION, { input });
+  return data.submitReservation;
 }

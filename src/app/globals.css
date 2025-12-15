@@ -9,6 +9,25 @@
     display: none;
 }
 
+
+/* ================================
+   DATE & TIME PICKER ICON COLOR
+   ================================ */
+
+/* Chrome / Edge / Safari */
+input[type="date"].date-gold::-webkit-calendar-picker-indicator,
+input[type="time"].time-gold::-webkit-calendar-picker-indicator {
+  filter: invert(72%) sepia(36%) saturate(430%) hue-rotate(8deg);
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* Firefox fallback */
+input[type="date"].date-gold,
+input[type="time"].time-gold {
+  color-scheme: dark;
+}
+
 /* ===================== OPTIMA FONT ===================== */
 
 /* Regular */

@@ -12,9 +12,6 @@ export default async function GalleriesSection() {
         ? await getGalleryImages(selectedCategory)
         : [];
 
-        console.log(images);
-
-
     return (
         <GalleriesClient
             categories={categories || []}

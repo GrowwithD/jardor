@@ -5,15 +5,11 @@ import Client from "@/components/sections/mainhero/Client";
 export default async function MainHeroServer() {
     const hero = await getMainHero();
 
-
+    console.log(hero);
 
 
     const data = {
-        images: hero?.images?.length ? hero.images : [
-            "/images/mainhero/main1.jpg",
-            "/images/mainhero/main2.jpg",
-            "/images/mainhero/main3.jpg",
-        ],
+        images: hero?.images?.length ? hero.images : [],
         eyebrow: hero?.eyebrow ?? "A Night of French Festivities",
         title: hero?.title ?? "Welcome to JARD'OR",
         subtitle:

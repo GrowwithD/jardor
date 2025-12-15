@@ -82,13 +82,13 @@ export const LE_GARDEN_QUERY = gql`
 // MENU SECTION HEADER (NEW)
 // =======================
 export const MENUS_SECTION_QUERY = gql`
-    query GetMenusSection {
-        menusSection {
-            eyebrow
-            title
-            subtitle
-        }
-    }
+	query GetMenusSection {
+		menusSection {
+			eyebrow
+			title
+			subtitle
+		}
+	}
 `;
 
 // =======================
@@ -128,6 +128,7 @@ export const WINE_TASTING_QUERY = gql`
 			subtitle
 			content
 			images
+			pdf
 		}
 	}
 `;
@@ -174,58 +175,82 @@ export const EVENT_DETAIL_QUERY = gql`
 // EVENTS SECTION
 // =======================
 export const EVENTS_SECTION_QUERY = gql`
-    query GetEventsSection {
-        eventsSection {
-            eyebrow
-            title
-            subtitle
-            content
-            button_text
-        }
-    }
+	query GetEventsSection {
+		eventsSection {
+			eyebrow
+			title
+			subtitle
+			content
+			button_text
+		}
+	}
 `;
 
 // =======================
 // GALLERY CATEGORIES
 // =======================
 export const GALLERY_CATEGORIES_QUERY = gql`
-    query GetGalleryCategories {
-        galleryCategories {
-            id
-            name
-        }
-    }
+	query GetGalleryCategories {
+		galleryCategories {
+			id
+			name
+		}
+	}
 `;
 
 // =======================
 // GALLERY IMAGES BY CATEGORY
 // =======================
 export const GALLERY_IMAGES_QUERY = gql`
-    query GetGalleryImages($category_id: ID) {
-        galleryImages(category_id: $category_id) {
-            id
-            name
-            image
-            category {
-                id
-                name
-            }
-        }
-    }
+	query GetGalleryImages($category_id: ID) {
+		galleryImages(category_id: $category_id) {
+			id
+			name
+			image
+			category {
+				id
+				name
+			}
+		}
+	}
 `;
 
 // =======================
 // RESERVATION SECTION (NEW)
 // =======================
 export const RESERVATION_SECTION_QUERY = gql`
-    query GetReservationSection {
-        reservationSection {
-            eyebrow_form
-            title_form
-            privacy_notice
-            right_title
-            right_description
-            button_text
-        }
+	query GetReservationSection {
+		reservationSection {
+			eyebrow_form
+			title_form
+			privacy_notice
+			right_title
+			right_description
+			button_text
+		}
+	}
+`;
+
+// =======================
+// SUBMIT RESERVATION
+// =======================
+export const SUBMIT_RESERVATION_MUTATION = gql`
+  mutation SubmitReservation($input: ReservationInput!) {
+    submitReservation(input: $input) {
+      id
+      status
+      name
+      phone
+      email
+      reservation_date
+      reservation_time
+      guests
+      notes
+      created_at
+      event {
+        id
+        title
+      }
     }
+  }
 `;
