@@ -1,4 +1,8 @@
 // app/layout.tsx
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "default-no-store";
+
 import type { Metadata } from "next";
 import "./globals.css";
 import { Playfair_Display, Inter } from "next/font/google";
@@ -118,7 +122,9 @@ export default function RootLayout({
                 <script
                     type="application/ld+json"
                     suppressHydrationWarning
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdRestaurant) }}
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(jsonLdRestaurant),
+                    }}
                 />
                 <Navbar />
                 <main className="flex-1">{children}</main>
