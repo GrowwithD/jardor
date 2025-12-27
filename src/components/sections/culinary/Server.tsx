@@ -6,8 +6,6 @@ import CulinaryPhilosophyClient from "@/components/sections/culinary/Client";
 export default async function CulinaryPhilosophySection() {
     const data = await getCulinaryPhilosophy();
 
-    console.log(data);
-
 
     const cp = {
         eyebrow: data?.eyebrow ?? "Culinary Philosophy",
@@ -18,6 +16,9 @@ export default async function CulinaryPhilosophySection() {
             "The Jard’Or kitchen celebrates classical French technique...",
         images: data?.images?.length ? data.images : [],
     };
+
+    console.log(cp);
+
 
     return <CulinaryPhilosophyClient cp={cp} />;
 }

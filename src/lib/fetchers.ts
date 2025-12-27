@@ -16,7 +16,8 @@ import {
 	GALLERY_CATEGORIES_QUERY,
 	GALLERY_IMAGES_QUERY,
 	RESERVATION_SECTION_QUERY,
-    SUBMIT_RESERVATION_MUTATION,
+	SUBMIT_RESERVATION_MUTATION,
+	INSTAGRAM_IMAGES_QUERY,
 } from './queries';
 
 async function fetchGQL(query: any, variables: any = {}) {
@@ -64,7 +65,7 @@ export async function getLeGarden() {
 }
 
 // =======================
-// MENU SECTION HEADER (NEW)
+// MENU SECTION HEADER
 // =======================
 export async function getMenusSection() {
 	const data = await fetchGQL(MENUS_SECTION_QUERY);
@@ -135,19 +136,29 @@ export async function getReservationSection() {
 	return data.reservationSection;
 }
 
+// =======================
+// INSTAGRAM IMAGES
+// =======================
+export async function getInstagramImages(activeOnly: boolean = true) {
+	const data = await fetchGQL(INSTAGRAM_IMAGES_QUERY, { activeOnly });
+	return data.instagramImages;
+}
 
+// =======================
+// RESERVATION MUTATION
+// =======================
 export type ReservationInput = {
-  event_id?: string | null;
-  name: string;
-  phone: string;
-  email: string;
-  reservation_date: string; // YYYY-MM-DD
-  reservation_time: string; // HH:mm
-  guests: number;
-  notes?: string | null;
+	event_id?: string | null;
+	name: string;
+	phone: string;
+	email: string;
+	reservation_date: string; // YYYY-MM-DD
+	reservation_time: string; // HH:mm
+	guests: number;
+	notes?: string | null;
 };
 
 export async function submitReservation(input: ReservationInput) {
-  const data = await fetchGQL(SUBMIT_RESERVATION_MUTATION, { input });
-  return data.submitReservation;
+	const data = await fetchGQL(SUBMIT_RESERVATION_MUTATION, { input });
+	return data.submitReservation;
 }

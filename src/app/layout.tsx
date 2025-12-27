@@ -9,6 +9,7 @@ import { Playfair_Display, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloating from "@/components/WhatsAppFloating";
+import NYEPopup from "@/components/NYEPopup"; // ⬅️ popup NYE
 
 const playfair = Playfair_Display({
     subsets: ["latin"],
@@ -126,7 +127,12 @@ export default function RootLayout({
                         __html: JSON.stringify(jsonLdRestaurant),
                     }}
                 />
+
                 <Navbar />
+
+                {/* 🎆 NYE Popup */}
+                <NYEPopup />
+
                 <main className="flex-1">{children}</main>
 
                 <WhatsAppFloating />

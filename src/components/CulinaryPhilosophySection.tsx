@@ -21,18 +21,6 @@ export default function CulinaryPhilosophySection() {
             {/* PARALLAX */}
             <ParallaxBackground />
 
-            {/* GOLD GLOW */}
-            <div className="pointer-events-none absolute inset-0">
-                <div
-                    className="
-                        absolute left-1/2 -translate-x-1/2 top-0
-                        w-[900px] h-[900px]
-                        bg-[radial-gradient(circle,rgba(200,169,107,0.16),transparent_70%)]
-                        blur-3xl opacity-35
-                    "
-                />
-            </div>
-
             {/* GRID */}
             <div className="relative w-full grid md:grid-cols-2 gap-16 items-start">
 

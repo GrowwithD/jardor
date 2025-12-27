@@ -10,7 +10,7 @@ import WineTastingSection from "@/components/sections/wine/Server";
 import EventsExperiencesSection from "@/components/sections/events/Server";
 import GallerySection from "@/components/sections/galleries/Server";
 import ReservationSection from "@/components/sections/reservations/Server";
-import SocialMediaSection from "@/components/SocialMediaSection";
+import SocialMediaSection from "@/components/sections/social/Server";
 import CulinaryPhilosophySection from "@/components/sections/culinary/Server";
 import BatikLine from "@/components/atoms/BatikLine";
 

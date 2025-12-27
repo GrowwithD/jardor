@@ -26,8 +26,6 @@ export default function FooterClient({ siteInfo }: { siteInfo: SiteInfoType }) {
     const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
 
-    console.log(siteInfo);
-
     return (
         <footer className="relative text-base text-brand-cream/75">
 

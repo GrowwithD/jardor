@@ -5,8 +5,6 @@ import Client from "@/components/sections/mainhero/Client";
 export default async function MainHeroServer() {
     const hero = await getMainHero();
 
-    console.log(hero);
-
 
     const data = {
         images: hero?.images?.length ? hero.images : [],
