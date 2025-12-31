@@ -18,6 +18,7 @@ import {
 	RESERVATION_SECTION_QUERY,
 	SUBMIT_RESERVATION_MUTATION,
 	INSTAGRAM_IMAGES_QUERY,
+	SCRIPT_TAGS_QUERY, // 👈 NEW
 } from './queries';
 
 async function fetchGQL(query: any, variables: any = {}) {
@@ -142,6 +143,21 @@ export async function getReservationSection() {
 export async function getInstagramImages(activeOnly: boolean = true) {
 	const data = await fetchGQL(INSTAGRAM_IMAGES_QUERY, { activeOnly });
 	return data.instagramImages;
+}
+
+// =======================
+// SCRIPT TAGS (NEW)
+// =======================
+// location bisa 'head' / 'footer' / null (semua)
+export async function getScriptTags(
+	activeOnly: boolean = true,
+	location?: 'head' | 'footer'
+) {
+	const variables: any = { activeOnly };
+	if (location) variables.location = location;
+
+	const data = await fetchGQL(SCRIPT_TAGS_QUERY, variables);
+	return data.scriptTags;
 }
 
 // =======================

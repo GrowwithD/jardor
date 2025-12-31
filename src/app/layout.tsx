@@ -3,13 +3,15 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "default-no-store";
 
+import React from "react";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Playfair_Display, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloating from "@/components/WhatsAppFloating";
-import NYEPopup from "@/components/NYEPopup"; // ⬅️ popup NYE
+import NYEPopup from "@/components/NYEPopup";
+import { getScriptTags } from "@/lib/fetchers";
 
 const playfair = Playfair_Display({
     subsets: ["latin"],
@@ -46,7 +48,7 @@ export const metadata: Metadata = {
         locale: "en_ID",
         images: [
             {
-                url: "/images/og-main.jpg", // siapin 1200x630
+                url: "/images/og-main.jpg",
                 width: 1200,
                 height: 630,
                 alt: "Jard’or Restaurant – French-inspired dining room in Nusa Dua, Bali",
@@ -71,11 +73,97 @@ export const metadata: Metadata = {
     },
 };
 
-export default function RootLayout({
+/**
+ * Render script dari snippet CMS.
+ *
+ * - Kalau snippet TIDAK mengandung <script> tag → dianggap JS murni, dibungkus 1 <script>.
+ * - Kalau snippet MENGANDUNG <script ...>...</script> → kita parse dan buat <script> satu-satu,
+ *   termasuk support src / async / defer.
+ */
+function renderScriptsFromSnippet(
+    snippet: string | null | undefined,
+    keyPrefix: string,
+) {
+    const code = (snippet ?? "").trim();
+    if (!code) return null;
+
+    const scriptRegex = /<script([^>]*)>([\s\S]*?)<\/script>/gi;
+
+    // 🚫 Ganti [...code.matchAll()] → while loop biar gak perlu downlevelIteration
+    const matches: RegExpExecArray[] = [];
+    let match: RegExpExecArray | null;
+    while ((match = scriptRegex.exec(code)) !== null) {
+        matches.push(match);
+    }
+
+    // Tidak ada <script> di dalam snippet → treat as inline JS
+    if (matches.length === 0) {
+        return (
+            <script
+                key={keyPrefix}
+                suppressHydrationWarning
+                dangerouslySetInnerHTML={{ __html: code }}
+            />
+        );
+    }
+
+    // Ada satu atau lebih <script> tag → pecah jadi beberapa React <script>
+    return matches.map((m, index) => {
+        const attrs = m[1] ?? "";
+        const inner = (m[2] ?? "").trim();
+
+        const srcMatch = attrs.match(/src=["']([^"']+)["']/i);
+        const hasAsync = /\basync\b/i.test(attrs);
+        const hasDefer = /\bdefer\b/i.test(attrs);
+
+        const commonProps: any = {
+            key: `${keyPrefix}-${index}`,
+            suppressHydrationWarning: true,
+        };
+
+        // External script
+        if (srcMatch) {
+            return (
+                <script
+                    {...commonProps}
+                    src={srcMatch[1]}
+                    async={hasAsync || undefined}
+                    defer={hasDefer || undefined}
+                />
+            );
+        }
+
+        // Inline script
+        return (
+            <script
+                {...commonProps}
+                dangerouslySetInnerHTML={{ __html: inner }}
+            />
+        );
+    });
+}
+
+export default async function RootLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    // ==========================
+    // Ambil script tags dari CMS
+    // ==========================
+    const scripts = await getScriptTags(true); // activeOnly = true
+
+    const headScripts = scripts
+        .filter((s: any) => s.location === "head")
+        .sort((a: any, b: any) => a.position - b.position);
+
+    const footerScripts = scripts
+        .filter((s: any) => s.location === "footer")
+        .sort((a: any, b: any) => a.position - b.position);
+
+    // ==========================
+    // JSON-LD global
+    // ==========================
     const jsonLdRestaurant = {
         "@context": "https://schema.org",
         "@type": "Restaurant",
@@ -114,7 +202,17 @@ export default function RootLayout({
     };
 
     return (
-        <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+        <html
+            lang="en"
+            className={`${playfair.variable} ${inter.variable}`}
+        >
+            <head>
+                {/* SCRIPT DARI CMS UNTUK <head> */}
+                {headScripts.flatMap((tag: any) =>
+                    renderScriptsFromSnippet(tag.code, `head-${tag.id}`),
+                )}
+            </head>
+
             <body
                 suppressHydrationWarning
                 className="min-h-screen bg-brand-green text-brand-cream flex flex-col font-optima text-md scroll-smooth"
@@ -129,15 +227,17 @@ export default function RootLayout({
                 />
 
                 <Navbar />
-
-                {/* 🎆 NYE Popup */}
                 <NYEPopup />
 
                 <main className="flex-1">{children}</main>
 
                 <WhatsAppFloating />
-
                 <Footer />
+
+                {/* SCRIPT DARI CMS UNTUK FOOTER (sebelum </body>) */}
+                {footerScripts.flatMap((tag: any) =>
+                    renderScriptsFromSnippet(tag.code, `foot-${tag.id}`),
+                )}
             </body>
         </html>
     );
