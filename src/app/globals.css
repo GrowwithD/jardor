@@ -9,6 +9,65 @@
     display: none;
 }
 
+/* Masonry grid (native when supported) */
+.masonry {
+    display: grid;
+    gap: 18px;
+}
+
+/* default columns */
+.masonry {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+    .masonry {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 768px) {
+    .masonry {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* Native masonry (modern browsers) */
+@supports (grid-template-rows: masonry) {
+    .masonry {
+        grid-template-rows: masonry;
+        align-tracks: start;
+    }
+}
+
+/* Fallback: “fake masonry” using columns if masonry rows unsupported */
+@supports not (grid-template-rows: masonry) {
+    .masonry {
+        display: block;
+        column-count: 1;
+        column-gap: 18px;
+    }
+
+    @media (min-width: 640px) {
+        .masonry {
+            column-count: 2;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .masonry {
+            column-count: 3;
+        }
+    }
+
+    .masonry-item {
+        break-inside: avoid;
+        margin: 0 0 18px;
+        display: block;
+        width: 100%;
+    }
+}
+
 
 /* ================================
    DATE & TIME PICKER ICON COLOR
@@ -17,15 +76,15 @@
 /* Chrome / Edge / Safari */
 input[type="date"].date-gold::-webkit-calendar-picker-indicator,
 input[type="time"].time-gold::-webkit-calendar-picker-indicator {
-  filter: invert(72%) sepia(36%) saturate(430%) hue-rotate(8deg);
-  opacity: 1;
-  cursor: pointer;
+    filter: invert(72%) sepia(36%) saturate(430%) hue-rotate(8deg);
+    opacity: 1;
+    cursor: pointer;
 }
 
 /* Firefox fallback */
 input[type="date"].date-gold,
 input[type="time"].time-gold {
-  color-scheme: dark;
+    color-scheme: dark;
 }
 
 /* ===================== OPTIMA FONT ===================== */
