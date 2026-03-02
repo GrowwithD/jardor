@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import ButtonGold from "@/components/atoms/ButtonGold";
 import ParallaxBackground from "@/components/atoms/ParallaxBackground";
@@ -19,6 +19,7 @@ const fadeUp = {
   initial: { opacity: 0, y: 28 },
   animate: { opacity: 1, y: 0 },
 };
+
 
 type GalleryImage = { id: string; image: string };
 
@@ -48,6 +49,29 @@ export default function EventsClient({
 }) {
   const [openEvent, setOpenEvent] = useState<EventType | null>(null);
   const [slide, setSlide] = useState(0);
+
+  // carousel state
+  const [cardIndex, setCardIndex] = useState(0);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [slideWidth, setSlideWidth] = useState(0);
+  const [perView, setPerView] = useState(3);
+  const GAP = 24;
+
+  useEffect(() => {
+    const update = () => {
+      if (!containerRef.current) return;
+      const w = containerRef.current.offsetWidth;
+      const isDesktop = window.innerWidth >= 768;
+      const pv = isDesktop ? Math.min(3, events.length) : 1;
+      setPerView(pv);
+      setSlideWidth((w - GAP * (pv - 1)) / pv);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    if (containerRef.current) ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, [events.length]);
 
   // ✅ state khusus form modal
   const [state, setState] = useState<ReservationActionState>(initialState);
@@ -138,44 +162,92 @@ export default function EventsClient({
     </motion.button>
   );
 
-  const renderEventsLayout = () => {
-    const count = events.length;
+  const maxIndex = Math.max(0, events.length - perView);
 
-    if (count === 1) {
-      return (
-        <motion.div initial="initial" whileInView="animate" className="grid grid-cols-1">
-          {renderEventCard(events[0], 0, "aspect-[5/2]")}
-        </motion.div>
-      );
-    }
+  const goCardNext = () => {
+    setCardIndex((i) => (i >= maxIndex ? 0 : i + 1));
+  };
 
-    if (count === 2) {
-      return (
-        <motion.div initial="initial" whileInView="animate" className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {events.map((ev, i) => renderEventCard(ev, i))}
-        </motion.div>
-      );
-    }
+  const goCardPrev = () => {
+    setCardIndex((i) => (i <= 0 ? maxIndex : i - 1));
+  };
 
-    if (count === 3) {
-      return (
-        <>
-          <motion.div initial="initial" whileInView="animate" className="mb-6">
-            {renderEventCard(events[0], 0, "aspect-[5/2]")}
-          </motion.div>
+  const renderEventsCarousel = () => {
+    if (events.length === 0) return null;
+    if (events.length === 1) return renderEventCard(events[0], 0, "aspect-[5/2]");
 
-          <motion.div initial="initial" whileInView="animate" className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {renderEventCard(events[1], 1)}
-            {renderEventCard(events[2], 2)}
-          </motion.div>
-        </>
-      );
-    }
+    const showNav = events.length > perView;
 
     return (
-      <motion.div initial="initial" whileInView="animate" className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {events.map((ev, i) => renderEventCard(ev, i))}
-      </motion.div>
+      <div className="relative">
+        {/* Track */}
+        <div className="overflow-hidden" ref={containerRef}>
+          <motion.div
+            className="flex"
+            style={{ gap: GAP }}
+            animate={{ x: slideWidth ? -cardIndex * (slideWidth + GAP) : 0 }}
+            transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            {events.map((ev, i) => (
+              <div
+                key={ev.id}
+                style={{ width: slideWidth || undefined, flexShrink: 0 }}
+              >
+                {renderEventCard(ev, i, "aspect-[3/4] md:aspect-square")}
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Arrows — only when more cards than perView */}
+        {showNav && (
+          <>
+            <button
+              type="button"
+              onClick={goCardPrev}
+              aria-label="Previous"
+              className="
+                absolute left-4 top-1/2 -translate-y-1/2 z-10
+                h-11 w-11 flex items-center justify-center
+                bg-black/50 border border-brand-gold/40 text-brand-gold
+                hover:bg-brand-gold hover:text-black transition-all duration-200
+              "
+            >
+              <ChevronLeft size={22} strokeWidth={1.4} />
+            </button>
+            <button
+              type="button"
+              onClick={goCardNext}
+              aria-label="Next"
+              className="
+                absolute right-4 top-1/2 -translate-y-1/2 z-10
+                h-11 w-11 flex items-center justify-center
+                bg-black/50 border border-brand-gold/40 text-brand-gold
+                hover:bg-brand-gold hover:text-black transition-all duration-200
+              "
+            >
+              <ChevronRight size={22} strokeWidth={1.4} />
+            </button>
+          </>
+        )}
+
+        {/* Dots */}
+        {showNav && (
+          <div className="mt-6 flex items-center justify-center gap-2">
+            {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setCardIndex(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                className={`h-0.5 transition-all duration-300 ${
+                  i === cardIndex ? "w-28 bg-brand-gold" : "w-6 bg-brand-cream/35 hover:bg-brand-gold/50"
+                }`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     );
   };
 
@@ -214,7 +286,7 @@ export default function EventsClient({
         </div>
 
         <div className="relative z-10 mt-10 max-w-7xl mx-auto px-6 md:px-10">
-          {renderEventsLayout()}
+          {renderEventsCarousel()}
 
           <motion.div
             variants={fadeUp}
