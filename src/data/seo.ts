@@ -19,7 +19,7 @@ type SeoPageConfig = {
   keywords?: string[];
 };
 
-const BASE_URL = "https://jardor.example.com"; // TODO replace
+const BASE_URL = "https://jardor.com"; // TODO replace
 const DEFAULT_IMAGE = `${BASE_URL}/images/og-default.jpg`;
 
 const ORG_NAME = "Jard’or Restaurant";
