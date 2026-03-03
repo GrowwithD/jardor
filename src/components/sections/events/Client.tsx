@@ -183,8 +183,8 @@ export default function EventsClient({
         {/* Track */}
         <div className="overflow-hidden" ref={containerRef}>
           <motion.div
-            className="flex"
-            style={{ gap: GAP }}
+            className="flex gap-6"
+            initial={false}
             animate={{ x: slideWidth ? -cardIndex * (slideWidth + GAP) : 0 }}
             transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
           >
