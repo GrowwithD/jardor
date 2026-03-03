@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
     root: __dirname,
   },
 
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["jardor.com", "www.jardor.com"],
+    },
+  },
+
   images: {
     unoptimized: true, // ← WAJIB untuk HTTP, menghindari error 400
 
