@@ -116,8 +116,8 @@ function renderScriptsFromSnippet(
         const hasAsync = /\basync\b/i.test(attrs);
         const hasDefer = /\bdefer\b/i.test(attrs);
 
+        const scriptKey = `${keyPrefix}-${index}`;
         const commonProps: any = {
-            key: `${keyPrefix}-${index}`,
             suppressHydrationWarning: true,
         };
 
@@ -125,6 +125,7 @@ function renderScriptsFromSnippet(
         if (srcMatch) {
             return (
                 <script
+                    key={scriptKey}
                     {...commonProps}
                     src={srcMatch[1]}
                     async={hasAsync || undefined}
@@ -136,6 +137,7 @@ function renderScriptsFromSnippet(
         // Inline script
         return (
             <script
+                key={scriptKey}
                 {...commonProps}
                 dangerouslySetInnerHTML={{ __html: inner }}
             />

@@ -1,20 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import NavLogo from "@/components/atoms/NavLogo";
 
-const navItems = [
+type NavItem = {
+    label: string;
+    target?: string;
+    href?: string;
+};
+
+const navItems: NavItem[] = [
     { label: "RESTAURANT", target: "restaurant" },
     { label: "LE GARDEN", target: "garden" },
     { label: "MENU", target: "menus" },
     { label: "WINE", target: "wine" },
     { label: "EXPERIENCE", target: "experience" },
     { label: "GALLERY", target: "gallery" },
-    { label: "RESERVATION", target: "reservation" },
+    { label: "RESERVATION", href: "/reservation" },
 ];
 
 export default function MobileNavbar() {
+    const router = useRouter();
     const [open, setOpen] = useState(false);
 
     // Lock scroll
@@ -22,15 +30,26 @@ export default function MobileNavbar() {
         document.body.style.overflow = open ? "hidden" : "";
     }, [open]);
 
-    const scrollToSection = (id: string) => {
+    const scrollToSection = (id?: string) => {
+        if (!id) return;
         const el = document.getElementById(id);
-        if (!el) return;
+        if (!el) {
+            router.push(`/#${id}`);
+            return;
+        }
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
 
+    const handleNavClick = (item: NavItem) => {
         setOpen(false);
 
-        // Delay agar animasi panel close dulu
         setTimeout(() => {
-            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            if (item.href) {
+                router.push(item.href);
+                return;
+            }
+
+            scrollToSection(item.target);
         }, 260);
     };
 
@@ -116,8 +135,8 @@ export default function MobileNavbar() {
                             <div className="py-6 px-6 space-y-1.5">
                                 {navItems.map((item, i) => (
                                     <motion.button
-                                        key={item.target}
-                                        onClick={() => scrollToSection(item.target)}
+                                        key={item.href ?? item.target ?? item.label}
+                                        onClick={() => handleNavClick(item)}
                                         initial={{ opacity: 0, x: -14 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{

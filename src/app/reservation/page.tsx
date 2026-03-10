@@ -1,7 +1,5 @@
 // src/app/reservation/page.tsx
-import MapSection from "@/components/MapSection";
-import ReservationHero from "@/components/ReservationHero";
-import ReservationSection from "@/components/ReservationDetailsSection";
+import ReservationSection from "@/components/sections/reservations/Server";
 import { getSeoBySlug } from "@/data/seo";
 
 // 🔥 SEO untuk Reservation Page
@@ -11,15 +9,8 @@ export async function generateMetadata() {
 
 export default function ReservationPage() {
     return (
-        <main className="bg-black text-brand-cream">
-            {/* HERO */}
-            <ReservationHero />
-
-            {/* CONTACT / CONCIERGE */}
+        <main>
             <ReservationSection />
-
-            {/* MAP (reuse from About) */}
-            <MapSection />
         </main>
     );
 }

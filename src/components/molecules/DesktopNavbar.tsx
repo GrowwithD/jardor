@@ -1,25 +1,33 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion, LayoutGroup } from "framer-motion";
 import NavLogo from "@/components/atoms/NavLogo";
 import NavLinkItem from "@/components/atoms/NavLinkItem";
 
-const navItems = [
+type NavItem = {
+    label: string;
+    target?: string;
+    href?: string;
+};
+
+const navItems: NavItem[] = [
     { label: "RESTAURANT", target: "restaurant" },
     { label: "LE GARDEN", target: "garden" },
     { label: "MENU", target: "menus" },
     { label: "WINE", target: "wine" },
     { label: "EXPERIENCE", target: "experience" },
     { label: "GALLERY", target: "gallery" },
-    { label: "RESERVATION", target: "reservation" },
+    { label: "RESERVATION", href: "/reservation" },
 ];
 
 export default function DesktopNavbar() {
+    const router = useRouter();
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [activeIndex, setActiveIndex] = useState<number>(-1);
 
-    const prevIndexRef = useRef(-1);
+    const [prevIndex, setPrevIndex] = useState(-1);
     const [scrolled, setScrolled] = useState(false);
 
     /* =============================
@@ -30,8 +38,9 @@ export default function DesktopNavbar() {
             setScrolled(window.scrollY > 80);
 
             const offsets = navItems.map((item) => {
+                if (!item.target) return Infinity;
                 const el = document.getElementById(item.target);
-                return el ? el.offsetTop - 120 : 0; // navbar height offset
+                return el ? el.offsetTop - 120 : Infinity; // navbar height offset
             });
 
             const scrollPos = window.scrollY;
@@ -55,22 +64,26 @@ export default function DesktopNavbar() {
     const effectiveIndex = hoveredIndex ?? activeIndex;
 
     const direction =
-        effectiveIndex > prevIndexRef.current
+        effectiveIndex > prevIndex
             ? 1
-            : effectiveIndex < prevIndexRef.current
+            : effectiveIndex < prevIndex
                 ? -1
                 : 0;
 
     useEffect(() => {
-        prevIndexRef.current = effectiveIndex;
+        setPrevIndex(effectiveIndex);
     }, [effectiveIndex]);
 
     /* =============================
        SCROLL TO SECTION
     ============================== */
-    const scrollToSection = (id: string) => {
+    const scrollToSection = (id?: string) => {
+        if (!id) return;
         const el = document.getElementById(id);
-        if (!el) return;
+        if (!el) {
+            router.push(`/#${id}`);
+            return;
+        }
 
         window.scrollTo({
             top: el.offsetTop,
@@ -79,6 +92,16 @@ export default function DesktopNavbar() {
 
         const i = navItems.findIndex((x) => x.target === id);
         if (i !== -1) setActiveIndex(i);
+    };
+
+    const handleNavClick = (item: NavItem) => {
+        if (item.href) {
+            router.push(item.href);
+            setActiveIndex(-1);
+            return;
+        }
+
+        scrollToSection(item.target);
     };
 
     /* =============================
@@ -142,13 +165,13 @@ export default function DesktopNavbar() {
                         return (
                             <button
                                 key={item.label}
-                                onClick={() => scrollToSection(item.target)}
+                                onClick={() => handleNavClick(item)}
                                 onMouseEnter={() => setHoveredIndex(index)}
                                 onMouseLeave={() => setHoveredIndex(null)}
                                 className="px-3"
                             >
                                 <NavLinkItem
-                                    href="#"
+                                    href={item.href ?? `/#${item.target}`}
                                     label={item.label}
                                     isHighlighted={isHighlighted}
                                     isCurrent={index === activeIndex}
