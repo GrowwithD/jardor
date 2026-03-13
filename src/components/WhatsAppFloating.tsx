@@ -5,6 +5,7 @@ import Image from "next/image";
 export default function WhatsAppFloating() {
     return (
         <a
+            id="gtm-whatsapp-floating"
             href="https://wa.me/628133630509
 " // GANTI NOMOR KAMU BRO!!
             target="_blank"

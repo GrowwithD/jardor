@@ -129,7 +129,11 @@ export default function MainHeroClient({
                         }}
                         className="mt-6 flex flex-wrap items-center justify-center gap-3"
                     >
-                        <ButtonGold href={chope_link} target="_blank">
+                        <ButtonGold
+                            id="gtm-reserve-on-chope"
+                            href={chope_link}
+                            target="_blank"
+                        >
                             Reserve On Chope
                         </ButtonGold>
 

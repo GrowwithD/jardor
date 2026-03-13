@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 interface ButtonGoldProps {
+    id?: string;
     href?: string;
     children: React.ReactNode;
     className?: string;
@@ -14,6 +15,7 @@ interface ButtonGoldProps {
 }
 
 export default function ButtonGold({
+    id,
     href,
     children,
     className = "",
@@ -65,6 +67,7 @@ export default function ButtonGold({
     if (href && href.startsWith("#")) {
         return (
             <a
+                id={id}
                 href={href}
                 onClick={handleSmoothScroll}
                 className={`${baseClass} ${className}`}
@@ -80,6 +83,7 @@ export default function ButtonGold({
     if (href && href.startsWith("/")) {
         return (
             <Link
+                id={id}
                 href={href}
                 className={`${baseClass} ${className}`}
                 onClick={onClick}
@@ -95,6 +99,7 @@ export default function ButtonGold({
     if (href) {
         return (
             <a
+                id={id}
                 href={href}
                 target={target}
                 rel={rel}
@@ -111,6 +116,7 @@ export default function ButtonGold({
      * ======================================================= **/
     return (
         <button
+            id={id}
             type={type}
             onClick={handleSmoothScroll}
             className={`${baseClass} ${className}`}

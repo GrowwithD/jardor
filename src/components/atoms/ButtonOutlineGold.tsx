@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 interface ButtonOutlineGoldProps {
+    id?: string;
     href?: string;
     children: React.ReactNode;
     className?: string;
@@ -16,6 +17,7 @@ interface ButtonOutlineGoldProps {
 }
 
 export default function ButtonOutlineGold({
+    id,
     href,
     children,
     className = "",
@@ -38,9 +40,10 @@ export default function ButtonOutlineGold({
     if (href && href.startsWith("/")) {
         return (
             <Link
+                id={id}
                 href={href}
                 className={`${baseClass} ${className}`}
-                onClick={onClick as any}
+                onClick={onClick ? (e) => onClick(e) : undefined}
             >
                 {children}
             </Link>
@@ -51,6 +54,7 @@ export default function ButtonOutlineGold({
     if (href) {
         return (
             <a
+                id={id}
                 href={href}
                 target={target}
                 rel={rel}
@@ -65,6 +69,7 @@ export default function ButtonOutlineGold({
     /* ----------- BUTTON ----------- */
     return (
         <button
+            id={id}
             type={type}
             onClick={onClick}
             className={`${baseClass} ${className}`}

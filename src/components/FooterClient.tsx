@@ -105,6 +105,7 @@ export default function FooterClient({ siteInfo }: { siteInfo: SiteInfoType }) {
                             <p>
                                 WA:&nbsp;
                                 <a
+                                    id="gtm-whatsapp-footer"
                                     href={`https://wa.me/${siteInfo.whatsapp}`}
                                     className="text-brand-gold/90 hover:text-brand-gold"
                                 >

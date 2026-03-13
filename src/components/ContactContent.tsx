@@ -96,6 +96,7 @@ export default function ContactContent() {
                                 Phone / WhatsApp
                             </p>
                             <a
+                                id="gtm-whatsapp-contact"
                                 href="https://wa.me/628133630509"
                                 target="_blank"
                                 rel="noopener noreferrer"

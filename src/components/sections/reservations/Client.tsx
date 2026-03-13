@@ -314,7 +314,11 @@ export default function ReservationClient({
               {pending ? "Submitting..." : reservation.button_text}
             </ButtonGold>
 
-            <ButtonOutlineGold href="https://wa.me/628133630509" target="_blank">
+            <ButtonOutlineGold
+              id="gtm-whatsapp-reservation"
+              href="https://wa.me/628133630509"
+              target="_blank"
+            >
               WhatsApp Us
             </ButtonOutlineGold>
           </div>
