@@ -17,7 +17,14 @@ export default function MenusListClient({
     categories,
     header,
 }: {
-    categories: any[];
+    categories: Array<{
+        id: string;
+        name: string;
+        description: string;
+        image: string;
+        pdf: string;
+        slug?: string | null;
+    }>;
     header: {
         eyebrow: string;
         title: string;
@@ -57,7 +64,7 @@ export default function MenusListClient({
     return (
         <section
             id="menus"
-            className="relative py-20 md:py-28 bg-black text-brand-cream overflow-hidden"
+            className="relative py-20 md:py-40 bg-black text-brand-cream overflow-hidden"
         >
             <ParallaxBackground />
 

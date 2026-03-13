@@ -1,7 +1,7 @@
 // app/menus/page.tsx
 import type { Metadata } from "next";
 
-import MenusList from "@/components/MenusList";
+import MenusListSection from "@/components/sections/menu/Server";
 import CtaSection from "@/components/CtaSection";
 import { getSeoBySlug } from "@/data/seo";
 
@@ -11,9 +11,7 @@ export const metadata: Metadata = getSeoBySlug("menus");
 export default function MenusPage() {
     return (
         <div className="text-brand-cream bg-black">
-            <div className="">
-                <MenusList />
-            </div>
+                <MenusListSection />
             <CtaSection />
         </div>
     );
