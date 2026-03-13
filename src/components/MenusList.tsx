@@ -95,7 +95,7 @@ export default function MenusList() {
         <section
             id="menus"
             className="
-                relative py-20 md:py-28
+                relative py-20 md:py-40
                 bg-black text-brand-cream
                 overflow-hidden
             "

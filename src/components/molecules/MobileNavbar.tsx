@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import NavLogo from "@/components/atoms/NavLogo";
 
@@ -14,7 +14,7 @@ type NavItem = {
 const navItems: NavItem[] = [
     { label: "RESTAURANT", target: "restaurant" },
     { label: "LE GARDEN", target: "garden" },
-    { label: "MENU", target: "menus" },
+    { label: "MENU", href: "/menus" },
     { label: "WINE", target: "wine" },
     { label: "EXPERIENCE", target: "experience" },
     { label: "GALLERY", target: "gallery" },
@@ -23,6 +23,7 @@ const navItems: NavItem[] = [
 
 export default function MobileNavbar() {
     const router = useRouter();
+    const pathname = usePathname();
     const [open, setOpen] = useState(false);
 
     // Lock scroll
@@ -145,12 +146,20 @@ export default function MobileNavbar() {
                                         }}
                                         className="
                                             block w-full text-left py-3
-                                            text-brand-cream text-sm tracking-[0.22em]
+                                            text-sm tracking-[0.22em]
                                             border-b border-brand-gold/10
-                                            hover:text-brand-gold transition-colors
-                                        "
+                                            transition-colors
+                                            "
                                     >
-                                        {item.label}
+                                        <span
+                                            className={
+                                                item.href === pathname
+                                                    ? "text-brand-gold"
+                                                    : "text-brand-cream hover:text-brand-gold"
+                                            }
+                                        >
+                                            {item.label}
+                                        </span>
                                     </motion.button>
                                 ))}
                             </div>

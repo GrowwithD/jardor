@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, LayoutGroup } from "framer-motion";
 import NavLogo from "@/components/atoms/NavLogo";
 import NavLinkItem from "@/components/atoms/NavLinkItem";
@@ -15,7 +15,7 @@ type NavItem = {
 const navItems: NavItem[] = [
     { label: "RESTAURANT", target: "restaurant" },
     { label: "LE GARDEN", target: "garden" },
-    { label: "MENU", target: "menus" },
+    { label: "MENU", href: "/menus" },
     { label: "WINE", target: "wine" },
     { label: "EXPERIENCE", target: "experience" },
     { label: "GALLERY", target: "gallery" },
@@ -24,6 +24,7 @@ const navItems: NavItem[] = [
 
 export default function DesktopNavbar() {
     const router = useRouter();
+    const pathname = usePathname();
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [activeIndex, setActiveIndex] = useState<number>(-1);
 
@@ -34,6 +35,13 @@ export default function DesktopNavbar() {
        SCROLL LISTENER FOR SCROLL-SPY
     ============================== */
     useEffect(() => {
+        if (pathname !== "/") {
+            const routeIndex = navItems.findIndex((item) => item.href === pathname);
+            setActiveIndex(routeIndex);
+            setScrolled(true);
+            return;
+        }
+
         const onScroll = () => {
             setScrolled(window.scrollY > 80);
 
@@ -59,7 +67,7 @@ export default function DesktopNavbar() {
 
         window.addEventListener("scroll", onScroll);
         return () => window.removeEventListener("scroll", onScroll);
-    }, []);
+    }, [pathname]);
 
     const effectiveIndex = hoveredIndex ?? activeIndex;
 
@@ -108,6 +116,11 @@ export default function DesktopNavbar() {
        SCROLL TO HOMEPAGE (NO ACTIVE)
     ============================== */
     const scrollToHomepage = () => {
+        if (pathname !== "/") {
+            router.push("/");
+            return;
+        }
+
         const el = document.getElementById("homepage");
         if (!el) return;
 

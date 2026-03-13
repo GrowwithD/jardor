@@ -138,13 +138,8 @@ export default function MainHeroClient({
                         </ButtonGold>
 
                         <ButtonOutlineGold
-                            href="#menus"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                document
-                                    .getElementById("menus")
-                                    ?.scrollIntoView({ behavior: "smooth" });
-                            }}
+                            id="gtm-view-our-menus"
+                            href="/menus"
                         >
                             View Our Menus
                         </ButtonOutlineGold>

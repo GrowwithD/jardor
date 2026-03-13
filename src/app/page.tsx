@@ -5,7 +5,6 @@ import HeroSlider from "@/components/sections/mainhero/Server";
 import MapSection from "@/components/MapSection";
 import AboutJardorSection from "@/components/sections/aboutjardor/Server";
 import LeGardenSection from "@/components/sections/legarden/Server";
-import MenusList from "@/components/sections/menu/Server";
 import WineTastingSection from "@/components/sections/wine/Server";
 import EventsExperiencesSection from "@/components/sections/events/Server";
 import GallerySection from "@/components/sections/galleries/Server";
@@ -34,8 +33,6 @@ export default function HomePage() {
             <LeGardenSection />
 
             <BatikLine />
-
-            <MenusList />
 
             <WineTastingSection />
 
