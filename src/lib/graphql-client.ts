@@ -29,5 +29,3 @@ export const client = new GraphQLClient(endpoint, {
 	},
 });
 
-// Debugging (opsional)
-console.log('🚀 GraphQL Client Ready →', endpoint);

@@ -17,8 +17,5 @@ export default async function CulinaryPhilosophySection() {
         images: data?.images?.length ? data.images : [],
     };
 
-    console.log(cp);
-
-
     return <CulinaryPhilosophyClient cp={cp} />;
 }

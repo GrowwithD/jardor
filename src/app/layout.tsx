@@ -97,7 +97,9 @@ function renderScriptsFromSnippet(
     }
 
     // Tidak ada <script> di dalam snippet → treat as inline JS
+    // Guard: skip jika content adalah HTML (bukan JS)
     if (matches.length === 0) {
+        if (code.startsWith("<")) return null;
         return (
             <script
                 key={keyPrefix}

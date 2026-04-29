@@ -55,7 +55,11 @@ export default function DesktopNavbar() {
 
             let current = -1;
             for (let i = 0; i < offsets.length; i++) {
-                const nextOffset = offsets[i + 1] ?? Infinity;
+                if (offsets[i] === Infinity) continue;
+                let nextOffset = Infinity;
+                for (let j = i + 1; j < offsets.length; j++) {
+                    if (offsets[j] !== Infinity) { nextOffset = offsets[j]; break; }
+                }
                 if (scrollPos >= offsets[i] && scrollPos < nextOffset) {
                     current = i;
                     break;
@@ -189,6 +193,7 @@ export default function DesktopNavbar() {
                                     isHighlighted={isHighlighted}
                                     isCurrent={index === activeIndex}
                                     direction={direction}
+                                    isCta={item.label === "RESERVATION"}
                                 />
                             </button>
                         );

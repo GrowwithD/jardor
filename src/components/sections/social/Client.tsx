@@ -11,8 +11,6 @@ export default function SocialClient({
     instagramUrl: string;
 }) {
 
-    console.log(feed);
-
     // fallback kalau API kosong
     const images =
         feed?.length > 0

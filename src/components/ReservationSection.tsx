@@ -56,15 +56,15 @@ export default function ReservationSection() {
                         </label>
                         <select
                             className="
-                                w-full bg-black/30 border border-brand-gold/30
-                                px-3 py-3 text-sm outline-none
+                                w-full bg-black border border-brand-gold/30
+                                px-3 py-3 text-sm outline-none text-brand-cream
                                 focus:border-brand-gold focus:ring-0
                             "
                         >
-                            <option value="">Select Event</option>
-                            <option>Wine Tasting Experience</option>
-                            <option>Christmas Eve Dinner</option>
-                            <option>Christmas Dinner</option>
+                            <option value="" style={{ background: "#0A0D0B", color: "#c8b482" }}>Select Event</option>
+                            <option style={{ background: "#0A0D0B", color: "#c8b482" }}>Wine Tasting Experience</option>
+                            <option style={{ background: "#0A0D0B", color: "#c8b482" }}>Christmas Eve Dinner</option>
+                            <option style={{ background: "#0A0D0B", color: "#c8b482" }}>Christmas Dinner</option>
                         </select>
                     </div>
 

@@ -1,7 +1,7 @@
 // src/components/sections/galleries/Client.tsx
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -86,17 +86,28 @@ export default function GalleriesClient({
         document.body.classList.remove("overflow-hidden");
     };
 
-    const showNext = () => {
+    const showNext = useCallback(() => {
         if (currentIndex === null || images.length === 0) return;
         setDirection(1);
         setCurrentIndex((i) => ((i ?? 0) + 1) % images.length);
-    };
+    }, [currentIndex, images.length]);
 
-    const showPrev = () => {
+    const showPrev = useCallback(() => {
         if (currentIndex === null || images.length === 0) return;
         setDirection(-1);
         setCurrentIndex((i) => ((i ?? 0) - 1 + images.length) % images.length);
-    };
+    }, [currentIndex, images.length]);
+
+    useEffect(() => {
+        if (!isOpen) return;
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") closeLightbox();
+            if (e.key === "ArrowRight") showNext();
+            if (e.key === "ArrowLeft") showPrev();
+        };
+        document.addEventListener("keydown", onKey);
+        return () => document.removeEventListener("keydown", onKey);
+    }, [isOpen, showNext, showPrev]);
 
     const imageVariants: Variants = {
         enter: (dir: 1 | -1) => ({ opacity: 0, x: dir === 1 ? 60 : -60, scale: 0.96 }),
@@ -132,6 +143,13 @@ export default function GalleriesClient({
         }
     };
 
+    // Hide entire section when no images exist at all
+    // Hide entire section only when no images AND no categories at all
+    if (initialImages.length === 0 && categories.length === 0) return null;
+
+    // Show tabs whenever categories exist (API determines which categories are valid)
+    const showTabs = categories.length > 0;
+
     return (
         <>
             <section id="gallery" className="relative py-20 md:py-28 bg-brand-green text-brand-cream">
@@ -143,6 +161,7 @@ export default function GalleriesClient({
                         align="center"
                     />
 
+                    {showTabs && (
                     <div className="flex flex-wrap justify-center gap-3 md:gap-5 mb-10">
                         {tabs.map((cat) => (
                             <button
@@ -162,6 +181,7 @@ export default function GalleriesClient({
                             </button>
                         ))}
                     </div>
+                    )}
 
                     {loading && <div className="text-center text-brand-gold/80 text-sm">Loading images...</div>}
                     {errMsg && <div className="text-center text-red-300 text-sm">{errMsg}</div>}

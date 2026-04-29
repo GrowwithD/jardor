@@ -40,7 +40,7 @@ export type ScriptTag = {
 };
 
 export type GalleryCategory = { id: string; name: string };
-export type GalleryImage = { id: string; name?: string | null; image: string };
+export type GalleryImage = { id: string; name?: string | null; image: string; category_id?: string | null };
 
 export type ReservationInput = {
 	event_id?: string | null;
@@ -139,6 +139,7 @@ export async function getGalleryImages(category_id?: string): Promise<GalleryIma
 		id: String(x.id),
 		name: x.name ?? null,
 		image: x.image,
+		category_id: x.category?.id ? String(x.category.id) : null,
 	}));
 }
 

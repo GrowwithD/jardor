@@ -117,15 +117,15 @@ export default function ReservationClient({
             <select
               name="event_id"
               className="
-                w-full bg-black/30 border border-brand-gold/30
-                px-4 py-2 text-base md:text-lg outline-none
+                w-full bg-black border border-brand-gold/30
+                px-4 py-2 text-base md:text-lg outline-none text-brand-cream
                 focus:border-brand-gold focus:ring-0
               "
               defaultValue=""
             >
-              <option value="">Select Event</option>
+              <option value="" style={{ background: "#0A0D0B", color: "#c8b482" }}>Select Event</option>
               {events.map((ev) => (
-                <option key={ev.id} value={ev.id}>
+                <option key={ev.id} value={ev.id} style={{ background: "#0A0D0B", color: "#c8b482" }}>
                   {ev.title}
                 </option>
               ))}
@@ -309,6 +309,7 @@ export default function ReservationClient({
           <div className="pt-4 flex flex-col gap-3">
             {/* ✅ Submit (no double button) */}
             <ButtonGold
+              id="gtm-reserve-submit"
               type="submit"
             >
               {pending ? "Submitting..." : reservation.button_text}

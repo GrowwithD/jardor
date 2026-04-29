@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import ButtonGold from "@/components/atoms/ButtonGold";
 import ParallaxBackground from "@/components/atoms/ParallaxBackground";
@@ -54,6 +54,7 @@ export default function EventsClient({
   const [cardIndex, setCardIndex] = useState(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [slideWidth, setSlideWidth] = useState(0);
   const [perView, setPerView] = useState(3);
   const GAP = 24;
@@ -103,6 +104,8 @@ export default function EventsClient({
     setSlide((s) => (s - 1 + imgs.length) % imgs.length);
   };
 
+  const closeModal = useCallback(() => setOpenEvent(null), []);
+
   // open event via global event
   useEffect(() => {
     const handler = (e: any) => {
@@ -114,6 +117,25 @@ export default function EventsClient({
     window.addEventListener("open-event", handler);
     return () => window.removeEventListener("open-event", handler);
   }, []);
+
+  // Escape key to close modal
+  useEffect(() => {
+    if (!openEvent) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") closeModal(); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [openEvent, closeModal]);
+
+  // Lock body scroll + focus close button when modal opens
+  useEffect(() => {
+    if (openEvent) {
+      document.body.style.overflow = "hidden";
+      closeButtonRef.current?.focus();
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [openEvent]);
 
   // ✅ close modal when success (optional)
   useEffect(() => {
@@ -307,23 +329,32 @@ export default function EventsClient({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[80] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 md:p-10"
-            onClick={() => setOpenEvent(null)}
+            className="fixed inset-0 z-[80] bg-black/90 backdrop-blur-xl overflow-y-auto"
+            onClick={closeModal}
+            role="dialog"
+            aria-modal="true"
+            aria-label={openEvent.title}
           >
+            {/* Fixed close button — always visible at top-right regardless of scroll */}
+            <button
+              ref={closeButtonRef}
+              onClick={closeModal}
+              aria-label="Close modal"
+              className="fixed top-4 right-4 z-90 h-10 w-10 flex items-center justify-center rounded-full border border-brand-gold/50 bg-black/80 text-brand-gold hover:bg-brand-gold hover:text-black transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+            >
+              ✕
+            </button>
+
+            {/* pt-16 clears the fixed close button, pb-8 ensures submit btn reachable */}
+            <div className="min-h-full flex items-start justify-center px-4 pt-16 pb-12 md:items-center md:py-10">
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 40 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="relative w-full max-w-7xl bg-brand-green border border-brand-gold/30 p-6 md:p-10 grid grid-cols-1 lg:grid-cols-2 gap-12"
+              className="relative w-full max-w-5xl bg-brand-green border border-brand-gold/30 p-6 md:p-10 grid grid-cols-1 lg:grid-cols-2 gap-8"
               onClick={(e) => e.stopPropagation()}
             >
-              <button
-                onClick={() => setOpenEvent(null)}
-                className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center rounded-full border border-brand-gold/50 bg-black/60 text-brand-gold hover:bg-brand-gold hover:text-black transition"
-              >
-                ✕
-              </button>
 
               {/* LEFT */}
               <div className="flex flex-col space-y-6">
@@ -344,7 +375,8 @@ export default function EventsClient({
                         <button
                           type="button"
                           onClick={prevSlide}
-                          className="h-12 w-12 rounded-full bg-black/40 border border-brand-gold/40 text-brand-gold flex items-center justify-center hover:bg-brand-gold hover:text-black transition"
+                          aria-label="Previous image"
+                          className="h-12 w-12 rounded-full bg-black/40 border border-brand-gold/40 text-brand-gold flex items-center justify-center hover:bg-brand-gold hover:text-black transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
                         >
                           <ChevronLeft size={26} strokeWidth={1.3} />
                         </button>
@@ -352,7 +384,8 @@ export default function EventsClient({
                         <button
                           type="button"
                           onClick={nextSlide}
-                          className="h-12 w-12 rounded-full bg-black/40 border border-brand-gold/40 text-brand-gold flex items-center justify-center hover:bg-brand-gold hover:text-black transition"
+                          aria-label="Next image"
+                          className="h-12 w-12 rounded-full bg-black/40 border border-brand-gold/40 text-brand-gold flex items-center justify-center hover:bg-brand-gold hover:text-black transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
                         >
                           <ChevronRight size={26} strokeWidth={1.3} />
                         </button>
@@ -367,7 +400,9 @@ export default function EventsClient({
                       type="button"
                       key={i}
                       onClick={() => setSlide(i)}
-                      className={`h-3 w-3 rounded-full transition-all ${
+                      aria-label={`Go to image ${i + 1}`}
+                      aria-current={i === slide ? "true" : undefined}
+                      className={`h-3 w-3 rounded-full transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold ${
                         i === slide ? "bg-brand-gold scale-110" : "bg-brand-cream/40"
                       }`}
                     />
@@ -492,6 +527,7 @@ export default function EventsClient({
                   </div>
 
                   <button
+                    id="gtm-event-reserve-submit"
                     type="submit"
                     disabled={pending}
                     className="w-full px-6 py-3 border border-brand-gold text-brand-gold tracking-widest text-sm hover:bg-brand-gold hover:text-black transition uppercase disabled:opacity-50 disabled:cursor-not-allowed"
@@ -501,6 +537,7 @@ export default function EventsClient({
                 </form>
               </div>
             </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
