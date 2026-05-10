@@ -118,7 +118,7 @@ export default function MenusList() {
                     variants={fadeUp}
                     initial="initial"
                     whileInView="animate"
-                    viewport={{ once: false, amount: 0.3 }}
+                    viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.8 }}
                 >
                     <div className="relative">
@@ -163,7 +163,7 @@ export default function MenusList() {
                                     variants={fadeUp}
                                     initial="initial"
                                     whileInView="animate"
-                                    viewport={{ once: false, amount: 0.2 }}
+                                    viewport={{ once: true, amount: 0.2 }}
                                     transition={{ duration: 0.6, delay: idx * 0.1 }}
                                     className="
                                         min-w-[88%]

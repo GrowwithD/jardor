@@ -168,7 +168,7 @@ export default function GallerySection() {
                         >
                             {galleryImages.map((item, idx) => (
                                 <motion.button
-                                    viewport={{ once: false, amount: 0.3 }}
+                                    viewport={{ once: true, amount: 0.3 }}
                                     key={`${item.src}-${idx}`}
                                     onClick={() => openLightbox(idx)}
                                     data-aos="fade-up"
@@ -233,7 +233,7 @@ export default function GallerySection() {
                                     <motion.div
                                         key={currentIndex}
                                         custom={direction}
-                                        viewport={{ once: false, amount: 0.3 }}
+                                        viewport={{ once: true, amount: 0.3 }}
                                         variants={imageVariants}
                                         initial="enter"
                                         animate="center"

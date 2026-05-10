@@ -32,7 +32,7 @@ export default function CulinaryPhilosophySection() {
                         variants={fadeUp}
                         initial="initial"
                         whileInView="animate"
-                        viewport={{ once: false, amount: 0.3 }}
+                        viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.7 }}
                     >
                         <SectionHeader
@@ -49,7 +49,7 @@ export default function CulinaryPhilosophySection() {
                         variants={fadeUp}
                         initial="initial"
                         whileInView="animate"
-                        viewport={{ once: false, amount: 0.3 }}
+                        viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.7 }}
                         className="space-y-6"
                     >
@@ -94,7 +94,7 @@ export default function CulinaryPhilosophySection() {
                         variants={fadeUp}
                         initial="initial"
                         whileInView="animate"
-                        viewport={{ once: false, amount: 0.3 }}
+                        viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.6 }}
                         className="pt-6 flex flex-col items-start gap-4"
                     >
@@ -116,7 +116,7 @@ export default function CulinaryPhilosophySection() {
                     variants={fadeUp}
                     initial="initial"
                     whileInView="animate"
-                    viewport={{ once: false, amount: 0.3 }}
+                    viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.8 }}
                     className="w-full flex flex-col gap-0"
                 >

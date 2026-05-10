@@ -45,7 +45,7 @@ export default function SectionHeader({
       variants={variants[animation]}
       initial="initial"
       whileInView="animate"
-      viewport={{ once: false, amount: 0.35 }}
+      viewport={{ once: true, amount: 0.35 }}
       transition={{ duration, ease: "easeOut" }}
       className={`flex flex-col gap-3 px-6 ${alignment} ${className}`}
     >

@@ -74,7 +74,7 @@ export default function WineClient({ wt }: { wt: WineTastingType }) {
                 variants={fadeUp}
                 initial="initial"
                 whileInView="animate"
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.7 }}
                 className="md:hidden mb-10 relative w-full h-[480px] overflow-hidden bg-black/40 border border-brand-gold/20"
             >
@@ -123,7 +123,7 @@ export default function WineClient({ wt }: { wt: WineTastingType }) {
                     variants={fadeUp}
                     initial="initial"
                     whileInView="animate"
-                    viewport={{ once: false, amount: 0.3 }}
+                    viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.7, delay: 0.1 }}
                     className="mt-4 space-y-3 max-w-xl prose prose-invert"
                     dangerouslySetInnerHTML={{ __html: wt.content || "" }}
@@ -134,7 +134,7 @@ export default function WineClient({ wt }: { wt: WineTastingType }) {
                     variants={fadeUp}
                     initial="initial"
                     whileInView="animate"
-                    viewport={{ once: false, amount: 0.3 }}
+                    viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.7, delay: 0.2 }}
                     className="pt-4 space-y-2"
                 >
@@ -155,7 +155,7 @@ export default function WineClient({ wt }: { wt: WineTastingType }) {
                     variants={fadeUp}
                     initial="initial"
                     whileInView="animate"
-                    viewport={{ once: false, amount: 0.3 }}
+                    viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.7, delay: 0.25 }}
                     className="pt-6 flex flex-wrap gap-3 justify-center md:justify-start"
                 >
@@ -182,7 +182,7 @@ export default function WineClient({ wt }: { wt: WineTastingType }) {
                     variants={fadeUp}
                     initial="initial"
                     whileInView="animate"
-                    viewport={{ once: false, amount: 0.3 }}
+                    viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.7, delay: 0.35 }}
                     className="pt-4 flex items-center gap-2 justify-center md:justify-start"
                 >

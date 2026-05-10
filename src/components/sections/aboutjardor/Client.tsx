@@ -31,7 +31,7 @@ export default function AboutJardorClient({ about }: { about: any }) {
                 variants={fadeUp}
                 initial="initial"
                 whileInView="animate"
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6 }}
                 className="
         mt-4 text-center px-6 max-w-3xl mx-auto space-y-3
@@ -56,7 +56,7 @@ export default function AboutJardorClient({ about }: { about: any }) {
                 variants={fadeUp}
                 initial="initial"
                 whileInView="animate"
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.8 }}
                 className="mt-14 w-full bg-black grid grid-cols-3 gap-0 md:px-0"
             >

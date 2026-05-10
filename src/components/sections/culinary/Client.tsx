@@ -51,7 +51,7 @@ export default function CulinaryPhilosophyClient({ cp }: { cp: any }) {
             variants={fadeUp}
             initial="initial"
             whileInView="animate"
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
             <SectionHeader
@@ -68,7 +68,7 @@ export default function CulinaryPhilosophyClient({ cp }: { cp: any }) {
             variants={fadeUp}
             initial="initial"
             whileInView="animate"
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6 }}
             className="
               mt-4 text-left mx-auto space-y-3
@@ -91,7 +91,7 @@ export default function CulinaryPhilosophyClient({ cp }: { cp: any }) {
             variants={fadeUp}
             initial="initial"
             whileInView="animate"
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6 }}
             className="pt-6 flex flex-col items-start gap-4"
           >
@@ -114,7 +114,7 @@ export default function CulinaryPhilosophyClient({ cp }: { cp: any }) {
           variants={fadeUp}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8 }}
           className="w-full flex flex-col gap-0"
         >

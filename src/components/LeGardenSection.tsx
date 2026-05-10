@@ -39,7 +39,7 @@ export default function LeGardenSection() {
                 variants={fadeLeft}
                 initial="initial"
                 whileInView="animate"
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.7 }}
                 className="grid md:grid-cols-2 gap-16 items-center"
             >
@@ -85,7 +85,7 @@ export default function LeGardenSection() {
                     variants={fadeUp}
                     initial="initial"
                     whileInView="animate"
-                    viewport={{ once: false, amount: 0.3 }}
+                    viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.7 }}
                     className="px-6 md:pr-10 space-y-6"
                 >
@@ -154,7 +154,7 @@ export default function LeGardenSection() {
                 variants={fadeUp}
                 initial="initial"
                 whileInView="animate"
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.8 }}
                 className="mt-20 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 px-6"
             >

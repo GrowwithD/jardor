@@ -109,7 +109,7 @@ export default function EventsExperiencesSection() {
                     <motion.div
                         initial="initial"
                         whileInView="animate"
-                        viewport={{ once: false, amount: 0.3 }}
+                        viewport={{ once: true, amount: 0.3 }}
                         className="grid grid-cols-1 md:grid-cols-3 gap-6"
                     >
                         {events.map((ev, idx) => (
@@ -157,7 +157,7 @@ export default function EventsExperiencesSection() {
                         variants={fadeUp}
                         initial="initial"
                         whileInView="animate"
-                        viewport={{ once: false, amount: 0.3 }}
+                        viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.9 }}
                         className="mt-12 flex justify-center"
                     >
