@@ -19,6 +19,8 @@ import {
 	SUBMIT_RESERVATION_MUTATION,
 	INSTAGRAM_IMAGES_QUERY,
 	SCRIPT_TAGS_QUERY,
+	CAMPAIGNS_QUERY,
+	CAMPAIGN_DETAIL_QUERY,
 } from './queries';
 
 type GQLVars = Record<string, any>;
@@ -55,106 +57,132 @@ export type ReservationInput = {
 
 /** =============== FOOTER =============== */
 export async function getSiteInfo() {
-	const data = await fetchGQL<{ siteInfo: any }>(FOOTER_QUERY);
-	return data.siteInfo;
+	try {
+		const data = await fetchGQL<{ siteInfo: any }>(FOOTER_QUERY);
+		return data.siteInfo;
+	} catch {
+		return {};
+	}
 }
 
 /** =============== MAIN HERO =============== */
 export async function getMainHero() {
-	const data = await fetchGQL<{ mainHero: any }>(MAIN_HERO_QUERY);
-	return data.mainHero;
+	try {
+		const data = await fetchGQL<{ mainHero: any }>(MAIN_HERO_QUERY);
+		return data.mainHero;
+	} catch { return null; }
 }
 
 /** =============== ABOUT JARDOR =============== */
 export async function getAboutJardor() {
-	const data = await fetchGQL<{ aboutJardor: any }>(ABOUT_JARDOR_QUERY);
-	return data.aboutJardor;
+	try {
+		const data = await fetchGQL<{ aboutJardor: any }>(ABOUT_JARDOR_QUERY);
+		return data.aboutJardor;
+	} catch { return null; }
 }
 
 /** =============== CULINARY PHILOSOPHY =============== */
 export async function getCulinaryPhilosophy() {
-	const data = await fetchGQL<{ culinaryPhilosophy: any }>(CULINARY_PHILOSOPHY_QUERY);
-	return data.culinaryPhilosophy;
+	try {
+		const data = await fetchGQL<{ culinaryPhilosophy: any }>(CULINARY_PHILOSOPHY_QUERY);
+		return data.culinaryPhilosophy;
+	} catch { return null; }
 }
 
 /** =============== LE GARDEN =============== */
 export async function getLeGarden() {
-	const data = await fetchGQL<{ leGarden: any }>(LE_GARDEN_QUERY);
-	return data.leGarden;
+	try {
+		const data = await fetchGQL<{ leGarden: any }>(LE_GARDEN_QUERY);
+		return data.leGarden;
+	} catch { return null; }
 }
 
 /** =============== MENU SECTION HEADER =============== */
 export async function getMenusSection() {
-	const data = await fetchGQL<{ menusSection: any }>(MENUS_SECTION_QUERY);
-	return data.menusSection;
+	try {
+		const data = await fetchGQL<{ menusSection: any }>(MENUS_SECTION_QUERY);
+		return data.menusSection;
+	} catch { return null; }
 }
 
 /** =============== MENU CATEGORIES =============== */
 export async function getMenuCategories() {
-	const data = await fetchGQL<{ menuCategories: any[] }>(MENU_CATEGORIES_QUERY);
-	return data.menuCategories;
+	try {
+		const data = await fetchGQL<{ menuCategories: any[] }>(MENU_CATEGORIES_QUERY);
+		return data.menuCategories;
+	} catch { return []; }
 }
 
 /** =============== WINE TASTING SECTION =============== */
 export async function getWineTasting() {
-	const data = await fetchGQL<{ wineTasting: any }>(WINE_TASTING_QUERY);
-	return data.wineTasting;
+	try {
+		const data = await fetchGQL<{ wineTasting: any }>(WINE_TASTING_QUERY);
+		return data.wineTasting;
+	} catch { return null; }
 }
 
 /** =============== EVENTS LIST =============== */
 export async function getEvents() {
-	const data = await fetchGQL<{ events: any[] }>(EVENTS_QUERY);
-	return data.events;
+	try {
+		const data = await fetchGQL<{ events: any[] }>(EVENTS_QUERY);
+		return data.events;
+	} catch { return []; }
 }
 
 /** =============== EVENT DETAIL =============== */
 export async function getEvent(id: string) {
-	const data = await fetchGQL<{ event: any }>(EVENT_DETAIL_QUERY, { id });
-	return data.event;
+	try {
+		const data = await fetchGQL<{ event: any }>(EVENT_DETAIL_QUERY, { id });
+		return data.event;
+	} catch { return null; }
 }
 
 /** =============== EVENTS SECTION =============== */
 export async function getEventsSection() {
-	const data = await fetchGQL<{ eventsSection: any }>(EVENTS_SECTION_QUERY);
-	return data.eventsSection;
+	try {
+		const data = await fetchGQL<{ eventsSection: any }>(EVENTS_SECTION_QUERY);
+		return data.eventsSection;
+	} catch { return null; }
 }
 
 /** =============== GALLERY CATEGORIES =============== */
 export async function getGalleryCategories(): Promise<GalleryCategory[]> {
-	const data = await fetchGQL<{ galleryCategories: GalleryCategory[] }>(
-		GALLERY_CATEGORIES_QUERY
-	);
-	return data.galleryCategories ?? [];
+	try {
+		const data = await fetchGQL<{ galleryCategories: GalleryCategory[] }>(GALLERY_CATEGORIES_QUERY);
+		return data.galleryCategories ?? [];
+	} catch { return []; }
 }
 
 /** =============== GALLERY IMAGES BY CATEGORY =============== */
 export async function getGalleryImages(category_id?: string): Promise<GalleryImage[]> {
-	const variables: GQLVars = {};
-	if (category_id) variables.category_id = category_id;
+	try {
+		const variables: GQLVars = {};
+		if (category_id) variables.category_id = category_id;
 
-	const data = await fetchGQL<{ galleryImages: any[] }>(GALLERY_IMAGES_QUERY, variables);
-
-	// Normalisasi supaya Client gampang pakai: { id, image, name? }
-	return (data.galleryImages ?? []).map((x: any) => ({
-		id: String(x.id),
-		name: x.name ?? null,
-		image: x.image,
-		category_id: x.category?.id ? String(x.category.id) : null,
-	}));
+		const data = await fetchGQL<{ galleryImages: any[] }>(GALLERY_IMAGES_QUERY, variables);
+		return (data.galleryImages ?? []).map((x: any) => ({
+			id: String(x.id),
+			name: x.name ?? null,
+			image: x.image,
+			category_id: x.category?.id ? String(x.category.id) : null,
+		}));
+	} catch { return []; }
 }
 
 /** =============== RESERVATION SECTION =============== */
 export async function getReservationSection() {
-	const data = await fetchGQL<{ reservationSection: any }>(RESERVATION_SECTION_QUERY);
-	return data.reservationSection;
+	try {
+		const data = await fetchGQL<{ reservationSection: any }>(RESERVATION_SECTION_QUERY);
+		return data.reservationSection;
+	} catch { return null; }
 }
 
 /** =============== INSTAGRAM IMAGES =============== */
 export async function getInstagramImages(activeOnly: boolean = true) {
-	const data = await fetchGQL<{ instagramImages: any[] }>(INSTAGRAM_IMAGES_QUERY, {
-		activeOnly,
-	});
-	return data.instagramImages;
+	try {
+		const data = await fetchGQL<{ instagramImages: any[] }>(INSTAGRAM_IMAGES_QUERY, { activeOnly });
+		return data.instagramImages;
+	} catch { return []; }
 }
 
 /** =============== SCRIPT TAGS =============== */
@@ -166,21 +194,25 @@ export async function getScriptTags(
 	activeOnly: boolean = true,
 	location?: 'head' | 'footer'
 ): Promise<ScriptTag[]> {
-	const variables: GQLVars = { activeOnly };
-	if (location) variables.location = location;
+	try {
+		const variables: GQLVars = { activeOnly };
+		if (location) variables.location = location;
 
-	const data = await fetchGQL<{ scriptTags: ScriptTag[] }>(SCRIPT_TAGS_QUERY, variables);
+		const data = await fetchGQL<{ scriptTags: ScriptTag[] }>(SCRIPT_TAGS_QUERY, variables);
 
-	return (data.scriptTags ?? []).map((t: any) => ({
-		id: String(t.id),
-		name: t.name,
-		location: t.location,
-		position: Number(t.position ?? 0),
-		is_active: Boolean(t.is_active),
-		code: t.code ?? '',
-		created_at: t.created_at ?? null,
-		updated_at: t.updated_at ?? null,
-	}));
+		return (data.scriptTags ?? []).map((t: any) => ({
+			id: String(t.id),
+			name: t.name,
+			location: t.location,
+			position: Number(t.position ?? 0),
+			is_active: Boolean(t.is_active),
+			code: t.code ?? '',
+			created_at: t.created_at ?? null,
+			updated_at: t.updated_at ?? null,
+		}));
+	} catch {
+		return [];
+	}
 }
 
 /** =============== RESERVATION MUTATION =============== */
@@ -189,4 +221,14 @@ export async function submitReservation(input: ReservationInput) {
 		input,
 	});
 	return data.submitReservation;
+}
+/** =============== CAMPAIGNS =============== */
+export async function getCampaigns(activeOnly = true) {
+	const data = await fetchGQL<{ campaigns: any[] }>(CAMPAIGNS_QUERY, { activeOnly });
+	return data.campaigns ?? [];
+}
+
+export async function getCampaign(slug: string) {
+	const data = await fetchGQL<{ campaign: any }>(CAMPAIGN_DETAIL_QUERY, { slug });
+	return data.campaign ?? null;
 }

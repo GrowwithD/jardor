@@ -6,10 +6,10 @@ export default function WhatsAppFloating() {
     return (
         <a
             id="gtm-whatsapp-floating"
-            href="https://wa.me/628133630509
-" // GANTI NOMOR KAMU BRO!!
+            href="https://wa.me/628133630509"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Chat via WhatsApp"
             className="
                 fixed bottom-6 right-6 z-50
                 h-14 w-14 md:h-16 md:w-16

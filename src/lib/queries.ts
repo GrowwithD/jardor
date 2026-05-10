@@ -10,7 +10,15 @@ export const FOOTER_QUERY = gql`
 			whatsapp
 			instagram
 			facebook
+			tiktok
+			youtube
+			twitter
+			linkedin
+			threads
+			pinterest
+			chope_link
 			address
+			email
 			hours
 			footer_text
 		}
@@ -283,6 +291,40 @@ export const SUBMIT_RESERVATION_MUTATION = gql`
 				id
 				title
 			}
+		}
+	}
+`;
+
+// =======================
+// CAMPAIGNS
+// =======================
+export const CAMPAIGNS_QUERY = gql`
+	query GetCampaigns($activeOnly: Boolean) {
+		campaigns(activeOnly: $activeOnly) {
+			id
+			title
+			slug
+			tagline
+			description
+			image
+			start_date
+			end_date
+		}
+	}
+`;
+
+export const CAMPAIGN_DETAIL_QUERY = gql`
+	query GetCampaign($slug: String!) {
+		campaign(slug: $slug) {
+			id
+			title
+			slug
+			tagline
+			description
+			content
+			image
+			start_date
+			end_date
 		}
 	}
 `;

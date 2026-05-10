@@ -436,39 +436,24 @@ export default function EventsClient({
                   <input type="hidden" name="event_id" value={openEvent.id} />
 
                   <div>
-                    <label className="block mb-2 text-base md:text-lg tracking-wider text-brand-cream/70">
-                      Name
-                    </label>
-                    <input
-                      name="name"
-                      type="text"
-                      required
+                    <label htmlFor="ev-name" className="block mb-2 text-base md:text-lg tracking-wider text-brand-cream/70">Name</label>
+                    <input id="ev-name" name="name" type="text" required
                       className="w-full bg-transparent border border-brand-gold/40 px-4 py-2 text-base md:text-lg text-brand-cream focus:border-brand-gold focus:ring-0 focus:outline-none"
                     />
                     {state.errors?.name && <p className="mt-1 text-sm text-red-300">{state.errors.name}</p>}
                   </div>
 
                   <div>
-                    <label className="block mb-2 text-base md:text-lg tracking-wider text-brand-cream/70">
-                      Phone
-                    </label>
-                    <input
-                      name="phone"
-                      type="tel"
-                      required
+                    <label htmlFor="ev-phone" className="block mb-2 text-base md:text-lg tracking-wider text-brand-cream/70">Phone</label>
+                    <input id="ev-phone" name="phone" type="tel" required
                       className="w-full bg-transparent border border-brand-gold/40 px-4 py-2 text-base md:text-lg text-brand-cream focus:border-brand-gold focus:ring-0 focus:outline-none"
                     />
                     {state.errors?.phone && <p className="mt-1 text-sm text-red-300">{state.errors.phone}</p>}
                   </div>
 
                   <div>
-                    <label className="block mb-2 text-base md:text-lg tracking-wider text-brand-cream/70">
-                      Email
-                    </label>
-                    <input
-                      name="email"
-                      type="email"
-                      required
+                    <label htmlFor="ev-email" className="block mb-2 text-base md:text-lg tracking-wider text-brand-cream/70">Email</label>
+                    <input id="ev-email" name="email" type="email" required
                       className="w-full bg-transparent border border-brand-gold/40 px-4 py-2 text-base md:text-lg text-brand-cream focus:border-brand-gold focus:ring-0 focus:outline-none"
                     />
                     {state.errors?.email && <p className="mt-1 text-sm text-red-300">{state.errors.email}</p>}
@@ -476,52 +461,32 @@ export default function EventsClient({
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block mb-2 text-base md:text-lg text-brand-cream/70">Date</label>
-                      <input
-                        name="reservation_date"
-                        type="date"
-                        required
-                        min={minDate}
+                      <label htmlFor="ev-date" className="block mb-2 text-base md:text-lg text-brand-cream/70">Date</label>
+                      <input id="ev-date" name="reservation_date" type="date" required min={minDate}
                         className="w-full bg-transparent border border-brand-gold/40 px-4 py-2 text-base md:text-lg text-brand-cream focus:border-brand-gold focus:ring-0 focus:outline-none date-gold"
                       />
-                      {state.errors?.reservation_date && (
-                        <p className="mt-1 text-sm text-red-300">{state.errors.reservation_date}</p>
-                      )}
+                      {state.errors?.reservation_date && <p className="mt-1 text-sm text-red-300">{state.errors.reservation_date}</p>}
                     </div>
-
                     <div>
-                      <label className="block mb-2 text-base md:text-lg text-brand-cream/70">Time</label>
-                      <input
-                        name="reservation_time"
-                        type="time"
-                        required
-                        step={60}
+                      <label htmlFor="ev-time" className="block mb-2 text-base md:text-lg text-brand-cream/70">Time</label>
+                      <input id="ev-time" name="reservation_time" type="time" required step={60}
                         className="w-full bg-transparent border border-brand-gold/40 px-4 py-2 text-base md:text-lg text-brand-cream focus:border-brand-gold focus:ring-0 focus:outline-none time-gold"
                       />
-                      {state.errors?.reservation_time && (
-                        <p className="mt-1 text-sm text-red-300">{state.errors.reservation_time}</p>
-                      )}
+                      {state.errors?.reservation_time && <p className="mt-1 text-sm text-red-300">{state.errors.reservation_time}</p>}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block mb-2 text-base md:text-lg text-brand-cream/70">
-                      Number of Guests
-                    </label>
-                    <input
-                      name="guests"
-                      type="number"
-                      min={1}
-                      required
+                    <label htmlFor="ev-guests" className="block mb-2 text-base md:text-lg text-brand-cream/70">Number of Guests</label>
+                    <input id="ev-guests" name="guests" type="number" min={1} required
                       className="w-full bg-transparent border border-brand-gold/40 px-4 py-2 text-base md:text-lg text-brand-cream focus:border-brand-gold focus:ring-0 focus:outline-none"
                     />
                     {state.errors?.guests && <p className="mt-1 text-sm text-red-300">{state.errors.guests}</p>}
                   </div>
 
                   <div>
-                    <label className="block mb-2 text-base md:text-lg text-brand-cream/70">Notes / Requests</label>
-                    <textarea
-                      name="notes"
+                    <label htmlFor="ev-notes" className="block mb-2 text-base md:text-lg text-brand-cream/70">Notes / Requests</label>
+                    <textarea id="ev-notes" name="notes"
                       className="w-full bg-transparent border border-brand-gold/40 px-4 py-2 text-base md:text-lg text-brand-cream h-28 resize-none focus:border-brand-gold focus:ring-0 focus:outline-none"
                     />
                   </div>

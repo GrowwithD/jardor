@@ -131,9 +131,9 @@ export default function GalleriesClient({
             const list = await fetchImages(categoryId === ALL_ID ? undefined : categoryId);
             if (myReqId !== lastReqIdRef.current) return;
             setImages(list);
-        } catch (e: any) {
+        } catch (e) {
             if (myReqId !== lastReqIdRef.current) return;
-            setErrMsg(e?.message ?? "Failed to load images");
+            setErrMsg(e instanceof Error ? e.message : "Failed to load images");
             setImages([]);
         } finally {
             if (myReqId === lastReqIdRef.current) {

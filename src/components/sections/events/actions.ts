@@ -44,10 +44,8 @@ export async function submitReservationAction(
     await submitReservation(input);
 
     return { ok: true, message: "Reservation submitted successfully." };
-  } catch (e: any) {
-    return {
-      ok: false,
-      message: e?.message || "Failed to submit reservation.",
-    };
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Failed to submit reservation.";
+    return { ok: false, message: msg };
   }
 }

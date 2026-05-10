@@ -125,7 +125,7 @@ export default function LeGardenSection() {
                             >
                                 <Image
                                     src={src}
-                                    alt=""
+                                    alt="Le Garden at Jard'or"
                                     fill
                                     className="object-cover transition-transform duration-[3500ms] ease-out group-hover:scale-110"
                                 />

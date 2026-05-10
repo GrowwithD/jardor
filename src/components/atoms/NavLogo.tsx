@@ -28,7 +28,7 @@ export default function NavLogo({
   // If href is provided → use Next.js Link
   if (href) {
     return (
-      <Link href={href} className={`flex items-center select-none ${className}`}>
+      <Link href={href} aria-label="Jard'or — Home" className={`flex items-center select-none ${className}`}>
         {LogoImage}
       </Link>
     );
@@ -38,6 +38,7 @@ export default function NavLogo({
   return (
     <button
       onClick={onClick}
+      aria-label="Jard'or — Back to top"
       className={`flex items-center select-none cursor-pointer ${className}`}
     >
       {LogoImage}

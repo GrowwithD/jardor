@@ -22,7 +22,7 @@ export default function robots(): MetadataRoute.Robots {
 			{
 				// Google Image friendly
 				userAgent: 'Googlebot-Image',
-				allow: ['/', '/images', '/gallery'],
+				allow: ['/', '/images'],
 			},
 			{
 				// Instagram / Meta crawler

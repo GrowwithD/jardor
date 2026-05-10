@@ -11,8 +11,7 @@ interface ButtonOutlineGoldProps {
     target?: string;
     rel?: string;
     type?: "button" | "submit" | "reset";
-
-    // FIX → izinkan event
+    "aria-label"?: string;
     onClick?: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
 }
 
@@ -24,6 +23,7 @@ export default function ButtonOutlineGold({
     target = "_self",
     rel,
     type = "button",
+    "aria-label": ariaLabel,
     onClick,
 }: ButtonOutlineGoldProps) {
 
@@ -36,12 +36,9 @@ export default function ButtonOutlineGold({
         text-center
     `;
 
-    /* ----------- INTERNAL LINK (<Link>) ----------- */
     if (href && href.startsWith("/")) {
         return (
-            <Link
-                id={id}
-                href={href}
+            <Link id={id} href={href} aria-label={ariaLabel}
                 className={`${baseClass} ${className}`}
                 onClick={onClick ? (e) => onClick(e) : undefined}
             >
@@ -50,15 +47,10 @@ export default function ButtonOutlineGold({
         );
     }
 
-    /* ----------- EXTERNAL LINK (<a>) ----------- */
     if (href) {
         return (
-            <a
-                id={id}
-                href={href}
-                target={target}
-                rel={rel}
-                onClick={onClick}
+            <a id={id} href={href} target={target} rel={rel}
+                aria-label={ariaLabel} onClick={onClick}
                 className={`${baseClass} ${className}`}
             >
                 {children}
@@ -66,13 +58,9 @@ export default function ButtonOutlineGold({
         );
     }
 
-    /* ----------- BUTTON ----------- */
     return (
-        <button
-            id={id}
-            type={type}
-            onClick={onClick}
-            className={`${baseClass} ${className}`}
+        <button id={id} type={type} aria-label={ariaLabel}
+            onClick={onClick} className={`${baseClass} ${className}`}
         >
             {children}
         </button>

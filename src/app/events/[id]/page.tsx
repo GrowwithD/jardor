@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { EventDetailClient } from "./EventDetailClient";
 
 export type Event = {
@@ -169,6 +170,17 @@ function getEventById(id: string): Event | undefined {
 type PageProps = {
   params: Promise<{ id: string }>;
 };
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const event = getEventById(id);
+  if (!event) return { title: "Event Not Found | Jard'or" };
+  return {
+    title: `${event.title} | Jard'or Events`,
+    description: event.shortIntro,
+    openGraph: { title: event.title, description: event.shortIntro, type: "article" },
+  };
+}
 
 export async function generateStaticParams() {
   return events.map((event) => ({ id: event.id }));

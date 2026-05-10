@@ -111,10 +111,11 @@ export default function ReservationClient({
 
           {/* EVENT */}
           <div>
-            <label className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
+            <label htmlFor="res-event" className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
               Reservation Type
             </label>
             <select
+              id="res-event"
               name="event_id"
               className="
                 w-full bg-black border border-brand-gold/30
@@ -134,10 +135,11 @@ export default function ReservationClient({
 
           {/* NAME */}
           <div>
-            <label className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
+            <label htmlFor="res-name" className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
               Name
             </label>
             <input
+              id="res-name"
               name="name"
               type="text"
               required
@@ -155,10 +157,11 @@ export default function ReservationClient({
 
           {/* PHONE */}
           <div>
-            <label className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
+            <label htmlFor="res-phone" className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
               Phone
             </label>
             <input
+              id="res-phone"
               name="phone"
               type="tel"
               required
@@ -177,10 +180,11 @@ export default function ReservationClient({
 
           {/* EMAIL */}
           <div>
-            <label className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
+            <label htmlFor="res-email" className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
               Email
             </label>
             <input
+              id="res-email"
               name="email"
               type="email"
               required
@@ -199,10 +203,11 @@ export default function ReservationClient({
           {/* DATE & TIME */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
+              <label htmlFor="res-date" className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
                 Date
               </label>
               <input
+                id="res-date"
                 name="reservation_date"
                 type="date"
                 required
@@ -223,10 +228,11 @@ export default function ReservationClient({
             </div>
 
             <div>
-              <label className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
+              <label htmlFor="res-time" className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
                 Time
               </label>
               <input
+                id="res-time"
                 name="reservation_time"
                 type="time"
                 required
@@ -249,10 +255,11 @@ export default function ReservationClient({
 
           {/* GUESTS */}
           <div>
-            <label className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
+            <label htmlFor="res-guests" className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
               Number of Guests
             </label>
             <input
+              id="res-guests"
               name="guests"
               type="number"
               min={1}
@@ -271,10 +278,11 @@ export default function ReservationClient({
 
           {/* NOTES */}
           <div>
-            <label className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
+            <label htmlFor="res-notes" className="block mb-2 text-base md:text-lg tracking-wide text-brand-gold/80">
               Notes / Requests
             </label>
             <textarea
+              id="res-notes"
               name="notes"
               rows={3}
               className="
@@ -288,6 +296,7 @@ export default function ReservationClient({
           {/* PRIVACY */}
           <div className="flex items-start gap-3 pt-2">
             <input
+              id="res-privacy"
               name="privacy"
               type="checkbox"
               required
@@ -300,7 +309,7 @@ export default function ReservationClient({
                 checked:bg-brand-gold checked:border-brand-gold
               "
             />
-            <label className="text-base md:text-lg text-brand-cream/70 leading-relaxed cursor-pointer">
+            <label htmlFor="res-privacy" className="text-base md:text-lg text-brand-cream/70 leading-relaxed cursor-pointer">
               {reservation.privacy_notice}
             </label>
           </div>

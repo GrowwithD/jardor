@@ -14,18 +14,25 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    unoptimized: true, // ← WAJIB untuk HTTP, menghindari error 400
-
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
     remotePatterns: [
+      // Production CMS
+      {
+        protocol: "https",
+        hostname: "cms.jardor.com",
+        pathname: "/**",
+      },
+      // Local dev CMS
       {
         protocol: "http",
         hostname: "jardorcms.test",
-        pathname: "/sections/**",
+        pathname: "/**",
       },
       {
         protocol: "http",
         hostname: "localhost",
-        pathname: "/sections/**",
+        pathname: "/**",
       },
     ],
   },

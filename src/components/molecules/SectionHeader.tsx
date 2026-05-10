@@ -9,8 +9,7 @@ type SectionHeaderProps = {
   subtitle?: string;
   align?: "left" | "center";
   className?: string;
-
-  // Optional: override animation
+  as?: "h1" | "h2" | "h3";
   animation?: "fade-up" | "fade-down" | "fade-left" | "fade-right";
   duration?: number;
 };
@@ -21,6 +20,7 @@ export default function SectionHeader({
   subtitle,
   align = "center",
   className = "",
+  as: Tag = "h2",
   animation = "fade-up",
   duration = 0.8,
 }: SectionHeaderProps) {
@@ -51,7 +51,7 @@ export default function SectionHeader({
     >
       {eyebrow && <p className="text-eyebrow">{eyebrow}</p>}
 
-      <h1 className="section-title mt-2">{title}</h1>
+      <Tag className="section-title mt-2">{title}</Tag>
 
       {subtitle && (
         <p className={`section-subtitle ${subtitleWidth}`}>
