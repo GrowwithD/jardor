@@ -15,19 +15,5 @@ export default async function MainHeroServer() {
         chope_link: hero?.chope_link ?? "https://cho.pe/s70otkn6g",
     };
 
-    const firstImage = data.images[0];
-
-    return (
-        <>
-            {firstImage && (
-                <link
-                    rel="preload"
-                    as="image"
-                    href={firstImage}
-                    fetchPriority="high"
-                />
-            )}
-            <Client {...data} />
-        </>
-    );
+    return <Client {...data} />;
 }

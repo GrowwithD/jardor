@@ -97,10 +97,20 @@ function renderScriptsFromSnippet(
         matches.push(match);
     }
 
+    // Helper: detect & convert site-verification content (which is NOT valid JS)
+    // Returns <meta> element if matched, null otherwise.
+    const tryAsVerificationMeta = (s: string, key: string) => {
+        const m = s.trim().match(/^(google-site-verification|facebook-domain-verification|yandex-verification|msvalidate\.01)[\s:=]+([^\s;]+)/i);
+        if (!m) return null;
+        return <meta key={key} name={m[1].toLowerCase()} content={m[2]} />;
+    };
+
     // Tidak ada <script> di dalam snippet → treat as inline JS
     // Guard: skip jika content adalah HTML (bukan JS)
     if (matches.length === 0) {
         if (code.startsWith("<")) return null;
+        const metaEl = tryAsVerificationMeta(code, keyPrefix);
+        if (metaEl) return metaEl;
         return (
             <script
                 key={keyPrefix}
@@ -114,12 +124,18 @@ function renderScriptsFromSnippet(
     return matches.map((m, index) => {
         const attrs = m[1] ?? "";
         const inner = (m[2] ?? "").trim();
+        const scriptKey = `${keyPrefix}-${index}`;
+
+        // Convert inline meta-verification content into <meta> tag instead of <script>
+        if (!attrs.match(/src=/i)) {
+            const metaEl = tryAsVerificationMeta(inner, scriptKey);
+            if (metaEl) return metaEl;
+        }
 
         const srcMatch = attrs.match(/src=["']([^"']+)["']/i);
         const hasAsync = /\basync\b/i.test(attrs);
         const hasDefer = /\bdefer\b/i.test(attrs);
 
-        const scriptKey = `${keyPrefix}-${index}`;
         const commonProps: any = {
             suppressHydrationWarning: true,
         };
