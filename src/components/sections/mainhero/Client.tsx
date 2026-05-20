@@ -59,6 +59,7 @@ export default function MainHeroClient({
                             alt={`Slide ${idx + 1}`}
                             fill
                             priority={idx === 0}
+                            fetchPriority={idx === 0 ? "high" : "auto"}
                             loading={idx === 0 ? "eager" : "lazy"}
                             sizes="100vw"
                             className="object-cover"

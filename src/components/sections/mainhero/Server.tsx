@@ -5,7 +5,6 @@ import Client from "@/components/sections/mainhero/Client";
 export default async function MainHeroServer() {
     const hero = await getMainHero();
 
-
     const data = {
         images: hero?.images?.length ? hero.images : [],
         eyebrow: hero?.eyebrow ?? "A Night of French Festivities",
@@ -16,5 +15,19 @@ export default async function MainHeroServer() {
         chope_link: hero?.chope_link ?? "https://cho.pe/s70otkn6g",
     };
 
-    return <Client {...data} />;
+    const firstImage = data.images[0];
+
+    return (
+        <>
+            {firstImage && (
+                <link
+                    rel="preload"
+                    as="image"
+                    href={firstImage}
+                    fetchPriority="high"
+                />
+            )}
+            <Client {...data} />
+        </>
+    );
 }

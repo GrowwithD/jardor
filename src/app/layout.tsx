@@ -6,6 +6,7 @@ export const fetchCache = "default-no-store";
 import React from "react";
 import type { Metadata } from "next";
 import "./globals.css";
+import "aos/dist/aos.css";
 import { Playfair_Display, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";

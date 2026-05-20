@@ -3,7 +3,6 @@
 
 import { useEffect, useState, useRef } from "react";
 import AOS from "aos";
-import "aos/dist/aos.css";
 
 import BatikSectionLayout from "@/components/layouts/BatikSectionLayout";
 import SectionHeader from "@/components/molecules/SectionHeader";

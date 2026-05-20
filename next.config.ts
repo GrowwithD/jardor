@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
     serverActions: {
       allowedOrigins: ["jardor.com", "www.jardor.com"],
     },
+    optimizeCss: true,
   },
 
   images: {

@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect } from "react";
 import AOS from "aos";
-import "aos/dist/aos.css";
 
 export default function MapSection() {
     useEffect(() => {

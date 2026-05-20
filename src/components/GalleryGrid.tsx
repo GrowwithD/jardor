@@ -5,7 +5,6 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import AOS from "aos";
-import "aos/dist/aos.css";
 
 import BatikSectionLayout from "@/components/layouts/BatikSectionLayout";
 import SectionHeader from "@/components/molecules/SectionHeader";
